@@ -1,5 +1,7 @@
 # TRTC SDK （iOS）
 
+_中文 | [English](README.en.md)_
+
 Demo编译时会自动下载SDK到此目录。
 
 ## 下载地址
