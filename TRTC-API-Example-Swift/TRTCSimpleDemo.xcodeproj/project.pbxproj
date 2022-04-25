@@ -3,13 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		280690A22490BE6D00FAAE90 /* ScreenEntranceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280690A02490BE6D00FAAE90 /* ScreenEntranceViewController.swift */; };
 		280690A32490BE6D00FAAE90 /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280690A12490BE6D00FAAE90 /* ScreenViewController.swift */; };
 		28C0A3FC249101F000E50613 /* TRTCBroadcastExtensionLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C0A3FB249101F000E50613 /* TRTCBroadcastExtensionLauncher.swift */; };
+		40032C372816987400047A47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C362816987400047A47 /* SystemConfiguration.framework */; };
+		40032C392816987D00047A47 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C382816987D00047A47 /* MetalKit.framework */; };
+		40032C3A2816988D00047A47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C362816987400047A47 /* SystemConfiguration.framework */; };
+		40032C3B2816989C00047A47 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280690A92490C04D00FAAE90 /* ReplayKit.framework */; };
+		40032C3D281698AB00047A47 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C3C281698AB00047A47 /* CoreTelephony.framework */; };
+		40032C3F281698BC00047A47 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C3E281698BC00047A47 /* VideoToolbox.framework */; };
+		40032C42281699A200047A47 /* TXFFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C40281699A200047A47 /* TXFFmpeg.xcframework */; };
+		40032C43281699A200047A47 /* TXFFmpeg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C40281699A200047A47 /* TXFFmpeg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		40032C44281699A200047A47 /* TXSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C41281699A200047A47 /* TXSoundTouch.xcframework */; };
+		40032C45281699A200047A47 /* TXSoundTouch.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C41281699A200047A47 /* TXSoundTouch.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		40032C4628169D1100047A47 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C3E281698BC00047A47 /* VideoToolbox.framework */; };
 		4533717B2491F24400E18040 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280690A92490C04D00FAAE90 /* ReplayKit.framework */; };
 		4533717E2491F24400E18040 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4533717D2491F24400E18040 /* SampleHandler.swift */; };
 		453371822491F24400E18040 /* TXReplayKit_Screen.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4533717A2491F24400E18040 /* TXReplayKit_Screen.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -84,6 +95,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				40032C43281699A200047A47 /* TXFFmpeg.xcframework in Embed Frameworks */,
+				40032C45281699A200047A47 /* TXSoundTouch.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +110,12 @@
 		280690B82490C1AE00FAAE90 /* SimpleDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleDemo.entitlements; sourceTree = "<group>"; };
 		28C0A3D42490CAB000E50613 /* TXLiteAVSDK_ReplayKitExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TXLiteAVSDK_ReplayKitExt.framework; path = ../SDK/TXLiteAVSDK_ReplayKitExt.framework; sourceTree = "<group>"; };
 		28C0A3FB249101F000E50613 /* TRTCBroadcastExtensionLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRTCBroadcastExtensionLauncher.swift; sourceTree = "<group>"; };
+		40032C362816987400047A47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		40032C382816987D00047A47 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		40032C3C281698AB00047A47 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		40032C3E281698BC00047A47 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		40032C40281699A200047A47 /* TXFFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXFFmpeg.xcframework; path = ../SDK/TXFFmpeg.xcframework; sourceTree = "<group>"; };
+		40032C41281699A200047A47 /* TXSoundTouch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXSoundTouch.xcframework; path = ../SDK/TXSoundTouch.xcframework; sourceTree = "<group>"; };
 		4533717A2491F24400E18040 /* TXReplayKit_Screen.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TXReplayKit_Screen.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4533717D2491F24400E18040 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		4533717F2491F24400E18040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -173,6 +192,7 @@
 			files = (
 				C61744BA26E8A43E00FD00B1 /* libc++.tbd in Frameworks */,
 				C61744B926E8A43500FD00B1 /* Accelerate.framework in Frameworks */,
+				40032C4628169D1100047A47 /* VideoToolbox.framework in Frameworks */,
 				453371862491F35100E18040 /* TXLiteAVSDK_ReplayKitExt.framework in Frameworks */,
 				4533717B2491F24400E18040 /* ReplayKit.framework in Frameworks */,
 			);
@@ -182,9 +202,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40032C42281699A200047A47 /* TXFFmpeg.xcframework in Frameworks */,
 				FDD9E0302440840900FD5B5A /* libresolv.tbd in Frameworks */,
+				40032C3A2816988D00047A47 /* SystemConfiguration.framework in Frameworks */,
+				40032C392816987D00047A47 /* MetalKit.framework in Frameworks */,
+				40032C3D281698AB00047A47 /* CoreTelephony.framework in Frameworks */,
+				40032C372816987400047A47 /* SystemConfiguration.framework in Frameworks */,
 				FDCEFF4F241BBDF1000BFA0B /* libiconv.tbd in Frameworks */,
 				FDCEFF4D241BBDEB000BFA0B /* libc++.tbd in Frameworks */,
+				40032C3B2816989C00047A47 /* ReplayKit.framework in Frameworks */,
+				40032C44281699A200047A47 /* TXSoundTouch.xcframework in Frameworks */,
+				40032C3F281698BC00047A47 /* VideoToolbox.framework in Frameworks */,
 				FD96E07E248DF98800294D1F /* Accelerate.framework in Frameworks */,
 				FDCEFF4B241BBDD6000BFA0B /* TXLiteAVSDK_TRTC.framework in Frameworks */,
 				8AB4CC75885C25710FA89DD4 /* libPods-TRTCSimpleDemo.a in Frameworks */,
@@ -351,6 +379,12 @@
 		C2D3A67E7F4AD77B3A644C16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40032C40281699A200047A47 /* TXFFmpeg.xcframework */,
+				40032C41281699A200047A47 /* TXSoundTouch.xcframework */,
+				40032C3E281698BC00047A47 /* VideoToolbox.framework */,
+				40032C3C281698AB00047A47 /* CoreTelephony.framework */,
+				40032C382816987D00047A47 /* MetalKit.framework */,
+				40032C362816987400047A47 /* SystemConfiguration.framework */,
 				28C0A3D42490CAB000E50613 /* TXLiteAVSDK_ReplayKitExt.framework */,
 				FDD9E02F2440840900FD5B5A /* libresolv.tbd */,
 				FDCEFF4E241BBDF1000BFA0B /* libiconv.tbd */,
