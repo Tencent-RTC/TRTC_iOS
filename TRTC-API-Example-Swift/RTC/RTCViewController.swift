@@ -80,7 +80,7 @@ class RTCViewController: UIViewController {
         beautyManager.setWhitenessLevel(1)
         
         /// 调整仪表盘显示位置
-        trtcCloud.setDebugViewMargin(userId ?? "", margin: TXEdgeInsets.init(top: 80, left: 0, bottom: 0, right: 0))
+        trtcCloud.setDebugViewMargin(userId!, margin: TXEdgeInsets.init(top: 80, left: 0, bottom: 0, right: 0))
     }
     
     override func viewWillAppear(_ animated: Bool) {
