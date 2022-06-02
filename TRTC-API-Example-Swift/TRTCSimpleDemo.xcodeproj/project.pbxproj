@@ -10,17 +10,6 @@
 		280690A22490BE6D00FAAE90 /* ScreenEntranceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280690A02490BE6D00FAAE90 /* ScreenEntranceViewController.swift */; };
 		280690A32490BE6D00FAAE90 /* ScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280690A12490BE6D00FAAE90 /* ScreenViewController.swift */; };
 		28C0A3FC249101F000E50613 /* TRTCBroadcastExtensionLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C0A3FB249101F000E50613 /* TRTCBroadcastExtensionLauncher.swift */; };
-		40032C372816987400047A47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C362816987400047A47 /* SystemConfiguration.framework */; };
-		40032C392816987D00047A47 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C382816987D00047A47 /* MetalKit.framework */; };
-		40032C3A2816988D00047A47 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C362816987400047A47 /* SystemConfiguration.framework */; };
-		40032C3B2816989C00047A47 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280690A92490C04D00FAAE90 /* ReplayKit.framework */; };
-		40032C3D281698AB00047A47 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C3C281698AB00047A47 /* CoreTelephony.framework */; };
-		40032C3F281698BC00047A47 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C3E281698BC00047A47 /* VideoToolbox.framework */; };
-		40032C42281699A200047A47 /* TXFFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C40281699A200047A47 /* TXFFmpeg.xcframework */; };
-		40032C43281699A200047A47 /* TXFFmpeg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C40281699A200047A47 /* TXFFmpeg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		40032C44281699A200047A47 /* TXSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C41281699A200047A47 /* TXSoundTouch.xcframework */; };
-		40032C45281699A200047A47 /* TXSoundTouch.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C41281699A200047A47 /* TXSoundTouch.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		40032C4628169D1100047A47 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40032C3E281698BC00047A47 /* VideoToolbox.framework */; };
 		4533717B2491F24400E18040 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 280690A92490C04D00FAAE90 /* ReplayKit.framework */; };
 		4533717E2491F24400E18040 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4533717D2491F24400E18040 /* SampleHandler.swift */; };
 		453371822491F24400E18040 /* TXReplayKit_Screen.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4533717A2491F24400E18040 /* TXReplayKit_Screen.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -56,6 +45,13 @@
 		8AB4CC75885C25710FA89DD4 /* libPods-TRTCSimpleDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF34C418731E393A9863343E /* libPods-TRTCSimpleDemo.a */; };
 		C61744B926E8A43500FD00B1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD96E07D248DF98800294D1F /* Accelerate.framework */; };
 		C61744BA26E8A43E00FD00B1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FDCEFF4C241BBDEB000BFA0B /* libc++.tbd */; };
+		C67F871228485C61003C14C8 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871128485C61003C14C8 /* VideoToolbox.framework */; };
+		C67F871428485D78003C14C8 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871328485D78003C14C8 /* MetalKit.framework */; };
+		C67F871728485DA8003C14C8 /* TXSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871528485DA8003C14C8 /* TXSoundTouch.xcframework */; };
+		C67F871828485DA8003C14C8 /* TXSoundTouch.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871528485DA8003C14C8 /* TXSoundTouch.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C67F871928485DA8003C14C8 /* TXFFmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871628485DA8003C14C8 /* TXFFmpeg.xcframework */; };
+		C67F871A28485DA8003C14C8 /* TXFFmpeg.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871628485DA8003C14C8 /* TXFFmpeg.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C67F871C28485DC7003C14C8 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C67F871B28485DC7003C14C8 /* CoreTelephony.framework */; };
 		FD28D3F124162E2B0080B8A0 /* RTCEntranceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD28D3F024162E2B0080B8A0 /* RTCEntranceViewController.swift */; };
 		FD3B3A192423B5B8001720A3 /* GenerateTestUserSig.m in Sources */ = {isa = PBXBuildFile; fileRef = FD3B3A172423B5B8001720A3 /* GenerateTestUserSig.m */; };
 		FD96E07E248DF98800294D1F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD96E07D248DF98800294D1F /* Accelerate.framework */; };
@@ -95,8 +91,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				40032C43281699A200047A47 /* TXFFmpeg.xcframework in Embed Frameworks */,
-				40032C45281699A200047A47 /* TXSoundTouch.xcframework in Embed Frameworks */,
+				C67F871A28485DA8003C14C8 /* TXFFmpeg.xcframework in Embed Frameworks */,
+				C67F871828485DA8003C14C8 /* TXSoundTouch.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,12 +106,6 @@
 		280690B82490C1AE00FAAE90 /* SimpleDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleDemo.entitlements; sourceTree = "<group>"; };
 		28C0A3D42490CAB000E50613 /* TXLiteAVSDK_ReplayKitExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TXLiteAVSDK_ReplayKitExt.framework; path = ../SDK/TXLiteAVSDK_ReplayKitExt.framework; sourceTree = "<group>"; };
 		28C0A3FB249101F000E50613 /* TRTCBroadcastExtensionLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRTCBroadcastExtensionLauncher.swift; sourceTree = "<group>"; };
-		40032C362816987400047A47 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		40032C382816987D00047A47 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		40032C3C281698AB00047A47 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		40032C3E281698BC00047A47 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		40032C40281699A200047A47 /* TXFFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXFFmpeg.xcframework; path = ../SDK/TXFFmpeg.xcframework; sourceTree = "<group>"; };
-		40032C41281699A200047A47 /* TXSoundTouch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXSoundTouch.xcframework; path = ../SDK/TXSoundTouch.xcframework; sourceTree = "<group>"; };
 		4533717A2491F24400E18040 /* TXReplayKit_Screen.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TXReplayKit_Screen.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4533717D2491F24400E18040 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		4533717F2491F24400E18040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +161,12 @@
 		817262A72416C68400265751 /* LivePushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePushViewController.swift; sourceTree = "<group>"; };
 		81E3C985241820EA00366606 /* LiveSubVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSubVideoView.swift; sourceTree = "<group>"; };
 		86D83B858B9CD6F48E284F6B /* Pods-TRTCSimpleDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRTCSimpleDemo.release.xcconfig"; path = "Target Support Files/Pods-TRTCSimpleDemo/Pods-TRTCSimpleDemo.release.xcconfig"; sourceTree = "<group>"; };
+		C67F871028485BD3003C14C8 /* TRTCSimpleDemoDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TRTCSimpleDemoDebug.entitlements; sourceTree = "<group>"; };
+		C67F871128485C61003C14C8 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		C67F871328485D78003C14C8 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		C67F871528485DA8003C14C8 /* TXSoundTouch.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXSoundTouch.xcframework; path = ../SDK/TXSoundTouch.xcframework; sourceTree = "<group>"; };
+		C67F871628485DA8003C14C8 /* TXFFmpeg.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXFFmpeg.xcframework; path = ../SDK/TXFFmpeg.xcframework; sourceTree = "<group>"; };
+		C67F871B28485DC7003C14C8 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D1FFA7F8E251A044AF05C5BB /* Pods-TRTCSimpleDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRTCSimpleDemo.debug.xcconfig"; path = "Target Support Files/Pods-TRTCSimpleDemo/Pods-TRTCSimpleDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		EF34C418731E393A9863343E /* libPods-TRTCSimpleDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TRTCSimpleDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD28D3F024162E2B0080B8A0 /* RTCEntranceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCEntranceViewController.swift; sourceTree = "<group>"; };
@@ -192,7 +188,7 @@
 			files = (
 				C61744BA26E8A43E00FD00B1 /* libc++.tbd in Frameworks */,
 				C61744B926E8A43500FD00B1 /* Accelerate.framework in Frameworks */,
-				40032C4628169D1100047A47 /* VideoToolbox.framework in Frameworks */,
+				C67F871228485C61003C14C8 /* VideoToolbox.framework in Frameworks */,
 				453371862491F35100E18040 /* TXLiteAVSDK_ReplayKitExt.framework in Frameworks */,
 				4533717B2491F24400E18040 /* ReplayKit.framework in Frameworks */,
 			);
@@ -202,20 +198,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40032C42281699A200047A47 /* TXFFmpeg.xcframework in Frameworks */,
 				FDD9E0302440840900FD5B5A /* libresolv.tbd in Frameworks */,
-				40032C3A2816988D00047A47 /* SystemConfiguration.framework in Frameworks */,
-				40032C392816987D00047A47 /* MetalKit.framework in Frameworks */,
-				40032C3D281698AB00047A47 /* CoreTelephony.framework in Frameworks */,
-				40032C372816987400047A47 /* SystemConfiguration.framework in Frameworks */,
 				FDCEFF4F241BBDF1000BFA0B /* libiconv.tbd in Frameworks */,
+				C67F871C28485DC7003C14C8 /* CoreTelephony.framework in Frameworks */,
 				FDCEFF4D241BBDEB000BFA0B /* libc++.tbd in Frameworks */,
-				40032C3B2816989C00047A47 /* ReplayKit.framework in Frameworks */,
-				40032C44281699A200047A47 /* TXSoundTouch.xcframework in Frameworks */,
-				40032C3F281698BC00047A47 /* VideoToolbox.framework in Frameworks */,
+				C67F871928485DA8003C14C8 /* TXFFmpeg.xcframework in Frameworks */,
 				FD96E07E248DF98800294D1F /* Accelerate.framework in Frameworks */,
 				FDCEFF4B241BBDD6000BFA0B /* TXLiteAVSDK_TRTC.framework in Frameworks */,
+				C67F871428485D78003C14C8 /* MetalKit.framework in Frameworks */,
 				8AB4CC75885C25710FA89DD4 /* libPods-TRTCSimpleDemo.a in Frameworks */,
+				C67F871728485DA8003C14C8 /* TXSoundTouch.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +317,7 @@
 		812E1480241257D200642B19 /* TRTCSimpleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C67F871028485BD3003C14C8 /* TRTCSimpleDemoDebug.entitlements */,
 				280690B82490C1AE00FAAE90 /* SimpleDemo.entitlements */,
 				812E1484241257D200642B19 /* AppDelegate.swift */,
 				812E1485241257D200642B19 /* Info.plist */,
@@ -379,12 +372,11 @@
 		C2D3A67E7F4AD77B3A644C16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				40032C40281699A200047A47 /* TXFFmpeg.xcframework */,
-				40032C41281699A200047A47 /* TXSoundTouch.xcframework */,
-				40032C3E281698BC00047A47 /* VideoToolbox.framework */,
-				40032C3C281698AB00047A47 /* CoreTelephony.framework */,
-				40032C382816987D00047A47 /* MetalKit.framework */,
-				40032C362816987400047A47 /* SystemConfiguration.framework */,
+				C67F871B28485DC7003C14C8 /* CoreTelephony.framework */,
+				C67F871628485DA8003C14C8 /* TXFFmpeg.xcframework */,
+				C67F871528485DA8003C14C8 /* TXSoundTouch.xcframework */,
+				C67F871328485D78003C14C8 /* MetalKit.framework */,
+				C67F871128485C61003C14C8 /* VideoToolbox.framework */,
 				28C0A3D42490CAB000E50613 /* TXLiteAVSDK_ReplayKitExt.framework */,
 				FDD9E02F2440840900FD5B5A /* libresolv.tbd */,
 				FDCEFF4E241BBDF1000BFA0B /* libiconv.tbd */,
@@ -629,7 +621,8 @@
 				CODE_SIGN_ENTITLEMENTS = Screen/TXReplayKit_Screen/TXReplayKit_Screen.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 5GHU44CJHG;
+				DEVELOPMENT_TEAM = F8A3GH6Q4W;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Screen/TXReplayKit_Screen/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -639,7 +632,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.liteavdemo.ReplaykitUpload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = liteav_ReplayKit;
+				PROVISIONING_PROFILE_SPECIFIER = abyWildcardDev;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -652,6 +645,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5GHU44CJHG;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Screen/TXReplayKit_Screen/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -791,10 +785,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = TRTCSimpleDemo/SimpleDemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = TRTCSimpleDemo/TRTCSimpleDemoDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 5GHU44CJHG;
+				DEVELOPMENT_TEAM = F8A3GH6Q4W;
 				ENABLE_BITCODE = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = TRTCSimpleDemo/Info.plist;
@@ -804,7 +798,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.liteavdemo;
 				PRODUCT_NAME = SimpleDemo;
-				PROVISIONING_PROFILE_SPECIFIER = liteav_demo;
+				PROVISIONING_PROFILE_SPECIFIER = abyWildcardDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "TRTCSimpleDemo/TRTCSimpleDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
