@@ -6,19 +6,28 @@
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
-//
-//  TRTCBroadcastExtensionLauncher.swift
-//  TRTCSimpleDemo
-//
-//  Created by J J on 2020/6/10.
-//  Copyright © 2020 Tencent. All rights reserved.
-//
-
 import UIKit
 import ReplayKit
+/*
+ 录屏直播功能
+ TRTC APP 录屏直播功能
+ 本文件展示如何集成录屏直播功能
+ 1、RPSystemBroadcastPickerView开启app录屏功能:let picker = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+ 2、设置preferredExtension：picker.preferredExtension = bundle.bundleIdentifier
+ 参考文档：https://cloud.tencent.com/document/product/647/45750
+ */
 
+/*
+ Screen Recording Live Streaming
+ The TRTC app supports screen recording live streaming.
+ This document shows how to integrate the screen recording live streaming feature.
+ 1. RPSystemBroadcastPickerView enable app screen recoding function : let picker = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+ 2. Set preferredExtension：picker：picker.preferredExtension = bundle.bundleIdentifier
+ Documentation: https://cloud.tencent.com/document/product/647/45750
+ */
 @available(iOS 12.0, *)
 class TRTCBroadcastExtensionLauncher: NSObject {
+    
     var systemBroacastExtensionPicker = RPSystemBroadcastPickerView()
     var prevLaunchEventTime : CFTimeInterval = 0
     

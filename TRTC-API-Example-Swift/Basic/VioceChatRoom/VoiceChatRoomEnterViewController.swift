@@ -1,237 +1,253 @@
 //
-//  VoiceChatRoomEnterViewController.swift
+//  LiveEnterViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/27.
+//  Created by peteryhchen on 2022/6/29.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
-import Foundation
 import UIKit
-enum  UserType:NSInteger{
-    case Anchor
-    case Audience
+import SnapKit
+
+/*
+ 语音互动直播功能 
+ TRTC APP 支持语音互动直播功能
+ 本文件展示如何集成语音互动直播功能
+ 1、audience为观众，点击进入VoiceChatRoomAudienceViewController(观众端示例)
+ 2、anchor为主播，点击进入VoiceChatRoomAnchorViewController（主播端示例）
+ 参考文档：https://cloud.tencent.com/document/product/647/45753
+ */
+
+/*
+ Interactive Live Audio Streaming - Room Owner
+ The TRTC app supports interactive live audio streaming.
+ This document shows how to integrate the interactive live audio streaming feature.
+ 1. audience is the audience,click to enter:VoiceChatRoomAudienceViewController(Audience example)
+ 2. anchor is the anchor,click to enter:VoiceChatRoomAnchorViewController(Anchor example)
+ Documentation: https://cloud.tencent.com/document/product/647/45753
+ */
+
+enum UserType: String {
+    case anchor
+    case audience
 }
-class VoiceChatRoomEnterViewController:UIViewController{
+
+class VoiceChatRoomEnterViewController: UIViewController {
+
+    lazy var userType: UserType = {
+        var userType = UserType.anchor
+        return userType
+    }()
     
-    var userType : UserType = .Anchor
+    let userIdentifyLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .white
+        label.text = Localize("TRTC-API-Example.VoiceChatRoom.ChooseUserIdentify")
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
+    let userIdTextField: UITextField = {
+        let textField = UITextField(frame: .zero)
+        textField.backgroundColor = .white
+        textField.text = "324532"
+        return textField
+    }()
+    
+    let roomIdTextField: UITextField = {
+        let textField = UITextField(frame: .zero)
+        textField.backgroundColor = .white
+        textField.text = "1256732"
+        return textField
+    }()
+    
+    let inputRoomLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .white
+        label.text = Localize("TRTC-API-Example.VoiceChatRoom.EnterRoomNumber")
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
+    let inputUserLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .white
+        label.text = Localize("TRTC-API-Example.VoiceChatRoom.EnterUserName")
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
+    let startButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoom.EnterRoom"), for: UIControl.State.normal)
+        button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        return button
+    }()
+    
+    let anchorButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
+        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoom.Anchor"), for: UIControl.State.normal)
+        button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
+        return button
+    }()
+    
+    let audienceButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoom.Audience"), for: UIControl.State.normal)
+        button.backgroundColor = .gray
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = Localize("TRTC-API-Example.VoiceChatRoom.Title")
+        // Do any additional setup after loading the view.
         view.backgroundColor = .black
-        setupDefaultUIConfig()
+        constructViewHierarchy()
         activateConstraints()
         bindInteraction()
-        userType = .Anchor
+        navigationItem.title = Localize("TRTC-API-Example.VoiceChatRoom.Title")
+        navigationItem.leftBarButtonItem = nil
     }
     
+    func setUserType(userType: UserType) {
+        self.userType = userType
+        switch userType {
+        case .anchor:
+            audienceButton.backgroundColor = .gray
+            anchorButton.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
+        case .audience:
+            audienceButton.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
+            anchorButton.backgroundColor = .gray
+        }
+    }
     
-    let enterRoomLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.VoiceChatRoom.EnterRoomNumber")
-        lable.adjustsFontSizeToFitWidth = true
-        return lable
-    }()
+    @objc func OnStartClick(sender: UIButton) {
+        switch userType {
+            case .anchor:
+                let voiceChatRoomAnchorViewController = VoiceChatRoomAnchorViewController()
+                guard let roomIdText = roomIdTextField.text else {
+                    return
+                }
+                guard let roomId = UInt32(roomIdText) else {
+                    return
+                }
+                voiceChatRoomAnchorViewController.roomId = roomId
+                guard let userId = userIdTextField.text, !userId.isEmpty else {
+                    return
+                }
+                voiceChatRoomAnchorViewController.userId = userId
+                navigationController?.pushViewController(voiceChatRoomAnchorViewController, animated: true)
+            
+            case .audience:
+                let voiceChatRoomAnchorViewController = VoiceChatRoomAudienceViewController()
+                guard let roomIdText = roomIdTextField.text else {
+                    return
+                }
+                guard let roomId = UInt32(roomIdText) else {
+                    return
+                }
+                voiceChatRoomAnchorViewController.roomId = roomId
+                guard let userId = userIdTextField.text, !userId.isEmpty else {
+                    return
+                }
+                voiceChatRoomAnchorViewController.userId = userId
+                navigationController?.pushViewController(voiceChatRoomAnchorViewController, animated: true)
+        }
+        
+    }
+       
     
-    let enterUserNameLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.VoiceChatRoom.EnterUserName")
-        lable.adjustsFontSizeToFitWidth = true
-        return lable
-    }()
+    @objc func onAudienceClick(sender: UIButton) {
+        setUserType(userType: UserType.audience)
+    }
     
-    let userIdentifyLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.VoiceChatRoom.ChooseUserIdentify")
-        lable.adjustsFontSizeToFitWidth = true
-        return lable
-    }()
-    
-    let enterRoomTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = "1256732"
-        filed.textColor = .white
-        filed.backgroundColor = .green
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let enterUserNameTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = "324532"
-        filed.textColor = .white
-        filed.backgroundColor = .green
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let anchorButton: UIButton={
-        let button = UIButton(frame: .zero)
-        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoom.Anchor"), for: .normal)
-        button.backgroundColor = .themeTintColor
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        return button
-    }()
-    
-    let audienceButton: UIButton={
-        let button = UIButton(frame: .zero)
-        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoom.Audience"), for: .normal)
-        button.backgroundColor = .gray
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        return button
-    }()
-    
-    let enterRoomButton: UIButton={
-        let button = UIButton(frame: .zero)
-        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoom.EnterRoom"), for: .normal)
-        button.backgroundColor = .green
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        return button
-    }()
-    
+    @objc func onAnchorClick(sender: UIButton) {
+        setUserType(userType: UserType.anchor)
+    }
     
 }
 
-
-extension VoiceChatRoomEnterViewController{
+//MARK: - UI Layout
+extension VoiceChatRoomEnterViewController {
     
-    private func setupDefaultUIConfig(){
-        view.addSubview(enterRoomLabel)
-        view.addSubview(enterUserNameLabel)
-        view.addSubview(userIdentifyLabel)
-        view.addSubview(enterRoomTextField)
-        view.addSubview(enterUserNameTextField)
+    // 构建视图
+    private func constructViewHierarchy() {
+        view.addSubview(inputRoomLabel)
+        view.addSubview(roomIdTextField)
+        view.addSubview(inputUserLabel)
+        view.addSubview(userIdTextField)
+        view.addSubview(startButton)
         view.addSubview(anchorButton)
         view.addSubview(audienceButton)
-        view.addSubview(enterRoomButton)
+        view.addSubview(userIdentifyLabel)
     }
     
-    private func bindInteraction(){
-        anchorButton.addTarget(self, action: #selector(clickAnchorButton), for: .touchUpInside)
-        audienceButton.addTarget(self, action: #selector(clickAudienceButton), for: .touchUpInside)
-        enterRoomButton.addTarget(self, action: #selector(clickEnterRoomButton), for: .touchUpInside)
-    }
-    
-    private func activateConstraints(){
-        enterRoomLabel.snp.makeConstraints { make in
-            make.width.equalTo(200)
-            make.height.equalTo(39)
-            make.top.equalTo(114)
-            make.left.equalTo(20)
+    // 视图布局
+    private func activateConstraints() {
+        
+        userIdTextField.snp.makeConstraints { make in
+            make.top.equalTo(280)
+            make.leading.equalTo(50)
+            make.width.equalTo(300)
+            make.height.equalTo(30)
         }
         
-        enterRoomTextField.snp.makeConstraints { make in
-            make.width.equalTo(374)
-            make.height.equalTo(34)
-            make.top.equalTo(enterRoomLabel.snp.bottom).offset(5)
-            make.left.equalTo(enterRoomLabel)
+        inputUserLabel.snp.makeConstraints { make in
+            make.top.equalTo(250)
+            make.leading.equalTo(50)
+        }
+        startButton.snp.makeConstraints { make in
+            make.leading.equalTo(50)
+            make.bottom.equalTo(-150)
+            make.width.equalTo(300)
         }
         
-        enterUserNameLabel.snp.makeConstraints { make in
-            make.width.equalTo(enterRoomLabel)
-            make.height.equalTo(enterRoomLabel)
-            make.top.equalTo(enterRoomTextField.snp.bottom).offset(5)
-            make.left.equalTo(enterRoomTextField)
+        inputRoomLabel.snp.makeConstraints { make in
+            make.top.equalTo(150)
+            make.leading.equalTo(50)
         }
         
-        enterUserNameTextField.snp.makeConstraints { make in
-            make.width.equalTo(enterRoomTextField)
-            make.height.equalTo(enterRoomTextField)
-            make.top.equalTo(enterUserNameLabel.snp.bottom).offset(5)
-            make.left.equalTo(enterUserNameLabel)
+        roomIdTextField.snp.makeConstraints { make in
+            make.top.equalTo(180)
+            make.leading.equalTo(50)
+            make.width.equalTo(300)
+            make.height.equalTo(30)
         }
         
         userIdentifyLabel.snp.makeConstraints { make in
-            make.width.equalTo(enterUserNameLabel)
-            make.height.equalTo(enterUserNameLabel)
-            make.top.equalTo(enterUserNameTextField.snp.bottom).offset(5)
-            make.centerX.equalTo(enterUserNameTextField)
+            make.top.equalTo(330)
+            make.leading.equalTo(userIdTextField)
         }
         
         anchorButton.snp.makeConstraints { make in
-            make.width.equalTo(80)
+            make.top.equalTo(360)
+            make.leading.equalTo(userIdTextField)
             make.height.equalTo(30)
-            make.top.equalTo(userIdentifyLabel.snp.bottom).offset(5)
-            make.left.equalTo(userIdentifyLabel)
+            make.width.equalTo(60)
         }
         
         audienceButton.snp.makeConstraints { make in
-            make.width.equalTo(anchorButton)
-            make.height.equalTo(anchorButton)
-            make.top.equalTo(anchorButton)
-            make.left.equalTo(anchorButton.snp.right).offset(25)
+            make.leading.equalTo(userIdTextField)
+            make.leading.equalTo(135)
+            make.top.equalTo(360)
+            make.height.equalTo(30)
+            make.width.equalTo(60)
         }
-        
-        enterRoomButton.snp.makeConstraints { make in
-            make.width.equalTo(205)
-            make.height.equalTo(39)
-            make.bottom.equalTo(view.snp.bottom).offset(-50)
-            make.centerX.equalTo(view)
-        }
-        
+    }
+    
+    // 绑定事件 / 回调
+    private func bindInteraction() {
+        startButton.addTarget(self, action: #selector(OnStartClick(sender: )), for: .touchUpInside)
+        anchorButton.addTarget(self, action: #selector(onAnchorClick(sender: )), for: .touchUpInside)
+        audienceButton.addTarget(self, action: #selector(onAudienceClick(sender: )), for: .touchUpInside)
     }
     
 }
 
-extension VoiceChatRoomEnterViewController : UITextFieldDelegate{
-    
-    @objc private func clickAnchorButton(){
-        userType = .Anchor
-        audienceButton.backgroundColor = .gray
-        anchorButton.backgroundColor = .green
-    }
-    
-    @objc private func clickAudienceButton(){
-        userType = .Audience
-        audienceButton.backgroundColor = .green
-        anchorButton.backgroundColor = .gray
-    }
-    
-    @objc func clickEnterRoomButton() {
-        if enterRoomTextField.text?.count==0 || enterUserNameTextField.text?.count == 0{
-            showAlertViewController(title: Localize("TRTC-API-Example.AlertViewController.ponit"), message: Localize("TRTC-API-Example.VoiceChatRoom.tips"))
-        }
-        let roomId = (enterRoomTextField.text! as NSString).integerValue
-        let userId = enterUserNameTextField.text
-        switch userType{
-        case .Anchor:
-            let anchorVC = VoiceChatRoomAnchorViewController().initWithRoomId(roomId: roomId, userId: userId ?? "")
-            anchorVC.title = Localize("TRTC-API-Example.VoiceChatRoomAnchor.Title")
-            navigationController?.pushViewController(anchorVC, animated: true)
-            break
-            
-            
-        case .Audience:
-            let audienceVC = VoiceChatRoomAudienceViewController().initWithRoomId(roomId: roomId, userId: userId ?? "")
-            audienceVC.title = Localize("TRTC-API-Example.VoiceChatRoomAudience.Title")
-            navigationController?.pushViewController(audienceVC, animated: true)
-            
-            break
-        default:
-            break
-        }
-    }
-    
-    func showAlertViewController(title:String,message:String){
-        let alertVC = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: Localize("TRTC-API-Example.AlertViewController.determine"), style: .default)
-        alertVC.addAction(alertAction)
-        present(alertVC, animated: true, completion: nil)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        enterRoomTextField.resignFirstResponder()
-        enterUserNameTextField.resignFirstResponder()
-    }
-    
-}
+

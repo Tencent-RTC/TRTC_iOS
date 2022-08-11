@@ -2,160 +2,198 @@
 //  VoiceChatRoomAnchorViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/27.
+//  Created by peteryhchen on 2022/6/29.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
 
-class VoiceChatRoomAnchorViewController:UIViewController{
+/*
+ 语音互动直播功能 - 主播端示例
+ TRTC APP 支持语音互动直播功能
+ 本文件展示如何集成语音互动直播功能
+ 1、进入TRTC房间。 API: trtcCloud.enterRoom(params, appScene: .voiceChatRoom)
+ 2、开启本地音频。  API: trtcCloud.startLocalAudio(.music)
+ 3、静音远端：API：trtcCloud.muteRemoteAudio(userId as String, mute: sender.isSelected)
+ 4、上下麦：API：trtcCloud.switch(.audience)
+ 5、 Demo中最大限制进房用户个数为6, 具体可根据需求来定最大进房人数。
+ 参考文档：https://cloud.tencent.com/document/product/647/45753
+ */
+
+/*
+ Interactive Live Audio Streaming - Room Owner
+ The TRTC app supports interactive live audio streaming.
+ This document shows how to integrate the interactive live audio streaming feature.
+ 1. Enter a room: trtcCloud.enterRoom(params, appScene: .voiceChatRoom)
+ 2. Enable local audio: trtcCloud.startLocalAudio(.music)
+ 3. Mute a remote user: trtcCloud.muteRemoteAudio(userId as String, mute: sender.isSelected)
+ 4. Become speaker/listener: trtcCloud.switch(.audience)
+ 5. In the demo, a maximum of 6 users can enter a room. The number can be modified as needed.
+ Documentation: https://cloud.tencent.com/document/product/647/45753
+*/
+
+class VoiceChatRoomAnchorViewController: UIViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        setupDefaultUIConfig()
-        activateConstraints()
-        bindInteraction()
-        
-    }
+    var roomId: UInt32 = 0
+    var userId: String = ""
     
-    
-    let trtcCloud = TRTCCloud.sharedInstance()
-    
-    let anchorIdSet:NSMutableOrderedSet={
+    let anchorIdSet: NSMutableOrderedSet = {
         let set = type(of: NSMutableOrderedSet()).init(capacity: maxRemoteUserNum)
         return set
     }()
     
-    let anchorLabel :UILabel = {
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.VoiceChatRoomAnchor.AnchorOperate")
-        lable.adjustsFontSizeToFitWidth = true
-        return lable
+    let trtcCloud: TRTCCloud = {
+        return TRTCCloud.sharedInstance()
     }()
     
-    let muteButton: UIButton={
-        let button = UIButton(frame: .zero)
-        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoomAnchor.mute"), for: .normal)
-        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoomAnchor.cancelmute"), for: .selected)
-        button.backgroundColor = .gray
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        return button
+    lazy var userIdArray: [String] = {
+        var array = [String]()
+        return array
     }()
     
-    let downMicButton: UIButton={
+    let anchorLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.text = Localize("TRTC-API-Example.VoiceChatRoomAnchor.AnchorOperate")
+        label.backgroundColor = .clear
+        label.textColor = .white
+        return label
+    }()
+        
+    
+    let downMicButton: UIButton = {
         let button = UIButton(frame: .zero)
+        button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
         button.setTitle(Localize("TRTC-API-Example.VoiceChatRoomAnchor.downMic"), for: .normal)
         button.setTitle(Localize("TRTC-API-Example.VoiceChatRoomAnchor.upMic"), for: .selected)
-        button.backgroundColor = .gray
-        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         return button
     }()
     
+    let muteButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
+        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoomAnchor.mute"), for: .normal)
+        button.setTitle(Localize("TRTC-API-Example.VoiceChatRoomAnchor.cancelmute"), for: .selected)
+        button.layer.cornerRadius = 8
+        button.layer.masksToBounds = true
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        return button
+    }()
     
-    func initWithRoomId (roomId:Int ,userId:String) -> VoiceChatRoomAnchorViewController{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        constructViewHierarchy()
+        activateConstraints()
+        bindInteraction()
+        setupTRTCCloud()
         
+        navigationItem.title = "RoomID:" + "\(roomId)"
+        navigationItem.leftBarButtonItem = nil
+    }
+    
+    func setupTRTCCloud() {
         let params = TRTCParams()
-        params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = UInt32(roomId)
-        params.userId = userId
+        params.sdkAppId = UInt32(SDKAPPID)
+        params.roomId = roomId
+        params.userId = userId as String
         params.role = .anchor
-        params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userId) as String
-        
-        trtcCloud.delegate = self
+        params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId) as String
+
         trtcCloud.enterRoom(params, appScene: .voiceChatRoom)
         trtcCloud.startLocalAudio(.music)
-        return self
-    }
-}
-
-extension VoiceChatRoomAnchorViewController{
-    
-    
-    private func setupDefaultUIConfig(){
-        view.addSubview(anchorLabel)
-        view.addSubview(muteButton)
-        view.addSubview(downMicButton)
+        trtcCloud.delegate = self
     }
     
-    
-    private func activateConstraints(){
-        anchorLabel.snp.makeConstraints { make in
-            make.width.equalTo(200)
-            make.height.equalTo(30)
-            make.top.equalTo(view.snp.bottom).offset(-100)
-            make.left.equalTo(20)
-        }
-        
-        muteButton.snp.makeConstraints { make in
-            make.width.equalTo(70)
-            make.height.equalTo(30)
-            make.top.equalTo(anchorLabel.snp.bottom).offset(10)
-            make.left.equalTo(anchorLabel)
-        }
-        
-        downMicButton.snp.makeConstraints { make in
-            make.width.equalTo(muteButton)
-            make.height.equalTo(muteButton)
-            make.top.equalTo(muteButton)
-            make.left.equalTo(muteButton.snp.right).offset(25)
-        }
-    }
-    
-    private func bindInteraction(){
-        muteButton.addTarget(self, action: #selector(clickMuteButton), for: .touchUpInside)
-        downMicButton.addTarget(self, action: #selector(clickDownMicButton), for: .touchUpInside)
-    }
-    
-    @objc func clickMuteButton(){
-        muteButton.isSelected = !muteButton.isSelected
-        let index = 0
-        for userId in anchorIdSet{
-            if index >= maxRemoteUserNum{
+    @objc func onMuteClick(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        var index = 0
+        for uid in anchorIdSet {
+            if index >= maxRemoteUserNum {
                 return
             }
-            trtcCloud.muteRemoteAudio(userId as! String, mute: muteButton.isSelected)
+            guard let userId = uid as? String else {
+                return
+            }
+            trtcCloud.muteRemoteAudio(userId as String, mute: sender.isSelected)
+            index += 1
         }
     }
     
-    @objc func clickDownMicButton(){
-        downMicButton.isSelected = !downMicButton.isSelected
-        if downMicButton.isSelected{
+    @objc func onDownMicClick(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
             trtcCloud.switch(.audience)
             trtcCloud.stopLocalAudio()
-        }else{
+        } else {
             trtcCloud.switch(.anchor)
             trtcCloud.startLocalAudio(.music)
         }
     }
     
-    func dealloc(){
+    deinit {
         trtcCloud.stopLocalAudio()
         trtcCloud.exitRoom()
         TRTCCloud.destroySharedIntance()
     }
-    
-    
 }
 
-extension VoiceChatRoomAnchorViewController:TRTCCloudDelegate{
+// MARK: - UI Layout
+extension VoiceChatRoomAnchorViewController {
+    
+    //构建视图
+    private func constructViewHierarchy() {
+        view.addSubview(muteButton)
+        view.addSubview(downMicButton)
+        view.addSubview(anchorLabel)
+    }
+    
+    //视图布局
+    private func activateConstraints() {
+        muteButton.snp.makeConstraints { make in
+            make.width.equalTo(90)
+            make.height.equalTo(30)
+            make.leading.equalTo(10)
+            make.bottom.equalTo(-60)
+            
+        }
+        
+        downMicButton.snp.makeConstraints { make in
+            make.width.equalTo(90)
+            make.height.equalTo(30)
+            make.bottom.equalTo(muteButton)
+            make.leading.equalTo(120)
+        }
+        
+        anchorLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(-130)
+            make.leading.equalTo(muteButton)
+        }
+    }
+    
+    //绑定事件
+    private func bindInteraction() {
+        downMicButton.addTarget(self, action: #selector(onDownMicClick(sender: )), for: .touchUpInside)
+        muteButton.addTarget(self, action: #selector(onMuteClick(sender: )), for: .touchUpInside)
+    }
+}
+
+// MARK: - TRTCCloudDelegate
+extension VoiceChatRoomAnchorViewController: TRTCCloudDelegate {
     func onUserAudioAvailable(_ userId: String, available: Bool) {
         let index = anchorIdSet.index(of: userId)
-        if available{
-            if index != NSNotFound{
+        if available {
+            if index != NSNotFound {
                 return
             }
             anchorIdSet.add(userId)
-        }else{
-            if (index != 0){
+        } else {
+            if index != NSNotFound {
                 anchorIdSet.remove(userId)
             }
         }
     }
 }
-
