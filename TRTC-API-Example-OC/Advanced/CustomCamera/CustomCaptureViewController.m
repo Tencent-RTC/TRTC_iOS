@@ -75,7 +75,7 @@ TRTCVideoRenderDelegate
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.cameraHelper startCameraCapture];
-    [self.customFrameRender start:nil videoView:self.previewView];
+    [self.customFrameRender start:@"" videoView:self.previewView];
     [self addKeyboardObserver];
 }
 

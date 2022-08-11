@@ -10,33 +10,28 @@ import Foundation
 import ObjectiveC
 import TXLiteAVSDK_TRTC
 
-protocol SubCloudHelperDelegate : NSObjectProtocol{
-    func onUserVideoAvailableWithSubId(subId:UInt32,userId userId:String,available available:Bool)
+@objc protocol SubCloudHelperDelegate : NSObjectProtocol {
+    @objc optional func onUserVideoAvailableWithSubId(subId: UInt32, userId: String, available: Bool)
 }
 
-
-class SubCloudHelper:NSObject,TRTCCloudDelegate{
+class SubCloudHelper:NSObject,TRTCCloudDelegate {
+    
+    var trtcCloud = TRTCCloud()
+    var subId : UInt32 = 0
+    weak var delegate : SubCloudHelperDelegate? = nil
+    
     override init() {
         super.init()
-    }
-     var subId : UInt32 = 0
-     var trtcCloud = TRTCCloud()
-     var delegate : SubCloudHelperDelegate? = nil
-    
-     func initWithSubid(subid : UInt32 , cloud: TRTCCloud)->SubCloudHelper{
-        subId = subid
-        trtcCloud = cloud
         trtcCloud.delegate = self
-        return self
     }
     
-    func getCloud()->TRTCCloud{
+    func getCloud()->TRTCCloud {
         return trtcCloud
     }
     
     func onUserVideoAvailable(_ userId: String, available: Bool) {
-        if self.delegate != nil && (self.delegate?.responds(to: Selector.init(("onUserVideoAvailableWithSubId:userId:available:"))))! {
-            delegate?.onUserVideoAvailableWithSubId(subId: subId, userId: userId, available: available)
-    }
+        if self.delegate?.onUserVideoAvailableWithSubId?(subId: subId, userId: userId, available: available) == nil {
+            return
+        }
     }
 }
