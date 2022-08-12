@@ -5,28 +5,70 @@
 //  Created by 唐佳宁 on 2022/7/4.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
+import Foundation
+import UIKit
+import TXLiteAVSDK_TRTC
 /*
  网络测速功能
  TRTC 网络测速
  本文件展示如何集成网络测速
- 1、网络测试 API: [self.trtcCloud startSpeedTest:SDKAppID userId:_userIdTextField.text userSig:userSig completion:
-                    ^(TRTCSpeedTestResult* result, NSInteger completedCount, NSInteger totalCount){}];
+ 1、网络测试 API: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) { [weak self] resul, completedCount, totalCount in  }
  参考文档：https://cloud.tencent.com/document/product/647/32239
  */
 /*
  Network Speed Testing
  TRTC Network Speed Testing
  This document shows how to integrate the network speed testing capability.
- 1. Test the network: [self.trtcCloud startSpeedTest:SDKAppID userId:_userIdTextField.text userSig:userSig completion:
-                    ^(TRTCSpeedTestResult* result, NSInteger completedCount, NSInteger totalCount){}]
+ 1. Test the network: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) { [weak self] resul, completedCount, totalCount in  }
  Documentation: https://cloud.tencent.com/document/product/647/32239
  */
-
-import Foundation
-import UIKit
-import TXLiteAVSDK_TRTC
-
-class SpeedTestViewController : UIViewController, TRTCCloudDelegate{
+class SpeedTestViewController : UIViewController, TRTCCloudDelegate {
+    
+    var isSpeedTesting = false
+    let trtcCloud = TRTCCloud.sharedInstance()
+    
+    let userIdLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.text = Localize("TRTC-API-Example.SpeedTest.userId")
+        lable.adjustsFontSizeToFitWidth = true
+        return lable
+    }()
+    
+    let speedTestLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.SpeedTest.speedTestResult")
+        return lable
+    }()
+    
+    
+    let userIdTextField : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(999999 - 100000 + 1)+100000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let speedResultTextView : UITextView = {
+        let filed = UITextView(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let startButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .gray
+        button.setTitle(Localize("TRTC-API-Example.SpeedTest.beginTest"), for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,60 +82,7 @@ class SpeedTestViewController : UIViewController, TRTCCloudDelegate{
         bindInteraction()
     }
     
-    var isSpeedTesting = false
-    var trtcCloud = TRTCCloud.sharedInstance()
-    var bottomConstraint = NSLayoutConstraint()
-    
-    let userIdLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.SpeedTest.userId")
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        return lable
-    }()
-    
-    let speedTestLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-//        lable.backgroundColor = .gray
-        lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.SpeedTest.speedTestResult")
-        return lable
-    }()
-    
-    
-    let userIdTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(999999 - 100000 + 1)+100000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let speedResultTextView : UITextView={
-        let filed = UITextView(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let startButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .gray
-        button.setTitle(Localize("TRTC-API-Example.SpeedTest.beginTest"), for: .normal)
-        return button
-    }()
-    
-}
-
-extension SpeedTestViewController{
-    
-    private func setupDefaultUIConfig(){
+    private func setupDefaultUIConfig() {
         view.addSubview(userIdLabel)
         view.addSubview(speedTestLabel)
         view.addSubview(userIdTextField)
@@ -101,7 +90,7 @@ extension SpeedTestViewController{
         view.addSubview(startButton)
     }
     
-    private func activateConstraints(){
+    private func activateConstraints() {
         userIdLabel.snp.makeConstraints { make in
             make.width.equalTo(240)
             make.height.equalTo(30)
@@ -138,18 +127,18 @@ extension SpeedTestViewController{
         
     }
     
-    private func bindInteraction(){
+    private func bindInteraction() {
         startButton.addTarget(self, action: #selector(onStartButtonClick), for: .touchUpInside)
       }
     
-    @objc private func onStartButtonClick(){
-        if isSpeedTesting{
+    @objc private func onStartButtonClick() {
+        if isSpeedTesting {
             return
         }
-        if startButton.isSelected{
+        if startButton.isSelected {
             startButton.setTitle(Localize("TRTC-API-Example.SpeedTest.beginTest"), for: .normal)
             speedResultTextView.text = ""
-        }else{
+        }else {
             beginSpeedTest()
             startButton.isHighlighted = true
             startButton.setTitle("0", for: .normal)
@@ -157,14 +146,12 @@ extension SpeedTestViewController{
         startButton.isSelected = !startButton.isSelected
     }
     
-    private func beginSpeedTest(){
+    private func beginSpeedTest() {
         isSpeedTesting = true
-        var userSig = GenerateTestUserSig.genTestUserSig(identifier: userIdTextField.text ?? "")
+        let userSig = GenerateTestUserSig.genTestUserSig(identifier: userIdTextField.text ?? "")
         trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) { [weak self] resul, completedCount, totalCount in
             guard let strongSelf = self else { return }
-            let printResult = "current server:\(completedCount), total server: \(totalCount)\n"
-            "current ip: \(resul.ip), quality: \(resul.quality), upLostRate: \(resul.upLostRate * 100)\n"
-            "downLostRate: \(resul.downLostRate * 100), rtt: \(resul.rtt)\n\n"
+            let printResult = "current server:\(completedCount), total server: \(totalCount)\n current ip: \(resul.ip), quality: \(resul.quality), upLostRate: \(resul.upLostRate * 100)\n downLostRate: \(resul.downLostRate * 100), rtt: \(resul.rtt)\n\n"
             strongSelf.speedResultTextView.text = self?.speedResultTextView.text.appending(printResult)
             if completedCount == totalCount{
                 strongSelf.isSpeedTesting = false
@@ -177,16 +164,14 @@ extension SpeedTestViewController{
             let strPercent = String(format: "%.2f %%", percent * 100)
             strongSelf.startButton.setTitle(strPercent, for: .normal)
         };
-        
-        
     }
-    private func stopPushStream(){
+    private func stopPushStream() {
         trtcCloud.stopLocalPreview()
         trtcCloud.stopLocalAudio()
         trtcCloud.exitRoom()
     }
     
-    private func destroyTRTCCloud(){
+    private func destroyTRTCCloud() {
         TRTCCloud.destroySharedIntance()
         trtcCloud.stopLocalAudio()
         trtcCloud.exitRoom()
@@ -194,10 +179,15 @@ extension SpeedTestViewController{
 }
 
 
-extension SpeedTestViewController:UITextFieldDelegate,UITextViewDelegate{
+extension SpeedTestViewController:UITextFieldDelegate,UITextViewDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return userIdTextField.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

@@ -64,6 +64,9 @@
 		8225AB512865D20000AA70B1 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB502865D20000AA70B1 /* UIColor+hex.swift */; };
 		8225AB542865D24600AA70B1 /* AudioCallingEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB532865D24600AA70B1 /* AudioCallingEnterViewController.swift */; };
 		8225AB562865D25A00AA70B1 /* AudioCallingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */; };
+		82B19DE2288E428800861048 /* PushCDNAudienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B19DDF288E428800861048 /* PushCDNAudienceViewController.swift */; };
+		82B19DE3288E428800861048 /* PushCDNSelectRoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B19DE0288E428800861048 /* PushCDNSelectRoleViewController.swift */; };
+		82B19DE4288E428800861048 /* PushCDNAnchorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B19DE1288E428800861048 /* PushCDNAnchorViewController.swift */; };
 		82CA7CF428607240005F5A75 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA7CF028607240005F5A75 /* HomeViewController.swift */; };
 		82CA7CF528607240005F5A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA7CF128607240005F5A75 /* AppDelegate.swift */; };
 		82CA7CF728607240005F5A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA7CF328607240005F5A75 /* SceneDelegate.swift */; };
@@ -148,6 +151,9 @@
 		8225AB502865D20000AA70B1 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		8225AB532865D24600AA70B1 /* AudioCallingEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallingEnterViewController.swift; sourceTree = "<group>"; };
 		8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallingViewController.swift; sourceTree = "<group>"; };
+		82B19DDF288E428800861048 /* PushCDNAudienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNAudienceViewController.swift; sourceTree = "<group>"; };
+		82B19DE0288E428800861048 /* PushCDNSelectRoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNSelectRoleViewController.swift; sourceTree = "<group>"; };
+		82B19DE1288E428800861048 /* PushCDNAnchorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNAnchorViewController.swift; sourceTree = "<group>"; };
 		82CA7CF028607240005F5A75 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		82CA7CF128607240005F5A75 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82CA7CF228607240005F5A75 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -461,6 +467,16 @@
 			path = AudioCall;
 			sourceTree = "<group>";
 		};
+		82B19DDE288E428800861048 /* PushCDN */ = {
+			isa = PBXGroup;
+			children = (
+				82B19DDF288E428800861048 /* PushCDNAudienceViewController.swift */,
+				82B19DE0288E428800861048 /* PushCDNSelectRoleViewController.swift */,
+				82B19DE1288E428800861048 /* PushCDNAnchorViewController.swift */,
+			);
+			path = PushCDN;
+			sourceTree = "<group>";
+		};
 		82CA7CEF28607240005F5A75 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,6 +523,7 @@
 		82CA7D0928607428005F5A75 /* Advanced */ = {
 			isa = PBXGroup;
 			children = (
+				82B19DDE288E428800861048 /* PushCDN */,
 				7DB66DD52874556A00D07778 /* SEIMessage */,
 				7DB66DCF287437BA00D07778 /* JoinMultipleRoom */,
 				7DB66DCC287425B000D07778 /* SetAudioEffect */,
@@ -629,6 +646,8 @@
 				7D7FD229286DC11C0092FF4E /* LiveAudienceViewController.swift in Sources */,
 				7DE7B0262872EF7A00110EF1 /* CustomCameraHelper.swift in Sources */,
 				7DFB2A4228698BB000F843B7 /* ScreenEntranceViewController.swift in Sources */,
+				82B19DE2288E428800861048 /* PushCDNAudienceViewController.swift in Sources */,
+				82B19DE4288E428800861048 /* PushCDNAnchorViewController.swift in Sources */,
 				7DB66DCE287425C600D07778 /* SetAudioEffectViewController.swift in Sources */,
 				7DFB2A4628699E5600F843B7 /* ScreenAudienceViewController.swift in Sources */,
 				82CA7CF528607240005F5A75 /* AppDelegate.swift in Sources */,
@@ -663,6 +682,7 @@
 				7DE7B02C2872F31E00110EF1 /* SetAudioQualityViewController.swift in Sources */,
 				7D7FD22E286DC7600092FF4E /* StringRoomIdViewController.swift in Sources */,
 				7D7FD227286DC10E0092FF4E /* LiveAnchorViewController.swift in Sources */,
+				82B19DE3288E428800861048 /* PushCDNSelectRoleViewController.swift in Sources */,
 				7DE7B02F287316E700110EF1 /* SwitchRoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -848,7 +868,12 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../SDK\"";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "${SRCROOT}/App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "TRTC-API-Example-Swift";
 				INFOPLIST_KEY_LSApplicationCategoryType = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问你的相机权限，开启后录制的视频才会有画面";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问你的麦克风权限，开启后录制的视频才会有声音";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问你的相册权限，开启后才能保存编辑的文件";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问你的相册权限，开启后才能编辑视频文件";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -883,7 +908,12 @@
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../SDK\"";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "${SRCROOT}/App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "TRTC-API-Example-Swift";
 				INFOPLIST_KEY_LSApplicationCategoryType = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问你的相机权限，开启后录制的视频才会有画面";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问你的麦克风权限，开启后录制的视频才会有声音";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问你的相册权限，开启后才能保存编辑的文件";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问你的相册权限，开启后才能编辑视频文件";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -55,6 +55,21 @@ let SDKAPPID: Int = 0
 let EXPIRETIME: Int = 0
 
 /**
+ * CDN发布功能 混流appId
+ */
+let CDNAPPID = 0
+
+/**
+ * CDN发布功能 混流bizId
+ */
+let CDNBIZID = 0
+
+/**
+ * CDN发布功能 混流CDN_URL
+ */
+let kCDN_URL: String = ""
+
+/**
  * 计算签名用的加密密钥，获取步骤如下：
  *
  * step1. 进入腾讯云云通信[控制台](https://console.cloud.tencent.com/avc) ，如果还没有应用就创建一个，
