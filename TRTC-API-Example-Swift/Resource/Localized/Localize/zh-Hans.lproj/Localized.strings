@@ -34,6 +34,7 @@
 "TRTC-API-Example.Home.QuicklySwitchRooms" = "快速切换房间";
 "TRTC-API-Example.Home.RoomPK" = "跨房PK";
 "TRTC-API-Example.Home.ThirdBeauty" = "第三方美颜";
+"TRTC-API-Example.Home.PictureInPicture" = "画中画功能";
 
 "TRTC-API-Example.VoiceChatRoom.Title" = "TRTC 语音互动直播示例教程";
 "TRTC-API-Example.VoiceChatRoom.EnterRoomNumber" = "请输入房间号（必填项）";
@@ -341,3 +342,10 @@ https://cloud.tencent.com/document/product/647/16827";
 "TRTC-API-Example.StringRoomId.userId" = "用户ID";
 "TRTC-API-Example.StringRoomId.start" = "开始推流";
 "TRTC-API-Example.StringRoomId.stop" = "停止推流";
+
+"TRTC-API-Example.PictureInPicture.OpenPictureInPicture" = "开启画中画功能";
+"TRTC-API-Example.PictureInPicture.ClosePictureInPicture" = "关闭画中画功能";
+"TRTC-API-Example.PictureInPicture.PermissionFailed" = "开启权限失败";
+"TRTC-API-Example.PictureInPicture.NotSupported" = "不支持画中画模式";
+"TRTC-API-Example.PictureInPicture.Errormessage" = "错误信息：";
+"TRTC-API-Example.PictureInPicture.Ignorenullsamplebuffer" = "忽略无效SampleBuffer";

@@ -8,24 +8,29 @@
 
 import Foundation
 import UIKit
-class LiveEnterViewController:UIViewController{
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .black
-        title = Localize("TRTC-API-Example.Live.EnterRoomNumber")
-        enterRoomTextField.delegate = self
-        enterUserNameTextField.delegate = self
-        setupDefaultUIConfig()
-        activateConstraints()
-        bindInteraction()
-        userType = .Anchor
-    }
-    
-    var userType : UserType = .Anchor
 
-    let enterRoomLabel:UILabel={
+/*
+ 视频互动直播功能
+ TRTC APP 支持视频互动直播功能
+ 本文件展示如何集成视频互动直播功能
+ 1、audience为观众，点击进入LiveAudienceViewController(观众端示例)
+ 2、anchor为主播，点击进入LiveAnchorViewController（主播端示例）
+ 参考文档：https://cloud.tencent.com/document/product/647/43181
+ */
+
+/*
+ Interactive Live Video Streaming
+ The TRTC app supports interactive live video streaming.
+ This document shows how to integrate the interactive live video streaming feature.
+ 1. audience is the audience,click to enter:LiveAudienceViewController(Audience example)
+ 2. anchor is the anchor,click to enter:LiveAnchorViewController(Anchor example)
+ Documentation: https://cloud.tencent.com/document/product/647/43181
+ */
+class LiveEnterViewController:UIViewController {
+    
+    var userType : UserType = .anchor
+    
+    let enterRoomLabel:UILabel = {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.text = Localize("TRTC-API-Example.Live.EnterRoomNumber")
@@ -33,7 +38,7 @@ class LiveEnterViewController:UIViewController{
         return lable
     }()
     
-    let enterUserNameLabel:UILabel={
+    let enterUserNameLabel:UILabel = {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.text = Localize("TRTC-API-Example.Live.EnterUserName")
@@ -41,7 +46,7 @@ class LiveEnterViewController:UIViewController{
         return lable
     }()
     
-    let userIdentifyLabel:UILabel={
+    let userIdentifyLabel:UILabel = {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.text = Localize("TRTC-API-Example.Live.ChooseUserIdentify")
@@ -49,36 +54,36 @@ class LiveEnterViewController:UIViewController{
         return lable
     }()
     
-    let enterRoomTextField : UITextField={
+    let enterRoomTextField : UITextField = {
         let filed = UITextField(frame: .zero)
         filed.keyboardAppearance = .default
         filed.text = "1256732"
-        filed.textColor = .white
-        filed.backgroundColor = .green
+        filed.textColor = .black
+        filed.backgroundColor = .white
         filed.returnKeyType = .done
         return filed
     }()
     
-    let enterUserNameTextField : UITextField={
+    let enterUserNameTextField : UITextField = {
         let filed = UITextField(frame: .zero)
         filed.keyboardAppearance = .default
         filed.text = "324532"
-        filed.textColor = .white
-        filed.backgroundColor = .green
+        filed.textColor = .black
+        filed.backgroundColor = .white
         filed.returnKeyType = .done
         return filed
     }()
     
-    let anchorButton: UIButton={
+    let anchorButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle(Localize("TRTC-API-Example.Live.Anchor"), for: .normal)
-        button.backgroundColor = .themeTintColor
+        button.backgroundColor = .green
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         return button
     }()
     
-    let audienceButton: UIButton={
+    let audienceButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle(Localize("TRTC-API-Example.Live.Audience"), for: .normal)
         button.backgroundColor = .gray
@@ -87,23 +92,27 @@ class LiveEnterViewController:UIViewController{
         return button
     }()
     
-    let enterRoomButton: UIButton={
+    let enterRoomButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle(Localize("TRTC-API-Example.Live.EnterRoom"), for: .normal)
         button.backgroundColor = .green
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.addTarget(self, action: #selector(clickEnterRoomButton), for: .touchUpInside)
         return button
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        title = Localize("TRTC-API-Example.Live.Title")
+        enterRoomTextField.delegate = self
+        enterUserNameTextField.delegate = self
+        setupDefaultUIConfig()
+        activateConstraints()
+        bindInteraction()
+    }
     
-}
-
-
-extension LiveEnterViewController{
-    
-    private func setupDefaultUIConfig(){
+    private func setupDefaultUIConfig() {
         view.addSubview(enterRoomLabel)
         view.addSubview(enterUserNameLabel)
         view.addSubview(userIdentifyLabel)
@@ -114,7 +123,7 @@ extension LiveEnterViewController{
         view.addSubview(enterRoomButton)
     }
     
-    private func activateConstraints(){
+    private func activateConstraints() {
         enterRoomLabel.snp.makeConstraints { make in
             make.width.equalTo(200)
             make.height.equalTo(39)
@@ -172,68 +181,68 @@ extension LiveEnterViewController{
         }
         
     }
-    private func bindInteraction(){
-           anchorButton.addTarget(self, action: #selector(clickAnchorButton), for: .touchUpInside)
-           audienceButton.addTarget(self, action: #selector(clickAudienceButton), for: .touchUpInside)
-     }
-    
-}
-
-extension LiveEnterViewController : UITextFieldDelegate{
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        enterRoomTextField.resignFirstResponder()
-        return enterUserNameTextField.resignFirstResponder()
+    private func bindInteraction() {
+        anchorButton.addTarget(self, action: #selector(clickAnchorButton), for: .touchUpInside)
+        audienceButton.addTarget(self, action: #selector(clickAudienceButton), for: .touchUpInside)
+        enterRoomButton.addTarget(self, action: #selector(clickEnterRoomButton), for: .touchUpInside)
     }
     
-    @objc private func clickAnchorButton(){
-        userType = .Anchor
+    @objc private func clickAnchorButton() {
+        userType = .anchor
         audienceButton.backgroundColor = .gray
         anchorButton.backgroundColor = .green
     }
     
-    @objc private func clickAudienceButton(){
-        userType = .Audience
+    @objc private func clickAudienceButton() {
+        userType = .audience
         audienceButton.backgroundColor = .green
         anchorButton.backgroundColor = .gray
     }
     
     @objc func clickEnterRoomButton() {
-        if enterRoomTextField.text?.count==0 || enterUserNameTextField.text?.count == 0{
+        if enterRoomTextField.text?.count==0 || enterUserNameTextField.text?.count == 0 {
             showAlertViewController(title: Localize("TRTC-API-Example.AlertViewController.ponit"), message: Localize("TRTC-API-Example.Live.tips"))
         }
-        let roomId = (enterRoomTextField.text! as NSString).integerValue
+        var roomId = 0
+        roomId = Int(enterRoomTextField.text ?? "") ?? 0
         let userId = enterUserNameTextField.text
         switch userType{
-        case .Anchor:
-            let anchorVC = LiveAnchorViewController().initWithRoomId(roomId: roomId, userId: userId ?? "")
+        case .anchor:
+            let anchorVC = LiveAnchorViewController()
+            anchorVC.roomId = roomId
+            anchorVC.userId = userId ?? ""
             anchorVC.title = Localize("TRTC-API-Example.LiveAnchor.Title")
             navigationController?.pushViewController(anchorVC, animated: true)
             break
-            
-            
-        case .Audience:
-            let audienceVC = LiveAudienceViewController().initWithRoomId(roomId: roomId, userId: userId ?? "")
+        case .audience:
+            let audienceVC = LiveAudienceViewController()
+            audienceVC.roomId = roomId
+            audienceVC.userId = userId ?? ""
             audienceVC.title = Localize("TRTC-API-Example.LiveAudience.Title")
             navigationController?.pushViewController(audienceVC, animated: true)
-            
-            break
-        default:
             break
         }
     }
     
-    func showAlertViewController(title:String,message:String){
+    func showAlertViewController(title:String,message:String) {
         let alertVC = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: Localize("TRTC-API-Example.AlertViewController.determine"), style: .default)
         alertVC.addAction(alertAction)
         present(alertVC, animated: true, completion: nil)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
+}
+
+extension LiveEnterViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         enterRoomTextField.resignFirstResponder()
         enterUserNameTextField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
     
 }

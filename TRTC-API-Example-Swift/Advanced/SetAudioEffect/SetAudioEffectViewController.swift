@@ -5,30 +5,280 @@
 //  Created by 唐佳宁 on 2022/7/5.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
+
+import Foundation
+import UIKit
+import TXLiteAVSDK_TRTC
 /*
  设置音效功能示例
  TRTC APP 支持设置音效功能
  本文件展示如何集成设置音效功能
- 1、进入TRTC房间。 API:[self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE];
- 2、选择变声。API:[[self.trtcCloud getAudioEffectManager] setVoiceChangerType:TXVoiceChangeType_0];
- 3、选择混响。 API:[[self.trtcCloud getAudioEffectManager] setVoiceReverbType:TXVoiceReverbType_0];
+ 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
+ 2、选择变声。API:trtcCloud.getAudioEffectManager().setVoiceChangerType(._0)
+ 3、选择混响。 API:trtcCloud.getAudioEffectManager().setVoiceReverbType(._0)
+ 4、设置TRTC的关键代码。 API：startPushStream()
  参考文档：https://cloud.tencent.com/document/product/647/32258
  */
 /*
  Setting Audio Effects
  The TRTC app supports audio effect setting.
  This document shows how to integrate the audio effect setting feature.
- 1. Enter a room: [self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE]
- 2. Select a voice change effect: [[self.trtcCloud getAudioEffectManager] setVoiceChangerType:TXVoiceChangeType_0]
- 3. Select a reverb effect: [[self.trtcCloud getAudioEffectManager] setVoiceReverbType:TXVoiceReverbType_0]
+ 1. Enter a room: trtcCloud.enterRoom(params, appScene: .LIVE)
+ 2. Select a voice change effect: trtcCloud.getAudioEffectManager().setVoiceChangerType(._0)
+ 3. Select a reverb effect: trtcCloud.getAudioEffectManager().setVoiceReverbType(._0)
+ 4. Set the key code of TRTC : startPushStream()
  Documentation: https://cloud.tencent.com/document/product/647/32258
  */
-
-import Foundation
-import UIKit
-import TXLiteAVSDK_TRTC
-
-class SetAudioEffectViewController : UIViewController{
+class SetAudioEffectViewController : UIViewController {
+    
+    let trtcCloud = TRTCCloud.sharedInstance()
+    let textfieldBottomConstraint = NSLayoutConstraint()
+    let remoteUserIdSet = type(of: NSMutableOrderedSet()).init(capacity: maxRemoteUserNum)
+    
+    let roomIDLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.SetAudioEffect.roomId")
+        return lable
+    }()
+    
+    let userIDLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.SetAudioEffect.userId")
+        
+        return lable
+    }()
+    
+    let voiceChangerLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.SetAudioEffect.voiceChanger")
+        return lable
+    }()
+    
+    let reverberationLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.text = Localize("TRTC-API-Example.SetAudioEffect.voiceChanger")
+        lable.adjustsFontSizeToFitWidth = true
+        return lable
+    }()
+    let leftRemoteUserIDLabelA:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.tag = 300
+        return lable
+    }()
+    let leftRemoteUserIDLabelB:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.tag = 301
+        return lable
+    }()
+    let leftRemoteUserIDLabelC:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.tag = 302
+        return lable
+        
+    }()
+    let rightRemoteUserIDLabelA:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.tag = 303
+        return lable
+    }()
+    let rightRemoteUserIDLabelB:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.tag = 304
+        return lable
+    }()
+    let rightRemoteUserIDLabelC:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.tag = 305
+        return lable
+    }()
+    
+    
+    let leftRemoteUserViewA:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.alpha = 0
+        view.tag = 200
+        return view
+    }()
+    
+    let leftRemoteUserViewB:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.alpha = 0
+        view.tag = 201
+        return view
+    }()
+    
+    let leftRemoteUserViewC:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.alpha = 0
+        view.tag = 202
+        return view
+    }()
+    
+    let rightRemoteUserViewA:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.alpha = 0
+        view.tag = 203
+        return view
+    }()
+    
+    let rightRemoteUserViewB:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.alpha = 0
+        view.tag = 204
+        return view
+    }()
+    
+    let rightRemoteUserViewC:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.alpha = 0
+        view.tag = 205
+        return view
+    }()
+    
+    let roomIDTextField : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let userIDTextField : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(999999 - 100000 + 1) + 100000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let originVoiceButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.origin"), for: .normal)
+        return button
+    }()
+    
+    let childVoiceButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.child"), for: .normal)
+        return button
+    }()
+    
+    let loliVoiceButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.loli"), for: .normal)
+        return button
+    }()
+    
+    let metalVoiceButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.metal"), for: .normal)
+        return button
+    }()
+    
+    let uncleVoiceButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.uncle"), for: .normal)
+        return button
+    }()
+    
+    let normalButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.normal"), for: .normal)
+        return button
+    }()
+    
+    let ktvButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.ktv"), for: .normal)
+        return button
+    }()
+    
+    let smallRoomButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.smallRoom"), for: .normal)
+        return button
+    }()
+    
+    let greatHallButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.greatHall"), for: .normal)
+        return button
+    }()
+    
+    let muffledButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.muffled"), for: .normal)
+        return button
+    }()
+    
+    let pushStreamButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.startPush"), for: .normal)
+        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.stopPush"), for: .selected)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,17 +291,24 @@ class SetAudioEffectViewController : UIViewController{
         activateConstraints()
         bindInteraction()
         addKeyboardObserver()
-        
     }
     
-    private func startPushStream(){
-        title = LocalizeReplace("TRTC-API-Example.SetAudioEffect.Title",roomIDTextField.text ?? "")
+    deinit {
+        removeKeyboardObserver()
+        trtcCloud.stopLocalAudio()
+        trtcCloud.stopLocalPreview()
+        trtcCloud.exitRoom()
+        TRTCCloud.destroySharedIntance()
+    }
+    
+    private func startPushStream() {
+        title = LocalizeReplace(Localize("TRTC-API-Example.SetAudioEffect.Title"),roomIDTextField.text ?? "")
         
         trtcCloud.startLocalPreview(true, view: view)
         
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
-        params.roomId = UInt32((roomIDTextField.text! as NSString).integerValue)
+        params.roomId = UInt32(Int(roomIDTextField.text ?? "") ?? 0)
         params.userId = userIDTextField.text ?? ""
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userIDTextField.text ?? "") as String
         params.role = .anchor
@@ -67,284 +324,31 @@ class SetAudioEffectViewController : UIViewController{
         
         trtcCloud.setVideoEncoderParam(encParams)
     }
-     private func stopPushStream(){
+    
+    private func stopPushStream() {
         trtcCloud.stopLocalPreview()
         trtcCloud.stopLocalAudio()
         trtcCloud.exitRoom()
-         
-         if remoteUserIdSet.count == 0{
-             trtcCloud.stopRemoteView(userIDTextField.text ?? "", streamType: .small)
-             return
-         }
-        for  i in 0...remoteUserIdSet.count{
+        
+        if remoteUserIdSet.count == 0 {
+            trtcCloud.stopRemoteView(userIDTextField.text ?? "", streamType: .small)
+            return
+        }
+        for  i in 0...remoteUserIdSet.count-1 {
             let remoteView = view.viewWithTag(i+200)
-            let remoteLable = view.viewWithTag(i+300) as! UILabel
+            if let remoteLable = view.viewWithTag(i+300) as? UILabel {
+                remoteLable.text = ""
+            }
             remoteView?.alpha = 0
-            remoteLable.text = ""
-            trtcCloud.stopRemoteView(remoteUserIdSet[i] as! String, streamType: .small)
+            guard let userIdSetIndex = remoteUserIdSet[i] as? String else{
+                return
+            }
+            trtcCloud.stopRemoteView(userIdSetIndex, streamType: .small)
         }
         remoteUserIdSet.removeAllObjects()
     }
     
-    let trtcCloud = TRTCCloud.sharedInstance()
-    let textfieldBottomConstraint = NSLayoutConstraint()
-    let remoteUserIdSet = type(of: NSMutableOrderedSet()).init(capacity: maxRemoteUserNum)
-    
-    let roomIDLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.SetAudioEffect.roomId")
-//        lable.backgroundColor = .gray
-        return lable
-    }()
-    
-    let userIDLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.text = Localize("TRTC-API-Example.SetAudioEffect.userId")
-        
-        return lable
-    }()
-    
-    let voiceChangerLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.SetAudioEffect.voiceChanger")
-//        lable.backgroundColor = .gray
-        return lable
-    }()
-    
-    let reverberationLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.SetAudioEffect.voiceChanger")
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        return lable
-    }()
-    let leftRemoteUserIDLabelA:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.tag = 300
-        return lable
-    }()
-    let leftRemoteUserIDLabelB:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.tag = 301
-        return lable
-    }()
-    let leftRemoteUserIDLabelC:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.tag = 302
-        return lable
-        
-    }()
-    let rightRemoteUserIDLabelA:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.tag = 303
-        return lable
-    }()
-    let rightRemoteUserIDLabelB:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.tag = 304
-        return lable
-    }()
-    let rightRemoteUserIDLabelC:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.tag = 305
-        return lable
-    }()
-    
-    
-    let leftRemoteUserViewA:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .gray
-        view.alpha = 0
-        view.tag = 200
-        
-        return view
-    }()
-    
-    let leftRemoteUserViewB:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .gray
-        view.alpha = 0
-        view.tag = 201
-        return view
-    }()
-    
-    let leftRemoteUserViewC:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .gray
-        view.alpha = 0
-        view.tag = 202
-        return view
-    }()
-    
-    let rightRemoteUserViewA:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .gray
-        view.alpha = 0
-        view.tag = 203
-        return view
-    }()
-    
-    let rightRemoteUserViewB:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .gray
-        view.alpha = 0
-        view.tag = 204
-        return view
-    }()
-    
-    let rightRemoteUserViewC:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .gray
-        view.alpha = 0
-        view.tag = 205
-        return view
-    }()
-    
-    let roomIDTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let userIDTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(999999 - 100000 + 1) + 100000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let originVoiceButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.origin"), for: .normal)
-        return button
-    }()
-    
-    let childVoiceButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.child"), for: .normal)
-        return button
-    }()
-    
-    let loliVoiceButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.loli"), for: .normal)
-        return button
-    }()
-    
-    let metalVoiceButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.metal"), for: .normal)
-        return button
-    }()
-    
-    let uncleVoiceButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.uncle"), for: .normal)
-        return button
-    }()
-    let normalButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.normal"), for: .normal)
-        return button
-    }()
-    let ktvButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.ktv"), for: .normal)
-        return button
-    }()
-    let smallRoomButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.smallRoom"), for: .normal)
-        return button
-    }()
-    let greatHallButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.greatHall"), for: .normal)
-        return button
-    }()
-    let muffledButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.muffled"), for: .normal)
-        return button
-    }()
-    let pushStreamButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.startPush"), for: .normal)
-        button.setTitle(Localize("TRTC-API-Example.SetAudioEffect.stopPush"), for: .selected)
-        return button
-    }()
-    
-}
-
-extension SetAudioEffectViewController{
-    
-    private func setupDefaultUIConfig(){
+    private func setupDefaultUIConfig() {
         view.addSubview(roomIDLabel)
         view.addSubview(userIDLabel)
         view.addSubview(roomIDTextField)
@@ -380,7 +384,7 @@ extension SetAudioEffectViewController{
         rightRemoteUserViewC.addSubview(rightRemoteUserIDLabelC)
     }
     
-    private func activateConstraints(){
+    private func activateConstraints() {
         
         leftRemoteUserViewA.snp.makeConstraints { make in
             make.width.equalTo((view.frame.width-90)/2)
@@ -552,7 +556,6 @@ extension SetAudioEffectViewController{
             make.left.equalTo(greatHallButton.snp.right).offset(10)
         }
         
-        
         roomIDLabel.snp.makeConstraints { make in
             make.width.equalTo((view.frame.width - 80)/3)
             make.height.equalTo(normalButton)
@@ -589,164 +592,153 @@ extension SetAudioEffectViewController{
         }
         
     }
-    private func bindInteraction(){
-        originVoiceButton.addTarget(self, action: #selector(onOriginVoiceClick), for: .touchUpInside)
-        childVoiceButton.addTarget(self, action: #selector(onChildVoiceClick), for: .touchUpInside)
-        loliVoiceButton.addTarget(self, action: #selector(onLoliVoiceClick), for: .touchUpInside)
-        metalVoiceButton.addTarget(self, action: #selector(onMetalVoiceClick), for: .valueChanged)
-        uncleVoiceButton.addTarget(self, action: #selector(onUncleVoiceClick), for: .touchUpInside)
+    private func bindInteraction() {
+        originVoiceButton.addTarget(self,action: #selector(onOriginVoiceClick(sender:)), for: .touchUpInside)
+        childVoiceButton.addTarget(self,action: #selector(onChildVoiceClick(sender:)), for: .touchUpInside)
+        loliVoiceButton.addTarget(self,action: #selector(onLoliVoiceClick(sender:)), for: .touchUpInside)
+        metalVoiceButton.addTarget(self,action: #selector(onMetalVoiceClick(sender:)), for: .touchUpInside)
+        uncleVoiceButton.addTarget(self,action: #selector(onGreatHallClick(sender:)), for: .touchUpInside)
         
-        normalButton.addTarget(self, action: #selector(onNormalClick), for: .touchUpInside)
-        ktvButton.addTarget(self, action: #selector(onKtvClick), for: .touchUpInside)
-        smallRoomButton.addTarget(self, action: #selector(onSmallRoomClick), for: .touchUpInside)
-        greatHallButton.addTarget(self, action: #selector(onGreatHallClick), for: .touchUpInside)
-        muffledButton.addTarget(self, action: #selector(onMuffledClick), for: .valueChanged)
-        pushStreamButton.addTarget(self, action: #selector(onPushStreamClick), for: .touchUpInside)
-        }
-}
-extension SetAudioEffectViewController{
-   
+        normalButton.addTarget(self,action: #selector(onNormalClick(sender:)), for: .touchUpInside)
+        ktvButton.addTarget(self,action: #selector(onKtvClick(sender:)), for: .touchUpInside)
+        smallRoomButton.addTarget(self,action: #selector(onSmallRoomClick(sender:)), for: .touchUpInside)
+        muffledButton.addTarget(self,action: #selector(onMuffledClick(sender:)), for: .touchUpInside)
+        pushStreamButton.addTarget(self,action: #selector(onPushStreamClick(sender:)), for: .touchUpInside)
+        greatHallButton.addTarget(self,action: #selector(onGreatHallClick(sender:)), for: .touchUpInside)
+    }
     
-    @objc private func onOriginVoiceClick(){
+    @objc private func onOriginVoiceClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceChangerType(._0)
-        
     }
-    @objc private func onChildVoiceClick(){
+    
+    @objc private func onChildVoiceClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceChangerType(._1)
-        
     }
-    @objc private func onLoliVoiceClick(){
+    
+    @objc private func onLoliVoiceClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceChangerType(._2)
-        
     }
-    @objc private func onMetalVoiceClick(){
+    
+    @objc private func onMetalVoiceClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceChangerType(._4)
-        
     }
-    @objc private func onUncleVoiceClick(){
+    
+    @objc private func onUncleVoiceClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceChangerType(._3)
-        
     }
-    @objc private func onNormalClick(){
+    
+    @objc private func onNormalClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceReverbType(._0)
-        
     }
-    @objc private func onKtvClick(){
+    
+    @objc private func onKtvClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceReverbType(._1)
-        
     }
-    @objc private func onSmallRoomClick(){
+    
+    @objc private func onSmallRoomClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceReverbType(._2)
-        
     }
-    @objc private func onGreatHallClick(){
+    
+    @objc private func onGreatHallClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceReverbType(._3)
-        
     }
-    @objc private func onMuffledClick(){
+    
+    @objc private func onMuffledClick(sender: UIButton) {
         trtcCloud.getAudioEffectManager().setVoiceReverbType(._4)
-        
     }
-    @objc private func onPushStreamClick(){
+    
+    @objc private func onPushStreamClick(sender: UIButton) {
         pushStreamButton.isSelected = !pushStreamButton.isSelected
-        if pushStreamButton.isSelected{
+        if pushStreamButton.isSelected {
             startPushStream()
         }else{
             stopPushStream()
         }
-        
     }
     
-    
-    
-    
-}
-
-extension SetAudioEffectViewController{
-    
-    func addKeyboardObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:
+         UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:
+         UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func removeKeyboardObserver(){
+    func removeKeyboardObserver() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func dealloc(){
-        removeKeyboardObserver()
-        trtcCloud.stopLocalAudio()
-        trtcCloud.stopLocalPreview()
-        trtcCloud.exitRoom()
-        TRTCCloud.destroySharedIntance()
-    }
     
-    @objc func keyboardWillShow(_ noti:NSNotification){
-        let animationDuration = noti.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
-        let keyboardBounds = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
-        UIView.animate(withDuration: animationDuration as! TimeInterval) { [self] in
-            self.textfieldBottomConstraint.constant = (keyboardBounds as! CGRect).size.height
+    @objc func keyboardWillShow(_ noti:NSNotification) {
+        if  let info:NSDictionary = noti.userInfo as? NSDictionary {
+            let keyValue = info.object(forKey: "UIKeyboardFrameEndUserInfoKey")
+            let keyRect = (keyValue as AnyObject).cgRectValue
+            if let height = keyRect?.size.height {
+                UIView.animate(withDuration: 1.0) {
+                    self.view.transform = CGAffineTransform.init(translationX: 0, y: 0 - height)
+                }
+            }
         }
     }
     
-    @objc func keyboardWillHide(_ noti:NSNotification){
-        let animationDuration = noti.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
-        
-        UIView.animate(withDuration:animationDuration as! TimeInterval) { [self] in
-            self.textfieldBottomConstraint.constant = 25
+    @objc func keyboardWillHide(_ noti:NSNotification) {
+        UIView.animate(withDuration: 1.0) {
+            self.view.transform =  .identity
         }
     }
     
-    func showRemoteUserViewWith(_ userId:String){
-        if remoteUserIdSet.count < maxRemoteUserNum{
+    
+    func showRemoteUserViewWith(_ userId:String) {
+        if remoteUserIdSet.count < maxRemoteUserNum {
             let count = remoteUserIdSet.count
             remoteUserIdSet.add(userId)
             let view = view.viewWithTag(count + 200)
-            let lable = view?.viewWithTag(count + 300) as! UILabel
+            if let lable = view?.viewWithTag(count + 300) as? UILabel {
+                lable.text = LocalizeReplace(Localize("TRTC-API-Example.SendAndReceiveSEI.UserIdxx"), userId)
+            }
             view?.alpha = 1
-            lable.text = LocalizeReplace("TRTC-API-Example.SendAndReceiveSEI.UserIdxx", userId)
             trtcCloud.startRemoteView(userId, streamType: .small, view: view)
             
         }
     }
     
-    func hiddenRemoteUserViewWith(_ userId:String){
+    func hiddenRemoteUserViewWith(_ userId:String) {
         let viewTag = remoteUserIdSet.index(of: userId)
         let view = view.viewWithTag(viewTag + 200)
-        let lable = view?.viewWithTag(viewTag + 300) as! UILabel
+        if let lable = view?.viewWithTag(viewTag + 300) as? UILabel {
+            lable.text = ""
+        }
         view?.alpha = 0
-        lable.text = ""
         trtcCloud.stopRemoteView(userId, streamType: .small)
         remoteUserIdSet.remove(userId)
     }
 }
 
-extension SetAudioEffectViewController:UITextFieldDelegate{
+extension SetAudioEffectViewController:UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        userIDTextField.resignFirstResponder()
-        roomIDTextField.resignFirstResponder()
+        view.endEditing(true)
     }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         userIDTextField.resignFirstResponder()
-        return roomIDTextField.resignFirstResponder()
+        roomIDTextField.resignFirstResponder()
+        return true
     }
 }
 
-extension SetAudioEffectViewController:TRTCCloudDelegate{
+extension SetAudioEffectViewController:TRTCCloudDelegate {
     func onRemoteUserEnterRoom(_ userId: String) {
         let index = remoteUserIdSet.index(of: userId)
-        if index == NSNotFound{
+        if index == NSNotFound {
             showRemoteUserViewWith(userId)
         }
     }
     
     func onConnectOtherRoom(_ userId: String, errCode: TXLiteAVError, errMsg: String?) {
         let index = remoteUserIdSet.index(of: userId)
-        if index != NSNotFound{
+        if index != NSNotFound {
             hiddenRemoteUserViewWith(userId)
         }
     }

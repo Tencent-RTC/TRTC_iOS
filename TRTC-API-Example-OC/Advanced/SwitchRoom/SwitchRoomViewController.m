@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -23,6 +24,7 @@
  */
 
 #import "SwitchRoomViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 @interface SwitchRoomViewController () <TRTCCloudDelegate>
 
@@ -63,14 +65,14 @@
 
 - (void)setupDefaultUIConfig {
     self.roomIdTextField.text = [NSString generateRandomRoomNumber];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
-    self.roomIdLabel.text = Localize(@"TRTC-API-Example.SwitchRoom.roomId");
-    self.toastLabel.text = Localize(@"TRTC-API-Example.SwitchRoom.inputRoomIDNumber");
-    [self.changeRoomButton setTitle:Localize(@"TRTC-API-Example.SwitchRoom.changeRoom") forState:UIControlStateNormal];
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
+    self.roomIdLabel.text = localize(@"TRTC-API-Example.SwitchRoom.roomId");
+    self.toastLabel.text = localize(@"TRTC-API-Example.SwitchRoom.inputRoomIDNumber");
+    [self.changeRoomButton setTitle:localize(@"TRTC-API-Example.SwitchRoom.changeRoom") forState:UIControlStateNormal];
     [self.changeRoomButton setBackgroundColor:[UIColor themeGrayColor]];
     [self.changeRoomButton setUserInteractionEnabled:false];
-    [self.pushStreamButton setTitle:Localize(@"TRTC-API-Example.SwitchRoom.startPush") forState:UIControlStateNormal];
-    [self.pushStreamButton setTitle:Localize(@"TRTC-API-Example.SwitchRoom.stopPush") forState:UIControlStateSelected];
+    [self.pushStreamButton setTitle:localize(@"TRTC-API-Example.SwitchRoom.startPush") forState:UIControlStateNormal];
+    [self.pushStreamButton setTitle:localize(@"TRTC-API-Example.SwitchRoom.stopPush") forState:UIControlStateSelected];
     [self.pushStreamButton setBackgroundColor:UIColor.themeGreenColor];
     
     self.changeRoomButton.titleLabel.adjustsFontSizeToFitWidth = true;
@@ -80,7 +82,7 @@
 
 #pragma mark - StartPushStream & StopPushStream
 - (void)startPushStream {
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
     [self.trtcCloud startLocalPreview:true view:self.view];
 
     TRTCParams *params = [[TRTCParams alloc] init];
@@ -101,38 +103,10 @@
 }
 
 - (void)stopPushStream {
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
     [self.trtcCloud stopLocalPreview];
     [self.trtcCloud stopLocalAudio];
     [self.trtcCloud exitRoom];
-}
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 25;
-     }];
-     return YES;
 }
 
 #pragma mark - IBActions
@@ -149,7 +123,7 @@
     }
     self.switchRoomConfig.roomId = [self.roomIdTextField.text intValue];
     [self.trtcCloud switchRoom:self.switchRoomConfig];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
 }
 
 - (IBAction)onPushStreamClick:(UIButton *)sender {

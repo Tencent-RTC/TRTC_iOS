@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/22.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -36,6 +37,7 @@
 #import "CustomFrameRender.h"
 #import "MediaFileSyncReader.h"
 #import "AudioQueuePlay.h"
+#import "UIViewController+KeyBoard.h"
 
 static const NSInteger maxRemoteUserNum = 6;
 
@@ -101,16 +103,16 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = [Localize(@"TRTC-API-Example.LocalVideoShare.Title")
+    self.title = [localize(@"TRTC-API-Example.LocalVideoShare.Title")
                   stringByAppendingString:_roomIdTextField.text];
 
-    _roomIdLable.text = Localize(@"TRTC-API-Example.LocalVideoShare.roomId");
-    _videoFileLable.text = Localize(@"TRTC-API-Example.LocalVideoShare.chooseLocalVideo");
-    [_startButton setTitle:Localize(@"TRTC-API-Example.LocalVideoShare.start")
+    _roomIdLable.text = localize(@"TRTC-API-Example.LocalVideoShare.roomId");
+    _videoFileLable.text = localize(@"TRTC-API-Example.LocalVideoShare.chooseLocalVideo");
+    [_startButton setTitle:localize(@"TRTC-API-Example.LocalVideoShare.start")
                   forState:UIControlStateNormal];
-    [_startButton setTitle:Localize(@"TRTC-API-Example.LocalVideoShare.stop")
+    [_startButton setTitle:localize(@"TRTC-API-Example.LocalVideoShare.stop")
                   forState:UIControlStateSelected];
-    [_chooseVideoButton setTitle:Localize(@"TRTC-API-Example.LocalVideoShare.choose")
+    [_chooseVideoButton setTitle:localize(@"TRTC-API-Example.LocalVideoShare.choose")
                         forState:UIControlStateNormal];
     
     _roomIdLable.adjustsFontSizeToFitWidth = true;
@@ -198,13 +200,13 @@ static const NSInteger maxRemoteUserNum = 6;
 
 - (IBAction)onStartClick:(UIButton*)sender {
     if (![self checkVideoURLIsValid]) {
-        [self showAlertViewController:Localize(@"TRTC-API-Example.LocalVideoShare.chooseLocalVideo")
+        [self showAlertViewController:localize(@"TRTC-API-Example.LocalVideoShare.chooseLocalVideo")
                               message:nil handler:nil];
         return;
     }
     sender.selected = !sender.selected;
     if ([sender isSelected]) {
-        self.title = [Localize(@"TRTC-API-Example.LocalVideoShare.Title")
+        self.title = [localize(@"TRTC-API-Example.LocalVideoShare.Title")
                       stringByAppendingString:_roomIdTextField.text];
         [self setupTRTCCloud];
         [self.chooseVideoButton setEnabled:false];
@@ -218,36 +220,6 @@ static const NSInteger maxRemoteUserNum = 6;
         [self destroyTRTCCloud];
     }
 }
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 20;
-     }];
-     return YES;
-}
-
-
 
 #pragma mark - TRTCCloud Delegate
 
@@ -337,7 +309,8 @@ static const NSInteger maxRemoteUserNum = 6;
 
 #pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
     
     NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:@"public.movie"]){

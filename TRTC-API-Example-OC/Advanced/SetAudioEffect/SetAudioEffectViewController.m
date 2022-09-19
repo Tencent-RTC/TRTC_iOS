@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/19.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -25,6 +26,7 @@
  */
 
 #import "SetAudioEffectViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 static const NSInteger RemoteUserMaxNum = 6;
 
@@ -95,26 +97,26 @@ static const NSInteger RemoteUserMaxNum = 6;
     
     self.roomIDTextField.text = [NSString generateRandomRoomNumber];
     self.userIDTextField.text = [NSString generateRandomUserId];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SetAudioEffect.Title"), self.roomIDTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SetAudioEffect.Title"), self.roomIDTextField.text);
     
-    self.roomIDLabel.text = Localize(@"TRTC-API-Example.SetAudioEffect.roomId");
-    self.userIDLabel.text = Localize(@"TRTC-API-Example.SetAudioEffect.userId");
-    self.voiceChangerLabel.text = Localize(@"TRTC-API-Example.SetAudioEffect.voiceChanger");
-    self.reverberationLabel.text = Localize(@"TRTC-API-Example.SetAudioEffect.reverberation");
+    self.roomIDLabel.text = localize(@"TRTC-API-Example.SetAudioEffect.roomId");
+    self.userIDLabel.text = localize(@"TRTC-API-Example.SetAudioEffect.userId");
+    self.voiceChangerLabel.text = localize(@"TRTC-API-Example.SetAudioEffect.voiceChanger");
+    self.reverberationLabel.text = localize(@"TRTC-API-Example.SetAudioEffect.reverberation");
     
-    [self.originVoiceButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.origin") forState:UIControlStateNormal];
-    [self.childVoiceButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.child") forState:UIControlStateNormal];
-    [self.loliVoiceButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.loli") forState:UIControlStateNormal];
-    [self.metalVoiceButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.metal") forState:UIControlStateNormal];
-    [self.uncleVoiceButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.uncle") forState:UIControlStateNormal];
-    [self.normalButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.normal") forState:UIControlStateNormal];
-    [self.ktvButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.ktv") forState:UIControlStateNormal];
-    [self.smallRoomButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.smallRoom") forState:UIControlStateNormal];
-    [self.greatHallButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.greatHall") forState:UIControlStateNormal];
-    [self.muffledButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.muffled") forState:UIControlStateNormal];
+    [self.originVoiceButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.origin") forState:UIControlStateNormal];
+    [self.childVoiceButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.child") forState:UIControlStateNormal];
+    [self.loliVoiceButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.loli") forState:UIControlStateNormal];
+    [self.metalVoiceButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.metal") forState:UIControlStateNormal];
+    [self.uncleVoiceButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.uncle") forState:UIControlStateNormal];
+    [self.normalButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.normal") forState:UIControlStateNormal];
+    [self.ktvButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.ktv") forState:UIControlStateNormal];
+    [self.smallRoomButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.smallRoom") forState:UIControlStateNormal];
+    [self.greatHallButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.greatHall") forState:UIControlStateNormal];
+    [self.muffledButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.muffled") forState:UIControlStateNormal];
     
-    [self.pushStreamButton setTitle:Localize(@"TRTC-API-Example.SetAudioEffect.startPush") forState:UIControlStateNormal];
-    [self.pushStreamButton setTitle:Localize(Localize(@"TRTC-API-Example.SetAudioEffect.stopPush")) forState:UIControlStateSelected];
+    [self.pushStreamButton setTitle:localize(@"TRTC-API-Example.SetAudioEffect.startPush") forState:UIControlStateNormal];
+    [self.pushStreamButton setTitle:localize(localize(@"TRTC-API-Example.SetAudioEffect.stopPush")) forState:UIControlStateSelected];
     
     self.originVoiceButton.titleLabel.adjustsFontSizeToFitWidth = true;
     self.childVoiceButton.titleLabel.adjustsFontSizeToFitWidth = true;
@@ -168,7 +170,7 @@ static const NSInteger RemoteUserMaxNum = 6;
         UIView *userView = [self.view viewWithTag:count + 200];
         UILabel *userIdLabel = [self.view viewWithTag:count + 300];
         userView.alpha = 1;
-        userIdLabel.text = LocalizeReplace(Localize(@"TRTC-API-Example.SendAndReceiveSEI.UserIdxx"), userId);
+        userIdLabel.text = localizeReplace(localize(@"TRTC-API-Example.SendAndReceiveSEI.UserIdxx"), userId);
         [self.trtcCloud startRemoteView:userId streamType:TRTCVideoStreamTypeSmall view:userView];
     }
 }
@@ -181,35 +183,6 @@ static const NSInteger RemoteUserMaxNum = 6;
     userIdLabel.text = @"";
     [self.trtcCloud stopRemoteView:userId streamType:TRTCVideoStreamTypeSmall];
     [self.remoteUserIdSet removeObject:userId];
-}
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.textfieldBottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.textfieldBottomConstraint.constant = 25;
-     }];
-     return YES;
 }
 
 #pragma mark - TRTCCloudDelegate
@@ -281,7 +254,7 @@ static const NSInteger RemoteUserMaxNum = 6;
 - (void)startPushStream {
     [self.trtcCloud startLocalPreview:true view:self.view];
 
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SetAudioEffect.Title"), self.roomIDTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SetAudioEffect.Title"), self.roomIDTextField.text);
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
     params.roomId = [self.roomIDTextField.text intValue];
