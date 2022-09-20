@@ -9,7 +9,64 @@
 import Foundation
 import UIKit
 
-class VideoCallingEnterViewController:UIViewController{
+/*
+ 实时视频通话功能
+ TRTC APP 实时视频通话功能
+ 本文件展示如何集成实时视频通话功能
+ 为之后的视频通话提供roomId和userId
+ 参考文档：https://cloud.tencent.com/document/product/647/42044
+ */
+
+/*
+ Real-Time Audio Call
+ TRTC Audio Call
+ This document shows how to integrate the real-time audio call feature.
+ 1. Provide roomid and userid for subsequent video calls
+ Documentation: https://cloud.tencent.com/document/product/647/42046
+ */
+class VideoCallingEnterViewController:UIViewController {
+    
+    let userIdTextField : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random() % (999999 - 100000 + 1) + 100000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let roomIdTextField : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = "1356732"
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let inputRoomLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .white
+        label.text = Localize("TRTC-API-Example.VideoCallingEnter.EnterRoomNumber")
+        return label
+    }()
+    
+    let inputUserLabel : UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .white
+        label.text = Localize("TRTC-API-Example.VideoCallingEnter.EnterUserName")
+        return label
+    }()
+    
+    let startButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setTitle(Localize("TRTC-API-Example.VideoCallingEnter.EnterRoom"), for: .normal)
+        button.backgroundColor = .green
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,54 +79,7 @@ class VideoCallingEnterViewController:UIViewController{
         view.endEditing(true)
     }
     
-    let userIdTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = "1356732"
-        filed.textColor = .white
-        filed.backgroundColor = .green
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let roomIdTextField : UITextField={
-        let filed = UITextField(frame: .zero)
-//        filed.keyboardType = .numberPad
-        filed.keyboardAppearance = .default
-        filed.text = "1356732"
-        filed.textColor = .white
-        filed.backgroundColor = .green
-        filed.returnKeyType = .done
-        return filed
-    }()
-    
-    let inputRoomLabel: UILabel={
-        let label = UILabel(frame: .zero)
-        label.textColor = .white
-        label.text = Localize("TRTC-API-Example.VideoCallingEnter.EnterRoomNumber")
-        return label
-    }()
-    
-    let inputUserLabel : UILabel={
-        let label = UILabel(frame: .zero)
-        label.textColor = .white
-        label.text = Localize("TRTC-API-Example.VideoCallingEnter.EnterUserName")
-        return label
-    }()
-    
-    let startButton: UIButton={
-        let button = UIButton(frame: .zero)
-        button.setTitle(Localize("TRTC-API-Example.VideoCallingEnter.EnterRoom"), for: .normal)
-        button.backgroundColor = .green
-        button.setTitleColor(.white, for: .normal)
-        return button
-    }()
-    
-    
-}
-
-extension VideoCallingEnterViewController {
-    private func setupDefaultUIConfig(){
+    private func setupDefaultUIConfig() {
         view.addSubview(userIdTextField)
         view.addSubview(roomIdTextField)
         view.addSubview(inputRoomLabel)
@@ -77,32 +87,32 @@ extension VideoCallingEnterViewController {
         view.addSubview(startButton)
     }
     
-    private func activateConstraints(){
+    private func activateConstraints() {
         inputUserLabel.snp.makeConstraints { make in
             make.width.equalTo(240)
             make.height.equalTo(29)
-            make.top.equalTo(84)
+            make.top.equalTo(100)
             make.left.equalTo(44)
         }
         
         userIdTextField.snp.makeConstraints { make in
             make.width.equalTo(300)
             make.height.equalTo(35)
-            make.top.equalTo(inputUserLabel.snp.bottom).offset(43)
+            make.top.equalTo(inputUserLabel.snp.bottom).offset(20)
             make.left.equalTo(inputUserLabel)
         }
         
         inputRoomLabel.snp.makeConstraints { make in
             make.width.equalTo(inputUserLabel.snp.width)
             make.height.equalTo(inputUserLabel.snp.height)
-            make.top.equalTo(userIdTextField.snp.bottom).offset(43)
+            make.top.equalTo(userIdTextField.snp.bottom).offset(20)
             make.left.equalTo(userIdTextField)
         }
         
         roomIdTextField.snp.makeConstraints { make in
             make.width.equalTo(300)
             make.height.equalTo(35)
-            make.top.equalTo(inputRoomLabel.snp.bottom).offset(43)
+            make.top.equalTo(inputRoomLabel.snp.bottom).offset(20)
             make.left.equalTo(inputRoomLabel)
         }
         
@@ -115,18 +125,20 @@ extension VideoCallingEnterViewController {
         
     }
     
-    private func bindInteraction(){
-            startButton.addTarget(self, action: #selector(clickMuteButton), for: .touchUpInside)
-        }
+    private func bindInteraction() {
+        startButton.addTarget(self,action: #selector(clickMuteButton(sender:)), for: .touchUpInside)
+    }
     
-    @objc private func clickMuteButton(){
-        let videoCallingVC = VideoCallingViewController().initWithRoomId(roomid:(roomIdTextField.text! as NSString ).integerValue, userid: userIdTextField.text ?? "")
+    @objc private func clickMuteButton(sender: UIButton) {
+        let videoCallingVC = VideoCallingViewController()
+        videoCallingVC.roomId = Int(roomIdTextField.text ?? "") ?? 0
+        videoCallingVC.userId = userIdTextField.text ?? ""
         self.navigationController?.pushViewController(videoCallingVC, animated: true)
     }
     
 }
 
-extension VideoCallingEnterViewController:UITextFieldDelegate{
+extension VideoCallingEnterViewController:UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
@@ -139,9 +151,9 @@ extension VideoCallingEnterViewController:UITextFieldDelegate{
         }
     }
     
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         roomIdTextField.resignFirstResponder()
-        return userIdTextField.resignFirstResponder()
+        userIdTextField.resignFirstResponder()
+        return true
     }
 }

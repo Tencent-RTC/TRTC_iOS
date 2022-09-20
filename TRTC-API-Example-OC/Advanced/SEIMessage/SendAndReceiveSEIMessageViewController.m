@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/21.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -25,8 +26,9 @@
  */
 
 #import "SendAndReceiveSEIMessageViewController.h"
+#import "UIViewController+KeyBoard.h"
 
-static NSString *SEIMessage = @"TRTC-API-Example.SendAndReceiveSEI.SEIMessage";
+static NSString *gSeiMessage = @"TRTC-API-Example.SendAndReceiveSEI.SEIMessage";
 static const NSInteger RemoteUserMaxNum = 6;
 
 @interface SendAndReceiveSEIMessageViewController () <TRTCCloudDelegate>
@@ -90,18 +92,18 @@ static const NSInteger RemoteUserMaxNum = 6;
     
     self.roomIdTextField.text = [NSString generateRandomRoomNumber];
     self.userIdTextField.text = [NSString generateRandomUserId];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SetAudioEffect.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SetAudioEffect.Title"), self.roomIdTextField.text);
     
-    self.roomIdLabel.text = Localize(@"TRTC-API-Example.SendAndReceiveSEI.roomId");
-    self.userIdLabel.text = Localize(@"TRTC-API-Example.SendAndReceiveSEI.userId");
-    self.seiMessageDescLabel.text = Localize(@"TRTC-API-Example.SendAndReceiveSEI.SEIMessageDesc");
-    self.seiMessageTextField.text = Localize(SEIMessage);
+    self.roomIdLabel.text = localize(@"TRTC-API-Example.SendAndReceiveSEI.roomId");
+    self.userIdLabel.text = localize(@"TRTC-API-Example.SendAndReceiveSEI.userId");
+    self.seiMessageDescLabel.text = localize(@"TRTC-API-Example.SendAndReceiveSEI.SEIMessageDesc");
+    self.seiMessageTextField.text = localize(gSeiMessage);
     [self.seiMessageTextField addTarget:self action:@selector(textFiledDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    [self.startPushStreamButton setTitle:Localize(@"TRTC-API-Example.SendAndReceiveSEI.startPush") forState:UIControlStateNormal];
-    [self.startPushStreamButton setTitle:Localize(@"TRTC-API-Example.SendAndReceiveSEI.stopPush") forState:UIControlStateSelected];
+    [self.startPushStreamButton setTitle:localize(@"TRTC-API-Example.SendAndReceiveSEI.startPush") forState:UIControlStateNormal];
+    [self.startPushStreamButton setTitle:localize(@"TRTC-API-Example.SendAndReceiveSEI.stopPush") forState:UIControlStateSelected];
     
-    [self.sendSEIMessageButton setTitle:Localize(Localize(@"TRTC-API-Example.SendAndReceiveSEI.SendSEIBtn")) forState:UIControlStateNormal];
+    [self.sendSEIMessageButton setTitle:localize(localize(@"TRTC-API-Example.SendAndReceiveSEI.SendSEIBtn")) forState:UIControlStateNormal];
     
     self.startPushStreamButton.titleLabel.adjustsFontSizeToFitWidth = true;
     self.sendSEIMessageButton.titleLabel.adjustsFontSizeToFitWidth = true;
@@ -150,7 +152,7 @@ static const NSInteger RemoteUserMaxNum = 6;
         UIView *userView = [self.view viewWithTag:count + 200];
         UILabel *userIdLabel = [self.view viewWithTag:count + 300];
         userView.alpha = 1;
-        userIdLabel.text = LocalizeReplace(Localize(@"TRTC-API-Example.SendAndReceiveSEI.UserIdxx"), userId);
+        userIdLabel.text = localizeReplace(localize(@"TRTC-API-Example.SendAndReceiveSEI.UserIdxx"), userId);
         [self.trtcCloud startRemoteView:userId streamType:TRTCVideoStreamTypeSmall view:userView];
     }
 }
@@ -165,40 +167,11 @@ static const NSInteger RemoteUserMaxNum = 6;
     [self.remoteUserIdSet removeObject:userId];
 }
 
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.textfieldBottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.textfieldBottomConstraint.constant = 25;
-     }];
-     return YES;
-}
-
 #pragma mark - IBActions
 - (IBAction)onSendSEIMessageClick:(UIButton *)sender {
-    NSData *SEIData = [self.seiMessageTextField.text  dataUsingEncoding:NSUTF8StringEncoding];
-    [self.trtcCloud sendSEIMsg:SEIData repeatCount:1];
-    self.seiMessageLabel.text = LocalizeReplace(Localize(@"TRTC-API-Example.SendAndReceiveSEI.SendSEIxx"), self.seiMessageTextField.text);
+    NSData *seiData = [self.seiMessageTextField.text  dataUsingEncoding:NSUTF8StringEncoding];
+    [self.trtcCloud sendSEIMsg:seiData repeatCount:1];
+    self.seiMessageLabel.text = localizeReplace(localize(@"TRTC-API-Example.SendAndReceiveSEI.SendSEIxx"), self.seiMessageTextField.text);
     [UIView animateWithDuration:1 animations:^{
         self.seiMessageView.alpha = 1;
     } completion:^(BOOL finished) {
@@ -233,9 +206,9 @@ static const NSInteger RemoteUserMaxNum = 6;
 }
 
 - (void)onRecvSEIMsg:(NSString *)userId message:(NSData *)message {
-    NSString *SEIMessage = [[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding];
-    if (SEIMessage) {
-        self.seiMessageLabel.text = LocalizeReplaceTwoCharacter(Localize(@"TRTC-API-Example.SendAndReceiveSEI.ReceiveSEIxxyy"), userId, SEIMessage);
+    NSString *seiMessage = [[NSString alloc] initWithData:message encoding:NSUTF8StringEncoding];
+    if (seiMessage) {
+        self.seiMessageLabel.text = localizeReplaceTwoCharacter(localize(@"TRTC-API-Example.SendAndReceiveSEI.ReceiveSEIxxyy"), userId, seiMessage);
         [UIView animateWithDuration:1 animations:^{
             self.seiMessageView.alpha = 1;
         } completion:^(BOOL finished) {
@@ -261,7 +234,7 @@ static const NSInteger RemoteUserMaxNum = 6;
 - (void)startPushStream {
     [self.trtcCloud startLocalPreview:true view:self.view];
 
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.SendAndReceiveSEI.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.SendAndReceiveSEI.Title"), self.roomIdTextField.text);
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
     params.roomId = [self.roomIdTextField.text intValue];

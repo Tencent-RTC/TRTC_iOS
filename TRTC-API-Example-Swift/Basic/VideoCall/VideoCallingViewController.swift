@@ -5,17 +5,21 @@
 //  Created by 唐佳宁 on 2022/6/23.
 //  Copyright © 2022 Tencent. All rights reserved.
 
-
+import Foundation
+import UIKit
+import TXLiteAVSDK_TRTC
+import SnapKit
 /*
  实时视频通话功能
  TRTC APP 实时视频通话功能
  本文件展示如何集成实时视频通话功能
- 1、切换摄像头 API:[[_trtcCloud getDeviceManager] switchCamera:_isFrontCamera];
- 2、打开关闭摄像头 API: [self.trtcCloud startLocalPreview:_isFrontCamera view:_localVideoView];
- [self.trtcCloud stopLocalPreview];
- 3、切换听筒与扬声器 API：[[_trtcCloud getDeviceManager] setAudioRoute:TXAudioRouteEarpiece];
- [[_trtcCloud getDeviceManager] setAudioRoute:TXAudioRouteSpeakerphone];
- 4、静音当前设备，其他人将无法听到该设备的声音 API: [_trtcCloud muteLocalAudio:true];
+ 1、切换摄像头 API:trtcCloud.getDeviceManager().switchCamera(isFrontCamera)
+ 2、打开关闭摄像头 API: trtcCloud.startLocalPreview(isFrontCamera, view: view)
+ self.trtcCloud.stopLocalPreview()
+ 3、切换听筒与扬声器 API：trtcCloud.getDeviceManager().setAudioRoute(.earpiece)
+ trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
+ 4、静音当前设备，其他人将无法听到该设备的声音 API:trtcCloud.muteLocalAudio(true)
+ 5、设置TRTC的关键代码：setupTRTCCloud()
  参考文档：https://cloud.tencent.com/document/product/647/42044
  */
 
@@ -23,21 +27,126 @@
  Real-Time Audio Call
  TRTC Audio Call
  This document shows how to integrate the real-time audio call feature.
- 1. Switch between the speaker and receiver: [[_trtcCloud getDeviceManager] setAudioRoute:TXAudioRouteSpeakerphone]
- 2. Mute the device so that others won’t hear the audio of the device: [_trtcCloud muteLocalAudio:true]
- 3. Display other network and volume information: delegate -> onNetworkQuality, onUserVoiceVolume
+ 1. Switch between the speaker and receiver: trtcCloud.getDeviceManager().switchCamera(isFrontCamera)
+ 2. Turn the camera on and off: trtcCloud.startLocalPreview(isFrontCamera, view: view)
+ self.trtcCloud.stopLocalPreview()
+ 3. Switch between handset and speaker API: trtcCloud.getDeviceManager().setAudioRoute(.earpiece)
+ trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
+ 4. Mute the current device so others will not be able to hear it API:trtcCloud.muteLocalAudio(true)
+ 5. Set the key code of TRTC : setupTRTCCloud()
  Documentation: https://cloud.tencent.com/document/product/647/42046
  */
-
-
-import Foundation
-import UIKit
-import TXLiteAVSDK_TRTC
-import SnapKit
-
 /// Demo中最大限制进房用户个数为6, 具体可根据需求来定最大进房人数。
 let maxRemoteUserNum : Int = 6
-class VideoCallingViewController:UIViewController{
+class VideoCallingViewController:UIViewController {
+    
+    private var isFrontCamera = false
+    private let trtcCloud: TRTCCloud = TRTCCloud.sharedInstance()
+    var roomId : Int = 0
+    var userId : String = ""
+    var remoteViewArr: [UIView] = []
+    
+    let videoOptionsLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.text = Localize("TRTC-API-Example.VideoCalling.videoOptions")
+        return lable
+    }()
+    
+    let switchCamButton : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.useBehindCam"), for: .normal)
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.useFrontCam"), for: .selected)
+        return button
+    }()
+    
+    let captureCamButton :UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.closeCam"), for: .selected)
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.openCam"), for: .normal)
+        return button
+    }()
+    
+    
+    let audioOptionsLabel:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.text = Localize("TRTC-API-Example.VideoCalling.audioOptions")
+        return lable
+    }()
+    
+    let muteButton :UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.mute"), for: .selected)
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.cancelMute"), for: .normal)
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        return button
+    }()
+    
+    let hansFreeButton :UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.speaker"), for: .selected)
+        button.setTitle(Localize("TRTC-API-Example.VideoCalling.speaker"), for: .normal)
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        return button
+    }()
+    
+    let remoteUidSet:NSMutableOrderedSet = {
+        let set = type(of: NSMutableOrderedSet()).init(capacity: maxRemoteUserNum)
+        return set
+    }()
+    
+    let leftRemoteViewA:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.isHidden = true
+        return view
+    }()
+    
+    let leftRemoteViewB:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.isHidden = true
+        return view
+    }()
+    
+    let leftRemoteViewC:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.isHidden = true
+        return view
+    }()
+    
+    let rightRemoteViewA:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.isHidden = true
+        return view
+    }()
+    
+    let rightRemoteViewB:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.isHidden = true
+        return view
+    }()
+    
+    let rightRemoteViewC:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .gray
+        view.isHidden = true
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +157,18 @@ class VideoCallingViewController:UIViewController{
         activateConstraints()
         bindInteraction()
         setupTRTCCloud()
+        remoteViewArr = [leftRemoteViewA,rightRemoteViewA,leftRemoteViewC,leftRemoteViewB,rightRemoteViewB,leftRemoteViewC]
         view .sendSubviewToBack(view)
     }
     
-    private func setupTRTCCloud(){
+    deinit {
+        trtcCloud.exitRoom()
+        TRTCCloud.destroySharedIntance()
+        trtcCloud.stopLocalPreview()
+        trtcCloud.stopLocalAudio()
+    }
+    
+    private func setupTRTCCloud() {
         remoteUidSet.removeAllObjects()
         trtcCloud.startLocalPreview(isFrontCamera, view: view)
         let params = TRTCParams()
@@ -70,101 +187,63 @@ class VideoCallingViewController:UIViewController{
         trtcCloud.startLocalAudio(.music)
     }
     
-    private var isFrontCamera = false
-    private var roomId : Int = 0
-    private var  userId : String = ""
-    private var trtcCloud: TRTCCloud = TRTCCloud.sharedInstance()
-    
-    let videoOptionsLabel:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.text = Localize("TRTC-API-Example.VideoCalling.videoOptions")
-        return lable
-    }()
-    
-    let switchCamButton : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.useBehindCam"), for: .normal)
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.useFrontCam"), for: .selected)
-        return button
-    }()
-    
-    let captureCamButton :UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.closeCam"), for: .selected)
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.openCam"), for: .normal)
-        return button
-    }()
-    
-    
-    let audioOptionsLabel:UILabel = {
-        let lable = UILabel(frame: .zero)
-        
-        lable.textColor = .white
-        
-        lable.text = Localize("TRTC-API-Example.VideoCalling.audioOptions")
-        
-        return lable
-    }()
-    
-    let muteButton :UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.mute"), for: .selected)
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.cancelMute"), for: .normal)
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        return button
-    }()
-    
-    let hansFreeButton :UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.speaker"), for: .selected)
-        button.setTitle(Localize("TRTC-API-Example.VideoCalling.speaker"), for: .normal)
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        return button
-    }()
-    
-    let remoteUidSet:NSMutableOrderedSet={
-        let set = type(of: NSMutableOrderedSet()).init(capacity: maxRemoteUserNum)
-        return set
-    }()
-    
-    let remoteViewArr:NSArray={
-        let array = NSArray()
-        return array
-    }()
-    
-    func initWithRoomId (roomid:Int ,userid:String) -> VideoCallingViewController{
-        roomId = roomid
-        userId = userid
-        return self
-    }
-    
-    
-}
-
-
-extension VideoCallingViewController{
-    
-    private func setupDefaultUIConfig(){
+    private func setupDefaultUIConfig() {
         view.addSubview(captureCamButton)
         view.addSubview(switchCamButton)
         view.addSubview(muteButton)
         view.addSubview(hansFreeButton)
         view.addSubview(videoOptionsLabel)
         view.addSubview(audioOptionsLabel)
+        view.addSubview(leftRemoteViewA)
+        view.addSubview(leftRemoteViewB)
+        view.addSubview(leftRemoteViewC)
+        view.addSubview(rightRemoteViewA)
+        view.addSubview(rightRemoteViewB)
+        view.addSubview(rightRemoteViewC)
     }
     
-    private func activateConstraints(){
+    private func activateConstraints() {
+        leftRemoteViewA.snp.makeConstraints { make in
+            make.width.equalTo((view.frame.width-56)/2)
+            make.height.equalTo(172)
+            make.left.equalTo(20)
+            make.top.equalTo(100)
+        }
+        rightRemoteViewA.snp.makeConstraints { make in
+            make.width.equalTo(leftRemoteViewA)
+            make.height.equalTo(leftRemoteViewA)
+            make.left.equalTo(leftRemoteViewA.snp.right).offset(50)
+            make.top.equalTo(leftRemoteViewA)
+        }
+        
+        leftRemoteViewB.snp.makeConstraints { make in
+            make.width.equalTo(leftRemoteViewA)
+            make.height.equalTo(leftRemoteViewA)
+            make.top.equalTo(leftRemoteViewA.snp.bottom).offset(5)
+            make.left.equalTo(leftRemoteViewA)
+        }
+        
+        rightRemoteViewB.snp.makeConstraints { make in
+            make.width.equalTo(leftRemoteViewB)
+            make.height.equalTo(leftRemoteViewB)
+            make.top.equalTo(leftRemoteViewB)
+            make.left.equalTo(leftRemoteViewB.snp.right).offset(50)
+        }
+        
+        
+        leftRemoteViewC.snp.makeConstraints { make in
+            make.width.equalTo(leftRemoteViewB)
+            make.height.equalTo(leftRemoteViewB)
+            make.top.equalTo(leftRemoteViewB.snp.bottom).offset(5)
+            make.left.equalTo(leftRemoteViewB)
+        }
+        rightRemoteViewC.snp.makeConstraints { make in
+            make.width.equalTo(leftRemoteViewC)
+            make.height.equalTo(leftRemoteViewC)
+            make.top.equalTo(leftRemoteViewC)
+            make.left.equalTo(leftRemoteViewC.snp.right).offset(50)
+        }
+        
         videoOptionsLabel.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.height.equalTo(35)
@@ -209,32 +288,22 @@ extension VideoCallingViewController{
         
     }
     
-    private func bindInteraction(){
-            switchCamButton.addTarget(self, action: #selector(clickSwitchCam), for: .touchUpInside)
-            captureCamButton.addTarget(self, action: #selector(clickCapTureCam), for: .touchUpInside)
-            muteButton.addTarget(self, action: #selector(clickMuteButton), for: .touchUpInside)
-            hansFreeButton.addTarget(self, action: #selector(clickHansFreeButton), for: .touchUpInside)
+    private func bindInteraction() {
+        switchCamButton.addTarget(self,action: #selector(clickSwitchCam(sender:)), for: .touchUpInside)
+        captureCamButton.addTarget(self,action: #selector(clickCapTureCam(sender:)), for: .touchUpInside)
+        muteButton.addTarget(self,action: #selector(clickMuteButton(sender:)), for: .touchUpInside)
+        hansFreeButton.addTarget(self,action: #selector(clickHansFreeButton(sender:)), for: .touchUpInside)
         }
     
-}
-
-extension VideoCallingViewController{
-    
-    @objc private func clickSwitchCam(){
+    @objc private func clickSwitchCam(sender: UIButton) {
         switchCamButton.isSelected = !switchCamButton.isSelected
         isFrontCamera = !isFrontCamera
         trtcCloud.getDeviceManager().switchCamera(isFrontCamera)
-        if switchCamButton.isSelected{
-            
-        }else{
-            trtcCloud.startLocalPreview(isFrontCamera, view: view)
-        }
-        
     }
     
-    @objc private func clickCapTureCam(){
+    @objc private func clickCapTureCam(sender: UIButton) {
         captureCamButton.isSelected = !captureCamButton.isSelected
-        if captureCamButton.isSelected{
+        if captureCamButton.isSelected {
             trtcCloud.stopLocalPreview()
         }else{
             trtcCloud.startLocalPreview(isFrontCamera, view: view)
@@ -242,9 +311,9 @@ extension VideoCallingViewController{
         
     }
     
-    @objc private func clickMuteButton(){
+    @objc private func clickMuteButton(sender: UIButton) {
         muteButton.isSelected = !muteButton.isSelected
-        if muteButton.isSelected{
+        if muteButton.isSelected {
             trtcCloud.muteLocalAudio(true)
         }else{
             trtcCloud.muteLocalAudio(false)
@@ -252,49 +321,46 @@ extension VideoCallingViewController{
         
     }
     
-    @objc private func clickHansFreeButton(){
+    @objc private func clickHansFreeButton(sender: UIButton) {
         hansFreeButton.isSelected = !hansFreeButton.isSelected
-        if hansFreeButton.isSelected{
+        if hansFreeButton.isSelected {
             trtcCloud.getDeviceManager().setAudioRoute(.earpiece)
-        }else{
+        }else {
             trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
         }
     }
-    
-    func dealloc(){
-        trtcCloud.exitRoom()
-        TRTCCloud.destroySharedIntance()
-    }
 }
 
-extension VideoCallingViewController:TRTCCloudDelegate{
+extension VideoCallingViewController:TRTCCloudDelegate {
     func onUserAudioAvailable(_ userId: String, available: Bool) {
         let index = remoteUidSet.index(of: userId)
-        if available{
+        if available {
             if index != NSNotFound{
                 return
             }
             remoteUidSet.add(userId)
         }
-        else{
+        else {
             trtcCloud.stopRemoteView(userId, streamType: .small)
             remoteUidSet.remove(userId)
         }
         refreshRemoteVideoViews()
-        
     }
     
-    func refreshRemoteVideoViews(){
+    func refreshRemoteVideoViews() {
         var index = 0
-        if remoteUidSet.count == 0{
+        if remoteUidSet.count == 0 {
             return
         }
-        for userId in remoteUidSet{
-            if index >= maxRemoteUserNum{
+        for userId in remoteUidSet {
+            if index >= maxRemoteUserNum {
                 return
             }
-            UIView(frame: remoteViewArr[index] as! CGRect).isHidden = false
-            trtcCloud.startRemoteView(userId as! String, streamType:.small, view:  UIView(coder: remoteViewArr[index] as! NSCoder))
+            remoteViewArr[index].isHidden = false
+            guard let userID = userId as? String else {
+                continue
+            }
+            trtcCloud.startRemoteView(userID, streamType:.small, view: remoteViewArr[index])
             index = index + 1
         }
     }

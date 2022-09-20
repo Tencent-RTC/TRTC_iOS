@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by dangjiahe on 2021/4/24.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import "AudioQueuePlay.h"
@@ -28,7 +29,9 @@
     self = [super init];
     if (self) {
         _running = false;
-        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error: nil];
+        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback
+                                         withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker
+                                               error: nil];
 
         if (_audioDescription.mSampleRate <= 0) {
             _audioDescription.mSampleRate = 48000;
@@ -41,7 +44,7 @@
             _audioDescription.mBytesPerPacket = _audioDescription.mBytesPerFrame * _audioDescription.mFramesPerPacket;
         }
         
-        AudioQueueNewOutput(&_audioDescription, AudioPlayerAQInputCallback, (__bridge void * _Nullable)(self), nil, nil, 0, &_audioQueue);
+        AudioQueueNewOutput(&_audioDescription, audioPlayerAQInputCallback, (__bridge void * _Nullable)(self), nil, nil, 0, &_audioQueue);
         AudioQueueSetParameter(_audioQueue, kAudioQueueParam_Volume, 1.0);
         
         for (int i = 0; i < QUEUE_BUFFER_SIZE; i++) {
@@ -117,7 +120,7 @@ BOOL audioQueueUsed[QUEUE_BUFFER_SIZE];
     AudioQueueEnqueueBuffer(_audioQueue, _audioQueueBuffers[i], 0, NULL);
 }
 
-static void AudioPlayerAQInputCallback(void* inUserData, AudioQueueRef audioQueueRef, AudioQueueBufferRef audioQueueBufferRef) {
+static void audioPlayerAQInputCallback(void* inUserData, AudioQueueRef audioQueueRef, AudioQueueBufferRef audioQueueBufferRef) {
     
     AudioQueuePlay* player = (__bridge AudioQueuePlay*)inUserData;
     

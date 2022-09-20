@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/14.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -92,16 +93,16 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = [Localize(@"TRTC-API-Example.AudioCalling.Title") stringByAppendingString:[@(_roomId) stringValue]];
-    [_hansFreeButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.speaker") forState:UIControlStateNormal];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.mute") forState:UIControlStateNormal];
-    [_hangUpButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.hangup") forState:UIControlStateNormal];
-    [_hansFreeButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.earPhone") forState:UIControlStateNormal];
-    [_hansFreeButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.speaker") forState:UIControlStateSelected];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.cancelMute") forState:UIControlStateSelected];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.AudioCalling.mute") forState:UIControlStateNormal];
+    self.title = [localize(@"TRTC-API-Example.AudioCalling.Title") stringByAppendingString:[@(_roomId) stringValue]];
+    [_hansFreeButton setTitle:localize(@"TRTC-API-Example.AudioCalling.speaker") forState:UIControlStateNormal];
+    [_muteButton setTitle:localize(@"TRTC-API-Example.AudioCalling.mute") forState:UIControlStateNormal];
+    [_hangUpButton setTitle:localize(@"TRTC-API-Example.AudioCalling.hangup") forState:UIControlStateNormal];
+    [_hansFreeButton setTitle:localize(@"TRTC-API-Example.AudioCalling.earPhone") forState:UIControlStateNormal];
+    [_hansFreeButton setTitle:localize(@"TRTC-API-Example.AudioCalling.speaker") forState:UIControlStateSelected];
+    [_muteButton setTitle:localize(@"TRTC-API-Example.AudioCalling.cancelMute") forState:UIControlStateSelected];
+    [_muteButton setTitle:localize(@"TRTC-API-Example.AudioCalling.mute") forState:UIControlStateNormal];
 
-    _dashBoardLabel.text = Localize(@"TRTC-API-Example.AudioCalling.dashBorad");
+    _dashBoardLabel.text = localize(@"TRTC-API-Example.AudioCalling.dashBorad");
     _hansFreeButton.titleLabel.adjustsFontSizeToFitWidth = true;
     _muteButton.titleLabel.adjustsFontSizeToFitWidth = true;
     _hangUpButton.titleLabel.adjustsFontSizeToFitWidth = true;
@@ -233,25 +234,25 @@ static const NSInteger maxRemoteUserNum = 6;
         NSString *quality;
         switch (_remoteInfoDictionary[userId].quality) {
             case TRTCQuality_Excellent:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.best");
+                quality = localize(@"TRTC-API-Example.AudioCalling.best");
                 break;
             case TRTCQuality_Good:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.good");
+                quality = localize(@"TRTC-API-Example.AudioCalling.good");
                 break;
             case TRTCQuality_Poor:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.normal");
+                quality = localize(@"TRTC-API-Example.AudioCalling.normal");
                 break;
             case TRTCQuality_Bad:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.wrong");
+                quality = localize(@"TRTC-API-Example.AudioCalling.wrong");
                 break;
             case TRTCQuality_Vbad:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.bad");
+                quality = localize(@"TRTC-API-Example.AudioCalling.bad");
                 break;
             case TRTCQuality_Down:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.noUse");
+                quality = localize(@"TRTC-API-Example.AudioCalling.noUse");
                 break;
             default:
-                quality = Localize(@"TRTC-API-Example.AudioCalling.unknow");
+                quality = localize(@"TRTC-API-Example.AudioCalling.unknow");
                 break;
         }
         cell.textLabel.text = [[userId stringByAppendingString:@": "] stringByAppendingString:quality];
@@ -261,9 +262,9 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return Localize(@"TRTC-API-Example.AudioCalling.volumInfo");
+        return localize(@"TRTC-API-Example.AudioCalling.volumInfo");
     } else {
-        return Localize(@"TRTC-API-Example.AudioCalling.network");
+        return localize(@"TRTC-API-Example.AudioCalling.network");
     }
 }
 

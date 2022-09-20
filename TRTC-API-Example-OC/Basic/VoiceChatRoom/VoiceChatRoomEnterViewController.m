@@ -3,6 +3,7 @@
 //  TRTCSimpleDemo-OC
 //
 //  Created by adams on 2021/4/14.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import "VoiceChatRoomEnterViewController.h"
@@ -32,18 +33,18 @@ typedef NS_ENUM(NSUInteger, UserType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = Localize(@"TRTC-API-Example.VoiceChatRoom.Title");
+    self.title = localize(@"TRTC-API-Example.VoiceChatRoom.Title");
     [self setupDefaultUIConfig];
 }
 
 - (void)setupDefaultUIConfig {
-    self.enterRoomLabel.text = Localize(@"TRTC-API-Example.VoiceChatRoom.EnterRoomNumber");
-    self.enterUserNameLabel.text = Localize(@"TRTC-API-Example.VoiceChatRoom.EnterUserName");
-    self.userIdentifyLabel.text = Localize(@"TRTC-API-Example.VoiceChatRoom.ChooseUserIdentify");
-    [self.anchorButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoom.Anchor") forState:UIControlStateNormal];
-    [self.audienceButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoom.Audience") forState:UIControlStateNormal];
-    [self.audienceButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoom.Audience") forState:UIControlStateNormal];
-    [self.enterRoomButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoom.EnterRoom") forState:UIControlStateNormal];
+    self.enterRoomLabel.text = localize(@"TRTC-API-Example.VoiceChatRoom.EnterRoomNumber");
+    self.enterUserNameLabel.text = localize(@"TRTC-API-Example.VoiceChatRoom.EnterUserName");
+    self.userIdentifyLabel.text = localize(@"TRTC-API-Example.VoiceChatRoom.ChooseUserIdentify");
+    [self.anchorButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoom.Anchor") forState:UIControlStateNormal];
+    [self.audienceButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoom.Audience") forState:UIControlStateNormal];
+    [self.audienceButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoom.Audience") forState:UIControlStateNormal];
+    [self.enterRoomButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoom.EnterRoom") forState:UIControlStateNormal];
     
     self.enterRoomTextField.text = @"1256732";
     self.enterUserNameTextField.text = @"324532";
@@ -79,7 +80,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
 
 - (IBAction)onEnterRoomClick:(id)sender {
     if (self.enterRoomTextField.text.length == 0 || self.enterUserNameTextField.text == 0) {
-        [self showAlertViewController:Localize(@"TRTC-API-Example.AlertViewController.ponit") message:Localize(@"TRTC-API-Example.VoiceChatRoom.tips") handler:nil];
+        [self showAlertViewController:localize(@"TRTC-API-Example.AlertViewController.ponit") message:localize(@"TRTC-API-Example.VoiceChatRoom.tips") handler:nil];
         return;
     }
     UInt32 roomId = [self.enterRoomTextField.text intValue];
@@ -89,7 +90,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
         {
             VoiceChatRoomAnchorViewController *anchorVC =
             [[VoiceChatRoomAnchorViewController alloc] initWithRoomId:roomId userId:userId];
-            anchorVC.title = LocalizeReplace(Localize(@"TRTC-API-Example.VoiceChatRoomAnchor.Title"), self.enterRoomTextField.text);
+            anchorVC.title = localizeReplace(localize(@"TRTC-API-Example.VoiceChatRoomAnchor.Title"), self.enterRoomTextField.text);
             [self.navigationController pushViewController:anchorVC animated:YES];
         }
             break;
@@ -97,7 +98,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
         {
             VoiceChatRoomAudienceViewController *audienceVC =
             [[VoiceChatRoomAudienceViewController alloc] initWithRoomId:roomId userId:userId];
-            audienceVC.title = LocalizeReplace(Localize(@"TRTC-API-Example.VoiceChatRoomAudience.Title"), self.enterRoomTextField.text);
+            audienceVC.title = localizeReplace(localize(@"TRTC-API-Example.VoiceChatRoomAudience.Title"), self.enterRoomTextField.text);
             [self.navigationController pushViewController:audienceVC animated:YES];
         }
             break;

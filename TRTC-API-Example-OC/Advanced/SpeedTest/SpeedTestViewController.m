@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -54,10 +55,10 @@
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.SpeedTest.title");
-    _userIdLabel.text = Localize(@"TRTC-API-Example.SpeedTest.userId");
-    _speedTestLabel.text = Localize(@"TRTC-API-Example.SpeedTest.speedTestResult");
-    [_startButton setTitle:Localize(@"TRTC-API-Example.SpeedTest.beginTest")
+    self.title = localize(@"TRTC-API-Example.SpeedTest.title");
+    _userIdLabel.text = localize(@"TRTC-API-Example.SpeedTest.userId");
+    _speedTestLabel.text = localize(@"TRTC-API-Example.SpeedTest.speedTestResult");
+    [_startButton setTitle:localize(@"TRTC-API-Example.SpeedTest.beginTest")
                   forState:UIControlStateNormal];
     _userIdLabel.adjustsFontSizeToFitWidth = true;
     _speedTestLabel.adjustsFontSizeToFitWidth = true;
@@ -88,7 +89,7 @@
         
         if (completedCount == totalCount) {
             self.isSpeedTesting = false;
-            [self.startButton setTitle:Localize(@"TRTC-API-Example.SpeedTest.completedTest")
+            [self.startButton setTitle:localize(@"TRTC-API-Example.SpeedTest.completedTest")
                               forState:UIControlStateNormal];
             return;
         }
@@ -105,7 +106,7 @@
     }
     
     if ([_startButton isSelected]) {
-        [_startButton setTitle:Localize(@"TRTC-API-Example.SpeedTest.beginTest")
+        [_startButton setTitle:localize(@"TRTC-API-Example.SpeedTest.beginTest")
                       forState:UIControlStateNormal];
         _speedResultTextView.text = @"";
     } else {

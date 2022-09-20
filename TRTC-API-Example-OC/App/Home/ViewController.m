@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by dangjiahe on 2021/4/10.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -40,116 +41,121 @@
 - (NSArray *)homeData {
     if (!_homeData) {
         _homeData = @[
-            @{@"type":Localize(@"TRTC-API-Example.Home.BasicFunctions"),
+            @{@"type":localize(@"TRTC-API-Example.Home.BasicFunctions"),
               @"module":@[
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.VoiceCalls"),
-                          @"desc": Localize(@"TRTC-API-Example.Home.VoiceCallsDesc"),
+                          @"title": localize(@"TRTC-API-Example.Home.VoiceCalls"),
+                          @"desc": localize(@"TRTC-API-Example.Home.VoiceCallsDesc"),
                           @"class": @"AudioCallingEnterViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.VideoCalls"),
-                          @"desc": Localize(@"TRTC-API-Example.Home.VideoCallsDesc"),
+                          @"title": localize(@"TRTC-API-Example.Home.VideoCalls"),
+                          @"desc": localize(@"TRTC-API-Example.Home.VideoCallsDesc"),
                           @"class": @"VideoCallingEnterViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.VideoLive"),
+                          @"title": localize(@"TRTC-API-Example.Home.VideoLive"),
                           @"desc": @"",
                           @"class": @"LiveEnterViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.TalkingRoom"),
+                          @"title": localize(@"TRTC-API-Example.Home.TalkingRoom"),
                           @"desc": @"",
                           @"class": @"VoiceChatRoomEnterViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.LiveScreen"),
-                          @"desc": Localize(@"TRTC-API-Example.Home.LiveScreenDesc"),
+                          @"title": localize(@"TRTC-API-Example.Home.LiveScreen"),
+                          @"desc": localize(@"TRTC-API-Example.Home.LiveScreenDesc"),
                           @"class": @"ScreenEntranceViewController"
                       }
               ]},
-            @{@"type":Localize(@"TRTC-API-Example.Home.AdvancedFeatures"),
+            @{@"type":localize(@"TRTC-API-Example.Home.AdvancedFeatures"),
               @"module":@[
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.StringRoomId"),
+                          @"title": localize(@"TRTC-API-Example.Home.StringRoomId"),
                           @"desc": @"",
                           @"class": @"StringRoomIdViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.VideoQuality"),
+                          @"title": localize(@"TRTC-API-Example.Home.VideoQuality"),
                           @"desc": @"",
                           @"class": @"SetVideoQualityViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.SoundQuality"),
+                          @"title": localize(@"TRTC-API-Example.Home.SoundQuality"),
                           @"desc": @"",
                           @"class": @"SetAudioQualityViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.RenderParams"),
+                          @"title": localize(@"TRTC-API-Example.Home.RenderParams"),
                           @"desc": @"",
                           @"class": @"SetRenderParamsViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.SpeedTest"),
+                          @"title": localize(@"TRTC-API-Example.Home.SpeedTest"),
                           @"desc": @"",
                           @"class": @"SpeedTestViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.PushCDN"),
+                          @"title": localize(@"TRTC-API-Example.Home.PushCDN"),
                           @"desc": @"",
                           @"class": @"PushCDNSelectRoleViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.CustomCamera"),
+                          @"title": localize(@"TRTC-API-Example.Home.CustomCamera"),
                           @"desc": @"",
                           @"class": @"CustomCaptureViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.SoundEffects"),
+                          @"title": localize(@"TRTC-API-Example.Home.SoundEffects"),
                           @"desc": @"",
                           @"class": @"SetAudioEffectViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.SetBGM"),
+                          @"title": localize(@"TRTC-API-Example.Home.SetBGM"),
                           @"desc": @"",
                           @"class": @"SetBGMViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.LocalVideoShare"),
+                          @"title": localize(@"TRTC-API-Example.Home.LocalVideoShare"),
                           @"desc": @"",
                           @"class": @"LocalVideoShareViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.LocalRecord"),
+                          @"title": localize(@"TRTC-API-Example.Home.LocalRecord"),
                           @"desc": @"",
                           @"class": @"LocalRecordViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.JoinMultipleRoom"),
+                          @"title": localize(@"TRTC-API-Example.Home.JoinMultipleRoom"),
                           @"desc": @"",
                           @"class": @"JoinMultipleRoomViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.SendReceiveSEIMessage"),
+                          @"title": localize(@"TRTC-API-Example.Home.SendReceiveSEIMessage"),
                           @"desc": @"",
                           @"class": @"SendAndReceiveSEIMessageViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.QuicklySwitchRooms"),
+                          @"title": localize(@"TRTC-API-Example.Home.QuicklySwitchRooms"),
                           @"desc": @"",
                           @"class": @"SwitchRoomViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.RoomPK"),
+                          @"title": localize(@"TRTC-API-Example.Home.RoomPK"),
                           @"desc": @"",
                           @"class": @"RoomPkViewController"
                       },
                       @{
-                          @"title": Localize(@"TRTC-API-Example.Home.ThirdBeauty"),
+                          @"title": localize(@"TRTC-API-Example.Home.ThirdBeauty"),
                           @"desc": @"",
                           @"class": @"ThirdBeautyEntranceViewController"
-                      }
+                      },
+                      @{
+                          @"title": localize(@"TRTC-API-Example.Home.PictureInPicture"),
+                          @"desc": @"",
+                          @"class": @"PictureInPictureViewController"
+                      },
               ]}];
     }
     return _homeData;
@@ -163,7 +169,7 @@
 }
 
 - (void)setupNaviBarStatus {
-    self.navigationItem.title = Localize(@"TRTC-API-Example.Home.Title");
+    self.navigationItem.title = localize(@"TRTC-API-Example.Home.Title");
     [self.navigationController setNavigationBarHidden:false animated:false];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
@@ -172,7 +178,7 @@
 }
 
 - (void)setupTableView {
-    [self.homeTableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier: HomeTableViewCellReuseIdentify];
+    [self.homeTableView registerNib:[UINib nibWithNibName:@"HomeTableViewCell" bundle:nil] forCellReuseIdentifier: gHomeTableViewCellReuseIdentify];
     self.homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
@@ -205,7 +211,7 @@
 
 #pragma mark - UITableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HomeTableViewCellReuseIdentify forIndexPath:indexPath];
+    HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:gHomeTableViewCellReuseIdentify forIndexPath:indexPath];
     NSDictionary *homeDic = self.homeData[indexPath.section];
     NSArray *homeArray = [homeDic objectForKey:@"module"];
     [cell setHomeDictionary:homeArray[indexPath.row]];

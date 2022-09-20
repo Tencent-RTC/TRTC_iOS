@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/21.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -26,6 +27,7 @@
 
 #import "LocalRecordViewController.h"
 #import <PhotosUI/PhotosUI.h>
+#import "UIViewController+KeyBoard.h"
 
 @interface LocalRecordViewController () <TRTCCloudDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *recordLabel;
@@ -68,48 +70,19 @@
 
 - (void)setupDefaultUIConfig {
     [self.recordLabel setHidden: true];
-    self.recordAddressLabel.text = Localize(@"TRTC-API-Example.LocalRecord.recordFileAddress");
-    self.roomIdLabel.text = Localize(@"TRTC-API-Example.LocalRecord.roomId");
-    [self.recordButton setTitle:Localize(@"TRTC-API-Example.LocalRecord.startRecord") forState:UIControlStateNormal];
-    [self.recordButton setTitle:Localize(@"TRTC-API-Example.LocalRecord.stopRecord") forState:UIControlStateSelected];
+    self.recordAddressLabel.text = localize(@"TRTC-API-Example.LocalRecord.recordFileAddress");
+    self.roomIdLabel.text = localize(@"TRTC-API-Example.LocalRecord.roomId");
+    [self.recordButton setTitle:localize(@"TRTC-API-Example.LocalRecord.startRecord") forState:UIControlStateNormal];
+    [self.recordButton setTitle:localize(@"TRTC-API-Example.LocalRecord.stopRecord") forState:UIControlStateSelected];
     [self.recordButton setBackgroundColor:UIColor.themeGrayColor];
     [self.recordButton setUserInteractionEnabled:false];
     
-    [self.pushStreamButton setTitle:Localize(@"TRTC-API-Example.LocalRecord.startPush") forState:UIControlStateNormal];
-    [self.pushStreamButton setTitle:Localize(@"TRTC-API-Example.LocalRecord.stopPush") forState:UIControlStateSelected];
+    [self.pushStreamButton setTitle:localize(@"TRTC-API-Example.LocalRecord.startPush") forState:UIControlStateNormal];
+    [self.pushStreamButton setTitle:localize(@"TRTC-API-Example.LocalRecord.stopPush") forState:UIControlStateSelected];
     self.roomIdTextField.text = [NSString generateRandomRoomNumber];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.LocalRecord.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.LocalRecord.Title"), self.roomIdTextField.text);
     self.isStartPushStream = false;
     self.isRecording = false;
-}
-
-#pragma mark - Notification
-
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 25;
-     }];
-     return YES;
 }
 
 #pragma mark - IBActions
@@ -144,7 +117,7 @@
 #pragma mark - StartPushStream & StopPushStream
 - (void)startPushStream {
     UInt32 roomId = [self.roomIdTextField.text intValue];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.LocalRecord.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.LocalRecord.Title"), self.roomIdTextField.text);
    
     [self.trtcCloud startLocalPreview:true view:self.view];
 
@@ -213,7 +186,7 @@
         min %= min;
     }
     [self.recordLabel setHidden: false];
-    self.recordLabel.text = LocalizeReplace(Localize(@"TRTC-API-Example.LocalRecord.recordingxx"), [NSString stringWithFormat:@"%.2ld:%.2ld:%.2ld",hor,min,sec]);
+    self.recordLabel.text = localizeReplace(localize(@"TRTC-API-Example.LocalRecord.recordingxx"), [NSString stringWithFormat:@"%.2ld:%.2ld:%.2ld",hor,min,sec]);
 }
 
 - (void)onLocalRecordComplete:(NSInteger)errCode storagePath:(NSString *)storagePath {
@@ -232,7 +205,7 @@
         } completionHandler:^(BOOL success, NSError * _Nullable error) {
             if (success) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [strongSelf showAlertViewController:Localize(@"TRTC-API-Example.LocalRecord.recordSuccess") message:Localize(@"TRTC-API-Example.LocalRecord.recordSuccessPath") handler:nil];
+                    [strongSelf showAlertViewController:localize(@"TRTC-API-Example.LocalRecord.recordSuccess") message:localize(@"TRTC-API-Example.LocalRecord.recordSuccessPath") handler:nil];
                 });
             }
         }];
