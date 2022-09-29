@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/14.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -65,9 +66,9 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.audienceLabel.text = Localize(@"TRTC-API-Example.LiveAudience.Operating");
-    [self.muteButton setTitle:Localize(@"TRTC-API-Example.LiveAudience.mute") forState:UIControlStateNormal];
-    [self.muteButton setTitle:Localize(@"TRTC-API-Example.LiveAudience.muteoff") forState:UIControlStateSelected];
+    self.audienceLabel.text = localize(@"TRTC-API-Example.LiveAudience.Operating");
+    [self.muteButton setTitle:localize(@"TRTC-API-Example.LiveAudience.mute") forState:UIControlStateNormal];
+    [self.muteButton setTitle:localize(@"TRTC-API-Example.LiveAudience.muteoff") forState:UIControlStateSelected];
     self.audienceLabel.adjustsFontSizeToFitWidth = true;
     self.muteButton.titleLabel.adjustsFontSizeToFitWidth = true;
 }

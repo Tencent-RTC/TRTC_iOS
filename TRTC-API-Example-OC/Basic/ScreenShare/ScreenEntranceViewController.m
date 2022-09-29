@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/15.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import "ScreenEntranceViewController.h"
@@ -35,13 +36,13 @@
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.ScreenEntrance.Title");
-    _inputRoomLabel.text = Localize(@"TRTC-API-Example.ScreenEntrance.EnterRoomNumber");
-    _inputUserLabel.text = Localize(@"TRTC-API-Example.ScreenEntrance.EnterUserName");
-    _roleLabel.text = Localize(@"TRTC-API-Example.ScreenEntrance.EnterRole");
-    [_anchorButton setTitle:Localize(@"TRTC-API-Example.ScreenEntrance.Anchor") forState:UIControlStateNormal];
-    [_audienceButton setTitle:Localize(@"TRTC-API-Example.ScreenEntrance.Audience") forState:UIControlStateNormal];
-    [_enterRoomButton setTitle:Localize(@"TRTC-API-Example.ScreenEntrance.EnterRoom") forState:UIControlStateNormal];
+    self.title = localize(@"TRTC-API-Example.ScreenEntrance.Title");
+    _inputRoomLabel.text = localize(@"TRTC-API-Example.ScreenEntrance.EnterRoomNumber");
+    _inputUserLabel.text = localize(@"TRTC-API-Example.ScreenEntrance.EnterUserName");
+    _roleLabel.text = localize(@"TRTC-API-Example.ScreenEntrance.EnterRole");
+    [_anchorButton setTitle:localize(@"TRTC-API-Example.ScreenEntrance.Anchor") forState:UIControlStateNormal];
+    [_audienceButton setTitle:localize(@"TRTC-API-Example.ScreenEntrance.Audience") forState:UIControlStateNormal];
+    [_enterRoomButton setTitle:localize(@"TRTC-API-Example.ScreenEntrance.EnterRoom") forState:UIControlStateNormal];
     _inputRoomLabel.adjustsFontSizeToFitWidth = true;
     _inputUserLabel.adjustsFontSizeToFitWidth = true;
     _roleLabel.adjustsFontSizeToFitWidth = true;
@@ -76,7 +77,7 @@
             anchroVC.userId = _userIdTextField.text;
             [self.navigationController pushViewController:anchroVC  animated:YES];
         } else {
-            [self showAlertViewController:Localize(@"TRTC-API-Example.ScreenEntrance.versionTips") message:nil handler:nil];
+            [self showAlertViewController:localize(@"TRTC-API-Example.ScreenEntrance.versionTips") message:nil handler:nil];
         }
     } else {
         ScreenAudienceViewController *audienceVC = [[ScreenAudienceViewController alloc] initWithNibName:@"ScreenAudienceViewController" bundle:nil];

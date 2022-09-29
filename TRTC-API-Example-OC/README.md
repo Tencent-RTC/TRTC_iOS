@@ -30,6 +30,7 @@ _中文 | [English](README.en.md)_
   - [快速切换房间](./Advanced/SwitchRoom)
   - [跨房PK](./Advanced/RoomPk)
   - [第三方美颜](./Advanced/ThirdBeauty)
+  - [画中画功能](./Advanced/PictureInPicture)
   
 
 ## 环境准备

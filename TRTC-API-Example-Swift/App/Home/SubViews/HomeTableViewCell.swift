@@ -9,14 +9,15 @@
 import UIKit
 import SnapKit
 
-
 class HomeTableViewCell: UITableViewCell {
-    lazy var containerView: UIView = {
+    
+    let containerView: UIView = {
         let view = UIView(frame: .zero)
-        view.backgroundColor = .green
+        view.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
         return view
     }()
-    lazy var titleLabel: UILabel = {
+    
+    let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.textColor = .white
         label.backgroundColor = .clear
@@ -34,6 +35,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     private var isViewReady = false
+    
     override func didMoveToWindow() {
         super.didMoveToWindow()
         guard !isViewReady else {
@@ -50,6 +52,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     private func activateConstraints() {
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.top.equalTo(10)
             make.trailing.bottom.equalTo(-10)

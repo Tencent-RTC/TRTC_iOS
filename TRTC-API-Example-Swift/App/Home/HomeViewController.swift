@@ -8,85 +8,45 @@
 import UIKit
 import SnapKit
 
-enum TRTCAPIItem: String {
-    case voiceCall = "语音通话"
-    case videoCall = "视频通话"
-    case liveVideo = "视频互动直播"
-    case liveAudio = "语音互动直播"
-    case screenRecording = "录屏直播"
-    case stringRoomId = "字符串房间号"
-    case videoQuality = "画质设定"
-    case soundQuality = "音质设定"
-    case renderParams = "渲染控制"
-    case speedTest = "网络测速"
-    case pushCDN = "CDN发布"
-    case customCamera = "自定义视频采集&渲染"
-    case soundEffects = "设置音效"
-    case setBGM = "设置背景音乐"
-    case localVideoShare = "本地视频分享"
-    case localRecord = "本地媒体录制"
-    case joinMultipleRoom = "加入多个房间"
-    case sendReceiveSEIMessage = "收发SEI消息"
-    case quicklySwitchRooms = "快速切换房间"
-    case roomPK = "跨房PK"
-    case thirdBeauty = "第三方美颜"
-    
-}
-
-enum SectionTitle: String{
-    case section1 = "基础功能"
-    case section2 = "进阶功能"
-}
-
 class HomeViewController: UIViewController {
 
     let CellReuseId: String = "Cell_ID"
     let CellHeaderId: String = "Header_ID"
     
-    lazy var basicDataSource: [TRTCAPIItem] = {
-        return [.voiceCall, .videoCall, .liveVideo, .liveAudio,.screenRecording]
-    }()
-    
-    lazy var advancedDataSource: [TRTCAPIItem] = {
-//        return [.stringRoomId,
-//                .videoQuality,
-//                .soundQuality,
-//                .renderParams,
-//                .speedTest,
-//                .pushCDN,
-//                .customCamera,
-//                .soundEffects,
-//                .setBGM,
-//                .localVideoShare,
-//                .localRecord,
-//                .joinMultipleRoom,
-//                .sendReceiveSEIMessage,
-//                .quicklySwitchRooms,
-//                .roomPK,
-//                .thirdBeauty]
-//    }()
-        
+    let basicDataSource: [String] = {
         return [
-                .setBGM,
-                .localRecord,
-                .roomPK,
-                .speedTest,
-                .stringRoomId,
-                .quicklySwitchRooms,
-                .renderParams,
-                .soundQuality,
-                .customCamera,
-                .soundEffects,
-                .joinMultipleRoom,
-                .sendReceiveSEIMessage,
-        ]
+            Localize("TRTC-API-Example.Home.VoiceCalls"),
+            Localize("TRTC-API-Example.Home.VideoCalls"),
+            Localize("TRTC-API-Example.Home.VideoLive"),
+            Localize("TRTC-API-Example.Home.TalkingRoom"),
+            Localize("TRTC-API-Example.Home.LiveScreen"),]
     }()
     
-    lazy var sectionTitle: [SectionTitle] = {
-        return [.section1, .section2]
+    let advancedDataSource: [String] = {
+        return [
+            Localize("TRTC-API-Example.Home.StringRoomId"),
+            Localize("TRTC-API-Example.Home.VideoQuality"),
+            Localize("TRTC-API-Example.Home.SoundQuality"),
+            Localize("TRTC-API-Example.Home.RenderParams"),
+            Localize("TRTC-API-Example.Home.SpeedTest"),
+            Localize("TRTC-API-Example.Home.PushCDN"),
+            Localize("TRTC-API-Example.Home.CustomCamera"),
+            Localize("TRTC-API-Example.Home.SoundEffects"),
+            Localize("TRTC-API-Example.Home.SetBGM"),
+            Localize("TRTC-API-Example.Home.LocalRecord"),
+            Localize("TRTC-API-Example.Home.JoinMultipleRoom"),
+            Localize("TRTC-API-Example.Home.SendReceiveSEIMessage"),
+            Localize("TRTC-API-Example.Home.QuicklySwitchRooms"),
+            Localize("TRTC-API-Example.Home.RoomPK"),
+            Localize("TRTC-API-Example.Home.PictureInPicture"),]
+    }()
+    
+    let sectionTitle: [String] = {
+        return [
+            Localize("TRTC-API-Example.Home.BasicFunctions"),
+            Localize("TRTC-API-Example.Home.AdvancedFeatures"),]
     }()
 
-    
     lazy var tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.backgroundColor = .black
@@ -147,16 +107,15 @@ extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseId, for: indexPath) as! HomeTableViewCell
-        if indexPath.section == 0{
-            cell.titleLabel.text = basicDataSource[indexPath.row].rawValue
+        if indexPath.section == 0 {
+            cell.titleLabel.text = basicDataSource[indexPath.row]
         }
-        else{
-            cell.titleLabel.text = advancedDataSource[indexPath.row].rawValue
+        else {
+            cell.titleLabel.text = advancedDataSource[indexPath.row]
         }
         return cell
         
     }
-    
     
 }
 
@@ -167,83 +126,88 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0{
-            if indexPath.row == 0{
-
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
                 let controller = AudioCallingEnterViewController()
                 navigationController?.pushViewController( controller, animated: true)
             }
-            if indexPath.row == 1{
+            if indexPath.row == 1 {
                 let controll = VideoCallingEnterViewController()
                 navigationController?.pushViewController( controll, animated: true)
             }
-            if indexPath.row == 2{
+            if indexPath.row == 2 {
                 let controller = LiveEnterViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 3{
+            if indexPath.row == 3 {
                 let controller = VoiceChatRoomEnterViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 4{
+            if indexPath.row == 4 {
                 let controller = ScreenEntranceViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            
-            
         }
         
-        if indexPath.section == 1{
-//            if indexPath.row == 0{
-//                let controller = StringRoomIdViewController()
-//                navigationController?.pushViewController(controller, animated: true)
-//            }
-            if indexPath.row == 0{
-                let controller = SetBGMViewController()
-                navigationController?.pushViewController(controller, animated: true)
-            }
-            if indexPath.row == 1{
-                let controller = LocalRecordViewController()
-                navigationController?.pushViewController(controller, animated: true)
-            }
-            if indexPath.row == 2{
-                let controller = RoomPkViewController()
-                navigationController?.pushViewController(controller, animated: true)
-            }
-            if indexPath.row == 3{
-                let controller = SpeedTestViewController()
-                navigationController?.pushViewController(controller, animated: true)
-            }
-            if indexPath.row == 4{
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
                 let controller = StringRoomIdViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 5{
-                let controller = SwitchRoomViewController()
+            if indexPath.row == 1 {
+                let controller = SetVideoQualityViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 6{
-                let controller = SetRenderParamsViewController()
-                navigationController?.pushViewController(controller, animated: true)
-            }
-            if indexPath.row == 7{
+            if indexPath.row == 2 {
                 let controller = SetAudioQualityViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 8{
+            if indexPath.row == 3 {
+                let controller = SetRenderParamsViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 4 {
+                let controller = SpeedTestViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 5 {
+                let controller = PushCDNSelectRoleViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 6 {
                 let controller = CustomCaptureViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 9{
+            if indexPath.row == 7 {
                 let controller = SetAudioEffectViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 10{
+            if indexPath.row == 8 {
+                let controller = SetBGMViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 9 {
+                let controller = LocalRecordViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 10 {
                 let controller = JoinMultipleRoomViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
-            if indexPath.row == 11{
+            if indexPath.row == 11 {
                 let controller = SendAndReceiveSEIMessageViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 12 {
+                let controller = SwitchRoomViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 13 {
+                let controller = RoomPkViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 14 {
+                let controller = PictureInPictureViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
             
@@ -252,7 +216,7 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellHeaderId) as! HomeTableSectionHeaderView
-        headerView.titleLabel.text = sectionTitle[section].rawValue
+        headerView.titleLabel.text = sectionTitle[section]
         return headerView.titleLabel
     }
     

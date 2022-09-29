@@ -3,6 +3,7 @@
 //  TRTCSimpleDemo-OC
 //
 //  Created by adams on 2021/4/14.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import "LiveEnterViewController.h"
@@ -32,17 +33,17 @@ typedef NS_ENUM(NSUInteger, UserType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = Localize(@"TRTC-API-Example.Live.Title");
+    self.title = localize(@"TRTC-API-Example.Live.Title");
     [self setupDefaultUIConfig];
 }
 
 - (void)setupDefaultUIConfig {
-    self.enterRoomLabel.text = Localize(@"TRTC-API-Example.Live.EnterRoomNumber");
-    self.enterUserNameLabel.text = Localize(@"TRTC-API-Example.Live.EnterUserName");
-    self.userIdentifyLabel.text = Localize(@"TRTC-API-Example.Live.ChooseUserIdentify");
-    [self.anchorButton setTitle:Localize(@"TRTC-API-Example.Live.Anchor") forState:UIControlStateNormal];
-    [self.audienceButton setTitle:Localize(@"TRTC-API-Example.Live.Audience") forState:UIControlStateNormal];
-    [self.enterRoomButton setTitle:Localize(@"TRTC-API-Example.Live.EnterRoom") forState:UIControlStateNormal];
+    self.enterRoomLabel.text = localize(@"TRTC-API-Example.Live.EnterRoomNumber");
+    self.enterUserNameLabel.text = localize(@"TRTC-API-Example.Live.EnterUserName");
+    self.userIdentifyLabel.text = localize(@"TRTC-API-Example.Live.ChooseUserIdentify");
+    [self.anchorButton setTitle:localize(@"TRTC-API-Example.Live.Anchor") forState:UIControlStateNormal];
+    [self.audienceButton setTitle:localize(@"TRTC-API-Example.Live.Audience") forState:UIControlStateNormal];
+    [self.enterRoomButton setTitle:localize(@"TRTC-API-Example.Live.EnterRoom") forState:UIControlStateNormal];
     
     self.enterRoomTextField.text = @"1256732";
     self.enterUserNameTextField.text = @"324532";
@@ -78,7 +79,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
 
 - (IBAction)onEnterRoomButtonClick:(id)sender {
     if (self.enterRoomTextField.text.length == 0 || self.enterUserNameTextField.text == 0) {
-        [self showAlertViewController:Localize(@"TRTC-API-Example.AlertViewController.ponit") message:Localize(@"TRTC-API-Example.Live.tips") handler:nil];
+        [self showAlertViewController:localize(@"TRTC-API-Example.AlertViewController.ponit") message:localize(@"TRTC-API-Example.Live.tips") handler:nil];
         return;
     }
     UInt32 roomId = [self.enterRoomTextField.text intValue];
@@ -88,7 +89,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
         {
             LiveAnchorViewController *anchorVC =
             [[LiveAnchorViewController alloc] initWithRoomId:roomId userId:userId];
-            anchorVC.title = LocalizeReplace(Localize(@"TRTC-API-Example.LiveAnchor.Title"), self.enterRoomTextField.text);
+            anchorVC.title = localizeReplace(localize(@"TRTC-API-Example.LiveAnchor.Title"), self.enterRoomTextField.text);
             [self.navigationController pushViewController:anchorVC animated:YES];
         }
             break;
@@ -96,7 +97,7 @@ typedef NS_ENUM(NSUInteger, UserType) {
         {
             LiveAudienceViewController *audienceVC =
             [[LiveAudienceViewController alloc] initWithRoomId:roomId userId:userId];
-            audienceVC.title = LocalizeReplace(Localize(@"TRTC-API-Example.LiveAudience.Title"), self.enterRoomTextField.text);
+            audienceVC.title = localizeReplace(localize(@"TRTC-API-Example.LiveAudience.Title"), self.enterRoomTextField.text);
             [self.navigationController pushViewController:audienceVC animated:YES];
         }
             break;

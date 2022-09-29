@@ -9,49 +9,60 @@
 import UIKit
 import SnapKit
 
-class AudioCallingEnterViewController: UIViewController{
-    let roomTitle: String = "TRTC 语音通话示例"
-    let inputRoomNumberText: String = "请输入房间号(必填项)"
-    let inputUserNameText: String = "请输入用户名(必填项)"
-    let buttomTitle: String = "进入房间"
+/*
+ 实时语音通话功能
+ TRTC APP 实时语音通话功能
+ 本文件展示如何集成实时语音通话功能
+ 为之后的语音通话提供roomId和userId
+ 参考文档：https://cloud.tencent.com/document/product/647/42046
+ */
+
+/*
+ Real-Time Audio Call
+ TRTC Audio Call
+ This document shows how to integrate the real-time audio call feature.
+ 1. Provide roomid and userid for subsequent audio calls
+ Documentation: https://cloud.tencent.com/document/product/647/42046
+ */
+
+class AudioCallingEnterViewController: UIViewController {
     
-    lazy var userIdTextField: UITextField = {
+    let userIdTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.backgroundColor = .white
         textField.text = String(arc4random() % (9999999 - 1000000 + 1) + 1000000)
         return textField
     }()
     
-    lazy var roomIdTextField: UITextField = {
+    let roomIdTextField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.backgroundColor = .white
         textField.text = String(arc4random() % (999999 - 100000 + 1) + 100000)
         return textField
     }()
     
-    lazy var inputRoomLabel: UILabel = {
+    let inputRoomLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.textColor = .white
-        label.text = inputRoomNumberText
+        label.text = Localize("TRTC-API-Example.AudioCallingEnter.EnterRoomNumber")
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
-    lazy var inputUserLabel: UILabel = {
+    let inputUserLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.textColor = .white
-        label.text = inputUserNameText
+        label.text = Localize("TRTC-API-Example.AudioCallingEnter.EnterUserName")
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
-    lazy var startButton: UIButton = {
+    let startButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 10))
-        button.setTitle(buttomTitle, for: UIControl.State.normal)
+        button.setTitle(Localize("TRTC-API-Example.AudioCallingEnter.EnterRoom"), for: UIControl.State.normal)
         button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(OnStartClick), for: .touchUpInside)
         return button
     }()
     
@@ -63,19 +74,30 @@ class AudioCallingEnterViewController: UIViewController{
         activateConstraints()
         bindInteraction()
 
-        navigationItem.title = roomTitle
+        navigationItem.title = Localize("TRTC-API-Example.AudioCallingEnter.Title")
         navigationItem.leftBarButtonItem = nil
     }
     
-    @objc func OnStartClick(){
+    @objc func OnStartClick(sender: UIButton) {
         let audioCallingViewController = AudioCallingViewController()
+        guard let roomIdText = roomIdTextField.text else {
+            return
+        }
+        guard let roomId = UInt32(roomIdText) else {
+            return
+        }
+        audioCallingViewController.roomId = roomId
+        guard let userId = userIdTextField.text, !userId.isEmpty else {
+            return
+        }
+        audioCallingViewController.userId = userId
         navigationController?.pushViewController(audioCallingViewController, animated: true)
     }
     
 }
 
 //MARK: - UI Layout
-extension AudioCallingEnterViewController{
+extension AudioCallingEnterViewController {
     
     // 构建视图
     private func constructViewHierarchy() {
@@ -121,7 +143,7 @@ extension AudioCallingEnterViewController{
     
     // 绑定事件 / 回调
     private func bindInteraction() {
-        
+        startButton.addTarget(self, action: #selector(OnStartClick(sender: )), for: .touchUpInside)
     }
     
 }
