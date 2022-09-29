@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by abyyxwang on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -23,6 +24,7 @@
  */
 
 #import "PushCDNAnchorViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 static const NSInteger RemoteUserMaxNum = 3;
 
@@ -218,7 +220,8 @@ typedef NS_ENUM(NSInteger, ShowMode) {
         TRTCMixUser* remote = [TRTCMixUser new];
         remote.userId = self.remoteUserIdSet[i];
         remote.zOrder = i + 2;
-        remote.rect   = CGRectMake(self.transcodingConfig.videoWidth * 0.2 * (i + 1), self.transcodingConfig.videoHeight * 0.2 * (i + 1), 180, 180 * 1.6);
+        remote.rect   = CGRectMake(self.transcodingConfig.videoWidth * 0.2 * (i + 1),
+                                   self.transcodingConfig.videoHeight * 0.2 * (i + 1), 180, 180 * 1.6);
         remote.roomID = self.roomIDTextField.text;
         remote.inputType = TRTCMixInputTypeAudioVideo;
         remote.streamType = TRTCVideoStreamTypeBig;
@@ -243,7 +246,9 @@ typedef NS_ENUM(NSInteger, ShowMode) {
     TRTCMixUser* remote = [TRTCMixUser new];
     remote.userId = @"$PLACE_HOLDER_REMOTE$";
     remote.zOrder = 1;
-    remote.rect   = CGRectMake(self.transcodingConfig.videoWidth * 0.5, 0, self.transcodingConfig.videoWidth * 0.5, self.transcodingConfig.videoHeight);
+    remote.rect   = CGRectMake(self.transcodingConfig.videoWidth * 0.5, 0,
+                               self.transcodingConfig.videoWidth * 0.5,
+                               self.transcodingConfig.videoHeight);
     remote.roomID = self.roomIDTextField.text;
     [self.mixUsers addObject:remote];
     
@@ -290,7 +295,7 @@ typedef NS_ENUM(NSInteger, ShowMode) {
 }
 
 - (void)showMixConfigLink {
-    NSString *streamUrl = Localize(@"TRTC-API-Example.PushCDNAnchor.pushStreamAddress");
+    NSString *streamUrl = localize(@"TRTC-API-Example.PushCDNAnchor.pushStreamAddress");
     self.streamURLTextView.text = streamUrl;
     self.streamURLTextView.alpha = 0.8;
 }
@@ -312,10 +317,10 @@ typedef NS_ENUM(NSInteger, ShowMode) {
     BOOL enable = self.remoteUserIdSet.count >= 1;
     [self.moreMixStreamButton setUserInteractionEnabled:enable];
     if (enable) {
-        [self.moreMixStreamButton setTitle: Localize(@"TRTC-API-Example.PushCDNAnchor.mixConfig") forState:UIControlStateNormal];
+        [self.moreMixStreamButton setTitle: localize(@"TRTC-API-Example.PushCDNAnchor.mixConfig") forState:UIControlStateNormal];
         [self.moreMixStreamButton setBackgroundColor:[UIColor themeGreenColor]];
     } else {
-        [self.moreMixStreamButton setTitle: Localize(@"TRTC-API-Example.PushCDNAnchor.mixConfignot") forState:UIControlStateNormal];
+        [self.moreMixStreamButton setTitle: localize(@"TRTC-API-Example.PushCDNAnchor.mixConfignot") forState:UIControlStateNormal];
         [self.moreMixStreamButton setBackgroundColor:[UIColor themeGrayColor]];
     }
 }
@@ -385,35 +390,6 @@ typedef NS_ENUM(NSInteger, ShowMode) {
 }
 
 #pragma mark - Keyboard Observer
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomButtonConstraint.constant = keyboardBounds.size.height;
-        [self.view layoutIfNeeded];
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomButtonConstraint.constant = 20;
-         [self.view layoutIfNeeded];
-     }];
-     return YES;
-}
-
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
@@ -430,40 +406,40 @@ typedef NS_ENUM(NSInteger, ShowMode) {
 }
 
 - (void)setupDefaultUIConfig {
-    self.roomNumberLabel.text = Localize(@"TRTC-API-Example.PushCDNAnchor.roomId");
-    self.streamIDLabel.text = Localize(@"TRTC-API-Example.PushCDNAnchor.StreamId");
+    self.roomNumberLabel.text = localize(@"TRTC-API-Example.PushCDNAnchor.roomId");
+    self.streamIDLabel.text = localize(@"TRTC-API-Example.PushCDNAnchor.StreamId");
     self.roomIDTextField.text = [NSString generateRandomRoomNumber];
     self.streamIDTextField.text= [NSString generateRandomStreamId];
     
     [self.startPushButton setBackgroundColor:UIColor.themeGreenColor];
-    [self.startPushButton setTitle:Localize(@"TRTC-API-Example.PushCDNAnchor.startPush")
+    [self.startPushButton setTitle:localize(@"TRTC-API-Example.PushCDNAnchor.startPush")
                           forState:UIControlStateNormal];
-    [self.startPushButton setTitle:Localize(@"TRTC-API-Example.PushCDNAnchor.stopPush") forState:UIControlStateSelected];
+    [self.startPushButton setTitle:localize(@"TRTC-API-Example.PushCDNAnchor.stopPush") forState:UIControlStateSelected];
     
     UIImage *normalImage = [[UIColor themeGrayColor] trans2Image:CGSizeMake(14, 14)];
     UIImage *selectImage = [[UIColor themeGreenColor] trans2Image:CGSizeMake(14, 14)];
     [self.manualModeButton setImage:normalImage forState:UIControlStateNormal];
     [self.manualModeButton setImage:selectImage forState:UIControlStateSelected];
-    [self.manualModeButton setTitle:Localize(@"TRTC-API-Example.PushCDNAnchor.manualMode") forState:UIControlStateNormal];
+    [self.manualModeButton setTitle:localize(@"TRTC-API-Example.PushCDNAnchor.manualMode") forState:UIControlStateNormal];
     self.manualModeButton.imageView.layer.cornerRadius = 7;
     self.manualModeButton.imageView.layer.masksToBounds = true;
     self.manualModeButton.titleLabel.adjustsFontSizeToFitWidth = true;
     
     [self.leftRightModeButton setImage:normalImage forState:UIControlStateNormal];
     [self.leftRightModeButton setImage:selectImage forState:UIControlStateSelected];
-    [self.leftRightModeButton setTitle:Localize(@"TRTC-API-Example.PushCDNAnchor.leftRightMode") forState:UIControlStateNormal];
+    [self.leftRightModeButton setTitle:localize(@"TRTC-API-Example.PushCDNAnchor.leftRightMode") forState:UIControlStateNormal];
     self.leftRightModeButton.imageView.layer.cornerRadius = 7;
     self.leftRightModeButton.imageView.layer.masksToBounds = true;
     self.leftRightModeButton.titleLabel.adjustsFontSizeToFitWidth = true;
     
     [self.pictureinPictureModeButton setImage:normalImage forState:UIControlStateNormal];
     [self.pictureinPictureModeButton setImage:selectImage forState:UIControlStateSelected];
-    [self.pictureinPictureModeButton setTitle:Localize(@"TRTC-API-Example.PushCDNAnchor.previewMode") forState:UIControlStateNormal];
+    [self.pictureinPictureModeButton setTitle:localize(@"TRTC-API-Example.PushCDNAnchor.previewMode") forState:UIControlStateNormal];
     self.pictureinPictureModeButton.imageView.layer.cornerRadius = 7;
     self.pictureinPictureModeButton.imageView.layer.masksToBounds = true;
     self.pictureinPictureModeButton.titleLabel.adjustsFontSizeToFitWidth = true;
     
-    [self.moreMixStreamButton setTitle:Localize(@"TRTC-API-Example.PushCDNAnchor.mixConfignot") forState:UIControlStateNormal];
+    [self.moreMixStreamButton setTitle:localize(@"TRTC-API-Example.PushCDNAnchor.mixConfignot") forState:UIControlStateNormal];
     [self.moreMixStreamButton setBackgroundColor:[UIColor themeGrayColor]];
 
     self.streamURLTextView.text = @"";
@@ -485,7 +461,7 @@ typedef NS_ENUM(NSInteger, ShowMode) {
 }
 
 - (void)refreshViewTitle {
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.PushCDNAnchor.Title"), self.roomIDTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.PushCDNAnchor.Title"), self.roomIDTextField.text);
 }
 
 - (void)dealloc {

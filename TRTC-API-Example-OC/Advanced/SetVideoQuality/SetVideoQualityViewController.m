@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/19.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -27,6 +28,7 @@
 
 
 #import "SetVideoQualityViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 static const NSInteger maxRemoteUserNum = 6;
 
@@ -108,14 +110,14 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.SetVideoQuality.Title");
-    _roomIdLabel.text = Localize(@"TRTC-API-Example.SetVideoQuality.roomId");
-    _userIdLabel.text = Localize(@"TRTC-API-Example.SetVideoQuality.userId");
-    _chooseBitrateLabel.text = Localize(@"TRTC-API-Example.SetVideoQuality.chooseBitrate");
-    _chooseFpsLabel.text = Localize(@"TRTC-API-Example.SetVideoQuality.chooseFps");
-    _chooseResolutionLabel.text = Localize(@"TRTC-API-Example.SetVideoQuality.chooseResolution");
-    [_startPublisherButton setTitle:Localize(@"TRTC-API-Example.SetVideoQuality.start") forState:UIControlStateNormal];
-    [_startPublisherButton setTitle:Localize(@"TRTC-API-Example.SetVideoQuality.stop") forState:UIControlStateSelected];
+    self.title = localize(@"TRTC-API-Example.SetVideoQuality.Title");
+    _roomIdLabel.text = localize(@"TRTC-API-Example.SetVideoQuality.roomId");
+    _userIdLabel.text = localize(@"TRTC-API-Example.SetVideoQuality.userId");
+    _chooseBitrateLabel.text = localize(@"TRTC-API-Example.SetVideoQuality.chooseBitrate");
+    _chooseFpsLabel.text = localize(@"TRTC-API-Example.SetVideoQuality.chooseFps");
+    _chooseResolutionLabel.text = localize(@"TRTC-API-Example.SetVideoQuality.chooseResolution");
+    [_startPublisherButton setTitle:localize(@"TRTC-API-Example.SetVideoQuality.start") forState:UIControlStateNormal];
+    [_startPublisherButton setTitle:localize(@"TRTC-API-Example.SetVideoQuality.stop") forState:UIControlStateSelected];
     _fpsSlider.value = 15;
     _roomIdLabel.adjustsFontSizeToFitWidth = true;
     _userIdLabel.adjustsFontSizeToFitWidth = true;
@@ -131,10 +133,14 @@ static const NSInteger maxRemoteUserNum = 6;
 - (void)setupBitrateDic {
     if (!_bitrateDic) {
         _bitrateDic = [NSMutableDictionary new];
-        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:200 maxBitRate:1000 defaultBitrate:800]  forKey:[@(TRTCVideoResolution_640_360) stringValue]];
-        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:400 maxBitRate:1600 defaultBitrate:900]  forKey:[@(TRTCVideoResolution_960_540) stringValue]];
-        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:500 maxBitRate:2000 defaultBitrate:1250]  forKey:[@(TRTCVideoResolution_1280_720) stringValue]];
-        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:800 maxBitRate:3000 defaultBitrate:1900]  forKey:[@(TRTCVideoResolution_1920_1080) stringValue]];
+        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:200 maxBitRate:1000 defaultBitrate:800]
+                        forKey:[@(TRTCVideoResolution_640_360) stringValue]];
+        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:400 maxBitRate:1600 defaultBitrate:900]
+                        forKey:[@(TRTCVideoResolution_960_540) stringValue]];
+        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:500 maxBitRate:2000 defaultBitrate:1250]
+                        forKey:[@(TRTCVideoResolution_1280_720) stringValue]];
+        [_bitrateDic setObject:[[BitrateRange alloc] initWithMinBitrate:800 maxBitRate:3000
+         defaultBitrate:1900]  forKey:[@(TRTCVideoResolution_1920_1080) stringValue]];
     }
 }
 
@@ -241,11 +247,11 @@ static const NSInteger maxRemoteUserNum = 6;
 
 - (IBAction)onStartButtonClick:(UIButton*)sender {
     if ([sender isSelected]) {
-        self.title = Localize(@"TRTC-API-Example.SetVideoQuality.Title");
+        self.title = localize(@"TRTC-API-Example.SetVideoQuality.Title");
         [self.trtcCloud exitRoom];
         [self destroyTRTCCloud];
     } else {
-        self.title = [Localize(@"TRTC-API-Example.SetVideoQuality.Title") stringByAppendingString:_roomIdTextField.text];
+        self.title = [localize(@"TRTC-API-Example.SetVideoQuality.Title") stringByAppendingString:_roomIdTextField.text];
         [self setupTRTCCloud];
     }
     sender.selected = !sender.selected;
@@ -260,35 +266,6 @@ static const NSInteger maxRemoteUserNum = 6;
     _fpsLabel.text = [[@((UInt32)_fpsSlider.value) stringValue] stringByAppendingString:@" fps"];
     [self refreshEncParam];
 }
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 20;
-     }];
-     return YES;
-}
-
 
 #pragma mark - TRTCCloud Delegate
 

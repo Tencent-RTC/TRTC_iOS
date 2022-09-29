@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by abyyxwang on 2021/4/22.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

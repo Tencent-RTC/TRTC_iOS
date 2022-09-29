@@ -1,3 +1,10 @@
+//
+//  SetBGMViewController.m
+//  TRTC-API-Example-OC
+//
+//  Created by adams on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
+//
 /*
  * Module:   GenerateTestUserSig
  *

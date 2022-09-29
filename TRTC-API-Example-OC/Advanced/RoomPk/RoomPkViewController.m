@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/22.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -27,6 +28,7 @@
  */
 
 #import "RoomPkViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 @interface RoomPkViewController () <TRTCCloudDelegate>
 
@@ -70,19 +72,19 @@
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = [Localize(@"TRTC-API-Example.RoomPk.title") stringByAppendingString:_roomIdTextField.text];
-    _roomIdLabel.text = Localize(@"TRTC-API-Example.RoomPk.roomId");
-    _userIdLabel.text = Localize(@"TRTC-API-Example.RoomPk.UserId");
-    _otherRoomIdLabel.text = Localize(@"TRTC-API-Example.RoomPk.pkRoomId");
-    _otherUserIdLabel.text = Localize(@"TRTC-API-Example.RoomPk.pkUserId");
+    self.title = [localize(@"TRTC-API-Example.RoomPk.title") stringByAppendingString:_roomIdTextField.text];
+    _roomIdLabel.text = localize(@"TRTC-API-Example.RoomPk.roomId");
+    _userIdLabel.text = localize(@"TRTC-API-Example.RoomPk.UserId");
+    _otherRoomIdLabel.text = localize(@"TRTC-API-Example.RoomPk.pkRoomId");
+    _otherUserIdLabel.text = localize(@"TRTC-API-Example.RoomPk.pkUserId");
 
-    [_startButton setTitle:Localize(@"TRTC-API-Example.RoomPk.start")
+    [_startButton setTitle:localize(@"TRTC-API-Example.RoomPk.start")
                   forState:UIControlStateNormal];
-    [_startButton setTitle:Localize(@"TRTC-API-Example.RoomPk.stop")
+    [_startButton setTitle:localize(@"TRTC-API-Example.RoomPk.stop")
                   forState:UIControlStateSelected];
-    [_connectOtherRoomButton setTitle:Localize(@"TRTC-API-Example.RoomPk.startPK")
+    [_connectOtherRoomButton setTitle:localize(@"TRTC-API-Example.RoomPk.startPK")
                   forState:UIControlStateNormal];
-    [_connectOtherRoomButton setTitle:Localize(@"TRTC-API-Example.RoomPk.stopPK")
+    [_connectOtherRoomButton setTitle:localize(@"TRTC-API-Example.RoomPk.stopPK")
                   forState:UIControlStateSelected];
     _roomIdLabel.adjustsFontSizeToFitWidth = true;
     _userIdLabel.adjustsFontSizeToFitWidth = true;
@@ -163,7 +165,7 @@
 - (IBAction)onStartClick:(UIButton*)sender {
     sender.selected = !sender.selected;
     if ([sender isSelected]) {
-        self.title = [Localize(@"TRTC-API-Example.RoomPk.title") stringByAppendingString:_roomIdTextField.text];
+        self.title = [localize(@"TRTC-API-Example.RoomPk.title") stringByAppendingString:_roomIdTextField.text];
         [self setupTRTCCloud];
     } else {
         [self.trtcCloud exitRoom];
@@ -187,35 +189,6 @@
     }
 }
 
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 20;
-     }];
-     return YES;
-}
-
-
 #pragma mark - TRTCCloud Delegate
 
 - (void)onUserVideoAvailable:(NSString *)userId available:(BOOL)available {
@@ -231,7 +204,7 @@
 
 - (void)onConnectOtherRoom:(NSString *)userId errCode:(TXLiteAVError)errCode errMsg:(NSString *)errMsg {
     if (errCode != ERR_NULL) {
-        [self showAlertViewController:Localize(@"TRTC-API-Example.RoomPk.connectRoomError") message:errMsg handler:nil];
+        [self showAlertViewController:localize(@"TRTC-API-Example.RoomPk.connectRoomError") message:errMsg handler:nil];
         _connectOtherRoomButton.selected = false;
     }
 }

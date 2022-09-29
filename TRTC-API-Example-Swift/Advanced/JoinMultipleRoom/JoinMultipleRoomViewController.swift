@@ -5,6 +5,9 @@
 //  Created by 唐佳宁 on 2022/7/5.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
+import Foundation
+import UIKit
+import TXLiteAVSDK_TRTC
 
 /*
  加入多个房间功能
@@ -14,34 +17,191 @@
  因为SDK中没有给subCloud定义标识，用户需要自行标识以区分不同的subCloud。该demo中使用subId进行标识。
  因为每个子subCloud都需要设置delegate回调，所以使用SubCloudHelper来进行delegate的转发，并加入subId来区分
  
- 1、创建子对象 API: [self.trtcCloud createSubCloud]
- 2、加入房间 API: [[_subCloudHelperArr[subId] getCloud] enterRoom:params appScene:TRTCAppSceneLIVE];
- 3、退出房间 API: [[_subCloudHelperArr[subId] getCloud] exitRoom];
+ 1、创建子对象 API: self.trtcCloud.createSubCloud()
+ 2、加入房间 API:
+ if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper {
+ let trtc = subCloud.getCloud()
+ trtc.enterRoom(params, appScene: .LIVE)
+ }
+ 3、退出房间 API:
+ if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper {
+ let trtc = subCloud.getCloud()
+ trtc.exitRoom()
+ }
  
  参考文档：https://cloud.tencent.com/document/product/647/32258
  */
 /*
  Entering Multiple Rooms
-TRTC Multiple Room Entry
-
-This document shows how to integrate the multiple room entry feature.
-The SDK does not assign identifiers to TRTCCloud instances. You need to identify and distinguish instances by yourself. In the demo, subId is used to identify instances.
-Because a delegate callback must be set for each instance, SubCloudHelper is used to forward delegates, and subId is used for identification.
-
-1. Create an instance: [self.trtcCloud createSubCloud]
-2. Enter a room: [[_subCloudHelperArr[subId] getCloud] enterRoom:params appScene:TRTCAppSceneLIVE] enterRoom:params appScene:TRTCAppSceneLIVE];
-3. Exit a room: [[_subCloudHelperArr[subId] getCloud] exitRoom]
-
-Documentation: https://cloud.tencent.com/document/product/647/32258
-
+ TRTC Multiple Room Entry
+ 
+ This document shows how to integrate the multiple room entry feature.
+ The SDK does not assign identifiers to TRTCCloud instances.
+ You need to identify and distinguish instances by yourself. In the demo, subId is used to identify instances.
+ Because a delegate callback must be set for each instance, SubCloudHelper is used to forward delegates, and subId is used for identification.
+ 
+ 1. Create an instance: self.trtcCloud.createSubCloud()
+ 2. Enter a room:
+ if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper {
+ let trtc = subCloud.getCloud()
+ trtc.enterRoom(params, appScene: .LIVE)
+ }
+ 3. Exit a room:
+ if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper {
+ let trtc = subCloud.getCloud()
+ trtc.exitRoom()
+ }
+ 
+ Documentation: https://cloud.tencent.com/document/product/647/32258
+ 
  */
-import Foundation
-import UIKit
-import TXLiteAVSDK_TRTC
-
 let maxRoom = 4
-
-class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate{
+class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate {
+    
+    let trtcCloud = TRTCCloud.sharedInstance()
+    let subCloudHelperArr = NSMutableArray()
+    
+    var roomNumLabelArr : NSArray = []
+    var remoteViewArr: [UIView] = []
+    var roomIdArr : [UITextField] = []
+    var startButtonArr :NSArray = []
+    
+    let leftRemoteViewA:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        return view
+    }()
+    
+    let leftRemoteLabelA:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
+        return lable
+    }()
+    
+    let leftRemoteFiledA : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let leftRemoteButtonA : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
+        return button
+    }()
+    
+    let leftRemoteViewB:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        return view
+    }()
+    
+    let leftRemoteLabelB:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
+        lable.backgroundColor = .gray
+        return lable
+    }()
+    
+    let leftRemoteFiledB : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let leftRemoteButtonB : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
+        return button
+    }()
+    
+    let rightRemoteViewA:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        return view
+    }()
+    
+    let rightRemoteLabelA:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
+        return lable
+    }()
+    
+    let rightRemoteFiledA : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let rightRemoteButtonA : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
+        return button
+    }()
+    
+    let rightRemoteViewB:UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .black
+        return view
+    }()
+    
+    let rightRemoteLabelB:UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth = true
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
+        return lable
+    }()
+    
+    let rightRemoteFiledB : UITextField = {
+        let filed = UITextField(frame: .zero)
+        filed.keyboardAppearance = .default
+        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
+        filed.textColor = .black
+        filed.backgroundColor = .white
+        filed.returnKeyType = .done
+        return filed
+    }()
+    
+    let rightRemoteButtonB : UIButton = {
+        let button = UIButton(frame: .zero)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.textColor = .white
+        button.backgroundColor = .green
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
+        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,151 +222,15 @@ class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate{
         activateConstraints()
         bindInteraction()
         setupSubCloud()
-        
     }
     
-    let trtcCloud = TRTCCloud.sharedInstance()
-    let subCloudHelperArr = NSMutableArray()
+    deinit {
+        trtcCloud.stopLocalAudio()
+        trtcCloud.stopLocalPreview()
+        trtcCloud.exitRoom()
+    }
     
-    var roomNumLabelArr : NSArray = []
-    var remoteViewArr :NSArray = []
-    var roomIdArr : NSArray = []
-    var startButtonArr :NSArray = []
-     
-    let leftRemoteViewA:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .black
-        return view
-    }()
-    
-    let leftRemoteLabelA:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
-//        lable.backgroundColor = .gray
-        return lable
-    }()
-    let leftRemoteFiledA : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    let leftRemoteButtonA : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
-        return button
-    }()
-    
-    let leftRemoteViewB:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .black
-        return view
-    }()
-    let leftRemoteLabelB:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
-        lable.backgroundColor = .gray
-        return lable
-    }()
-    let leftRemoteFiledB : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    let leftRemoteButtonB : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
-        return button
-    }()
-    
-    let rightRemoteViewA:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .black
-        return view
-    }()
-    let rightRemoteLabelA:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
-        return lable
-    }()
-    let rightRemoteFiledA : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    let rightRemoteButtonA : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
-        return button
-    }()
-    
-    let rightRemoteViewB:UIView={
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .black
-        return view
-    }()
-    let rightRemoteLabelB:UILabel={
-        let lable = UILabel(frame: .zero)
-        lable.textColor = .white
-        lable.adjustsFontSizeToFitWidth = true
-//        lable.backgroundColor = .gray
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
-        return lable
-    }()
-    let rightRemoteFiledB : UITextField={
-        let filed = UITextField(frame: .zero)
-        filed.keyboardAppearance = .default
-        filed.text = String(arc4random()%(99999999 - 10000000 + 1)+10000000)
-        filed.textColor = .black
-        filed.backgroundColor = .white
-        filed.returnKeyType = .done
-        return filed
-    }()
-    let rightRemoteButtonB : UIButton={
-        let button = UIButton(frame: .zero)
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.textColor = .white
-        button.backgroundColor = .green
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.start"), for:.normal)
-        button.setTitle(Localize("TRTC-API-Example.JoinMultipleRoom.stop"), for:.selected)
-        return button
-    }()
-
-}
-
-extension JoinMultipleRoomViewController{
-    
-    private func setupDefaultUIConfig(){
+    private func setupDefaultUIConfig() {
         view.addSubview(leftRemoteViewA)
         view.addSubview(leftRemoteLabelA)
         view.addSubview(leftRemoteFiledA)
@@ -228,7 +252,7 @@ extension JoinMultipleRoomViewController{
         view.addSubview(rightRemoteButtonB)
     }
     
-    private func activateConstraints(){
+    private func activateConstraints() {
         
         leftRemoteViewA.snp.makeConstraints { make in
             make.width.equalTo((view.frame.width-60)/2)
@@ -342,19 +366,19 @@ extension JoinMultipleRoomViewController{
             make.right.equalTo(rightRemoteViewB.snp.right).offset(-5)
             make.top.equalTo(rightRemoteFiledB)
         }
-    
+        
     }
-    private func bindInteraction(){
-        leftRemoteButtonA.addTarget(self, action: #selector(clickLeftRemoteButtonA), for: .touchUpInside)
-        rightRemoteButtonA.addTarget(self, action: #selector(clickRightRemoteButtonA), for: .touchUpInside)
-        leftRemoteButtonB.addTarget(self, action: #selector(clickLeftRemoteButtonB), for: .touchUpInside)
-        rightRemoteButtonB.addTarget(self, action: #selector(clickRightRemoteButtonB), for: .touchUpInside)
-        }
-}
-extension JoinMultipleRoomViewController{
-    @objc private func clickLeftRemoteButtonA(){
+    
+    private func bindInteraction() {
+        leftRemoteButtonA.addTarget(self,action: #selector(clickLeftRemoteButtonA(sender:)), for: .touchUpInside)
+        rightRemoteButtonA.addTarget(self,action: #selector(clickRightRemoteButtonA(sender:)), for: .touchUpInside)
+        leftRemoteButtonB.addTarget(self,action: #selector(clickLeftRemoteButtonB(sender:)), for: .touchUpInside)
+        rightRemoteButtonB.addTarget(self,action: #selector(clickRightRemoteButtonB(sender:)), for: .touchUpInside)
+    }
+    
+    @objc private func clickLeftRemoteButtonA(sender: UIButton) {
         leftRemoteButtonA.isSelected = !leftRemoteButtonA.isSelected
-        if leftRemoteButtonA.isSelected{
+        if leftRemoteButtonA.isSelected {
             enterRoomWithSubId(subId: 0)
         }else{
             exitRoomWithSubId(subId: 0)
@@ -362,9 +386,9 @@ extension JoinMultipleRoomViewController{
         
     }
     
-    @objc private func clickRightRemoteButtonA(){
+    @objc private func clickRightRemoteButtonA(sender: UIButton) {
         rightRemoteButtonA.isSelected = !rightRemoteButtonA.isSelected
-        if rightRemoteButtonA.isSelected{
+        if rightRemoteButtonA.isSelected {
             enterRoomWithSubId(subId: 1)
         }else{
             exitRoomWithSubId(subId: 1)
@@ -372,9 +396,9 @@ extension JoinMultipleRoomViewController{
         
     }
     
-    @objc private func clickLeftRemoteButtonB(){
+    @objc private func clickLeftRemoteButtonB(sender: UIButton) {
         leftRemoteButtonB.isSelected = !leftRemoteButtonB.isSelected
-        if leftRemoteButtonB.isSelected{
+        if leftRemoteButtonB.isSelected {
             enterRoomWithSubId(subId: 2)
         }else{
             exitRoomWithSubId(subId: 2)
@@ -382,91 +406,81 @@ extension JoinMultipleRoomViewController{
         
     }
     
-    @objc private func clickRightRemoteButtonB(){
+    @objc private func clickRightRemoteButtonB(sender: UIButton) {
         rightRemoteButtonB.isSelected = !rightRemoteButtonB.isSelected
-        if rightRemoteButtonB.isSelected{
+        if rightRemoteButtonB.isSelected {
             enterRoomWithSubId(subId: 3)
         }else{
             exitRoomWithSubId(subId: 3)
         }
-        
     }
     
-}
-
-extension JoinMultipleRoomViewController{
-    func enterRoomWithSubId(subId:Int){
+    func enterRoomWithSubId(subId:Int) {
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
         
-       let  roomIdTextField = roomIdArr[subId]
-        if let text = ((roomIdTextField as! UITextField).text as? NSString){
-            params.roomId = UInt32(text.intValue)
-        }
+        params.roomId = UInt32(Int(roomIdArr[subId].text ?? "") ?? 0)
         params.userId = "1345736"
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId)
-        if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper{
-           let trtc = subCloud.getCloud()
+        if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper {
+            let trtc = subCloud.getCloud()
             trtc.enterRoom(params, appScene: .LIVE)
         }
-        
     }
     
-    func exitRoomWithSubId(subId:Int){
-        if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper{
-           let trtc = subCloud.getCloud()
+    func exitRoomWithSubId(subId:Int) {
+        if let subCloud = subCloudHelperArr[subId] as? SubCloudHelper {
+            let trtc = subCloud.getCloud()
             trtc.exitRoom()
         }
     }
     
-    func setupSubCloud(){
-        for index in 0...maxRoom{
-            let subCloudHelper = SubCloudHelper().initWithSubid(subid: UInt32(index), cloud: trtcCloud.createSub())
+    func setupSubCloud() {
+        for index in 0...maxRoom-1 {
+            let subCloudHelper = SubCloudHelper()
+            subCloudHelper.subId = UInt32(index)
+            subCloudHelper.trtcCloud = trtcCloud.createSub()
             subCloudHelper.delegate = self
             subCloudHelperArr.add(subCloudHelper)
         }
     }
     
-    func destroyTRTCCloud (){
+    func destroyTRTCCloud () {
         TRTCCloud.destroySharedIntance()
         trtcCloud.exitRoom()
     }
     
-   
-    
-    func dealloc(){
-        trtcCloud.stopLocalAudio()
-        trtcCloud.stopLocalPreview()
-        trtcCloud.exitRoom()
-        TRTCCloud.destroySharedIntance()
-    }
     
 }
 
-extension JoinMultipleRoomViewController:UITextFieldDelegate{
+extension JoinMultipleRoomViewController:UITextFieldDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         leftRemoteFiledA.resignFirstResponder()
         leftRemoteFiledB.resignFirstResponder()
         rightRemoteFiledA.resignFirstResponder()
-        return rightRemoteFiledB.resignFirstResponder()
+        rightRemoteFiledB.resignFirstResponder()
+        return true
     }
 }
 
-extension JoinMultipleRoomViewController:SubCloudHelperDelegate{
+extension JoinMultipleRoomViewController:SubCloudHelperDelegate {
     func onUserVideoAvailableWithSubId(subId: UInt32, userId: String, available: Bool) {
-        if available{
-            if let subCloud = subCloudHelperArr[Int(subId)] as? SubCloudHelper{
-               let trtc = subCloud.getCloud()
-                trtc.startRemoteView(userId, streamType: .small, view: remoteViewArr[Int(subId)] as! UIView)
-            
+        if available {
+            if let subCloud = subCloudHelperArr[Int(subId)] as? SubCloudHelper {
+                let trtc = subCloud.getCloud()
+                trtc.startRemoteView(userId, streamType: .small, view: remoteViewArr[Int(subId)])
             }
-        }else{
-            if let subCloud = subCloudHelperArr[Int(subId)] as? SubCloudHelper{
-               let trtc = subCloud.getCloud()
+        } else {
+            if let subCloud = subCloudHelperArr[Int(subId)] as? SubCloudHelper {
+                let trtc = subCloud.getCloud()
                 trtc.stopRemoteView(userId, streamType: .small)
-            
             }
         }
     }

@@ -55,6 +55,21 @@ let SDKAPPID: Int = 0
 let EXPIRETIME: Int = 0
 
 /**
+ * CDN发布功能 混流appId
+ */
+let CDNAPPID = 0
+
+/**
+ * CDN发布功能 混流bizId
+ */
+let CDNBIZID = 0
+
+/**
+ * CDN发布功能 混流CDN_URL
+ */
+let kCDN_URL: String = ""
+
+/**
  * 计算签名用的加密密钥，获取步骤如下：
  *
  * step1. 进入腾讯云云通信[控制台](https://console.cloud.tencent.com/avc) ，如果还没有应用就创建一个，
@@ -127,13 +142,17 @@ class GenerateTestUserSig {
             }
         }
         print("string to sign: \(stringToSign)")
-        let sig = hmac(stringToSign)
-        obj["TLS.sig"] = sig!
-        print("sig: \(String(describing: sig))")
+        if let sig = hmac(stringToSign) {
+            obj["TLS.sig"] = sig
+            print("sig: \(String(describing: sig))")
+        }
         guard let jsonData = try? JSONSerialization.data(withJSONObject: obj, options: .sortedKeys) else { return "" }
         
         let bytes = jsonData.withUnsafeBytes { (result) -> UnsafePointer<Bytef> in
-            return result.bindMemory(to: Bytef.self).baseAddress!
+            if let baseAddress = result.bindMemory(to: Bytef.self).baseAddress {
+                return baseAddress
+            }
+            return UnsafePointer<Bytef>.init("")
         }
         let srcLen: uLongf = uLongf(jsonData.count)
         let upperBound: uLong = compressBound(srcLen)
@@ -152,7 +171,6 @@ class GenerateTestUserSig {
     }
     
     class func hmac(_ plainText: String) -> String? {
-        let cKey = SECRETKEY.cString(using: String.Encoding.ascii)
         let cData = plainText.cString(using: String.Encoding.ascii)
         
         let cKeyLen = SECRETKEY.lengthOfBytes(using: .ascii)
@@ -162,8 +180,10 @@ class GenerateTestUserSig {
         let pointer = cHMAC.withUnsafeMutableBufferPointer { (unsafeBufferPointer) in
             return unsafeBufferPointer
         }
-        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), cKey!, cKeyLen, cData, cDataLen, pointer.baseAddress)
-        let data = Data.init(bytes: pointer.baseAddress!, count: cHMAC.count)
+        guard let cKey = SECRETKEY.cString(using: String.Encoding.ascii) else { return "" }
+        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA256), cKey, cKeyLen, cData, cDataLen, pointer.baseAddress)
+        guard let baseAddress = pointer.baseAddress else { return "" }
+        let data = Data.init(bytes: baseAddress, count: cHMAC.count)
         return data.base64EncodedString(options: [])
     }
     

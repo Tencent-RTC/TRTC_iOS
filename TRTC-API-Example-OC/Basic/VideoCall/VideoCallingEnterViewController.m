@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/12.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 //  TRTC 视频通话入口界面
 //  包含如下功能：
@@ -29,10 +30,10 @@
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.VideoCallingEnter.Title");
-    _inputRoomLabel.text = Localize(@"TRTC-API-Example.VideoCallingEnter.EnterRoomNumber");
-    _inputUserLabel.text = Localize(@"TRTC-API-Example.VideoCallingEnter.EnterUserName");
-    [_startButton setTitle:Localize(@"TRTC-API-Example.VideoCallingEnter.EnterRoom") forState:UIControlStateNormal];
+    self.title = localize(@"TRTC-API-Example.VideoCallingEnter.Title");
+    _inputRoomLabel.text = localize(@"TRTC-API-Example.VideoCallingEnter.EnterRoomNumber");
+    _inputUserLabel.text = localize(@"TRTC-API-Example.VideoCallingEnter.EnterUserName");
+    [_startButton setTitle:localize(@"TRTC-API-Example.VideoCallingEnter.EnterRoom") forState:UIControlStateNormal];
 }
 
 - (void)setupRandomId {
