@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/12.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -87,26 +88,26 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = [Localize(@"TRTC-API-Example.VideoCalling.Title") stringByAppendingString:[@(_roomId)stringValue]];
-    _videoOptionsLabel.text = Localize(@"TRTC-API-Example.VideoCalling.videoOptions");
-    _audioOptionsLabel.text = Localize(@"TRTC-API-Example.VideoCalling.audioOptions");
-    [_hansFreeButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.speaker")
+    self.title = [localize(@"TRTC-API-Example.VideoCalling.Title") stringByAppendingString:[@(_roomId)stringValue]];
+    _videoOptionsLabel.text = localize(@"TRTC-API-Example.VideoCalling.videoOptions");
+    _audioOptionsLabel.text = localize(@"TRTC-API-Example.VideoCalling.audioOptions");
+    [_hansFreeButton setTitle:localize(@"TRTC-API-Example.VideoCalling.speaker")
                      forState:UIControlStateNormal];
-    [_captureCamButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.openCam")
+    [_captureCamButton setTitle:localize(@"TRTC-API-Example.VideoCalling.openCam")
                        forState:UIControlStateSelected];
-    [_captureCamButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.closeCam")
+    [_captureCamButton setTitle:localize(@"TRTC-API-Example.VideoCalling.closeCam")
                        forState:UIControlStateNormal];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.cancelMute")
+    [_muteButton setTitle:localize(@"TRTC-API-Example.VideoCalling.cancelMute")
                  forState:UIControlStateSelected];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.mute")
+    [_muteButton setTitle:localize(@"TRTC-API-Example.VideoCalling.mute")
                  forState:UIControlStateNormal];
-    [_hansFreeButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.earPhone")
+    [_hansFreeButton setTitle:localize(@"TRTC-API-Example.VideoCalling.earPhone")
                      forState:UIControlStateNormal];
-    [_hansFreeButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.speaker")
+    [_hansFreeButton setTitle:localize(@"TRTC-API-Example.VideoCalling.speaker")
                      forState:UIControlStateSelected];
-    [_switchCamButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.useBehindCam")
+    [_switchCamButton setTitle:localize(@"TRTC-API-Example.VideoCalling.useBehindCam")
                       forState:UIControlStateNormal];
-    [_switchCamButton setTitle:Localize(@"TRTC-API-Example.VideoCalling.useFrontCam")
+    [_switchCamButton setTitle:localize(@"TRTC-API-Example.VideoCalling.useFrontCam")
                       forState:UIControlStateSelected];
     _videoOptionsLabel.adjustsFontSizeToFitWidth = true;
     _audioOptionsLabel.adjustsFontSizeToFitWidth = true;

@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/14.
+//  Copyright (c) adams Tencent. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

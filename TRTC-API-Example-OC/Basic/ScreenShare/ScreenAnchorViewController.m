@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/15.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -74,14 +75,14 @@ typedef NS_ENUM(NSInteger, ScreenStatus) {
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.ScreenAnchor.Title");
-    _roomIdLabel.text = [Localize(@"TRTC-API-Example.ScreenAnchor.RoomNumber") stringByAppendingString:[@(_roomId) stringValue]];
-    _userIdLabel.text = [Localize(@"TRTC-API-Example.ScreenAnchor.UserName") stringByAppendingString:_userId];
-    _resolutionLabel.text = Localize(@"TRTC-API-Example.ScreenAnchor.Resolution");
-    _tipLabel.text = Localize(@"TRTC-API-Example.ScreenAnchor.Description");
-    [_startScreenButton setTitle:Localize(@"TRTC-API-Example.ScreenAnchor.BeginScreenShare") forState:UIControlStateNormal];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.ScreenAnchor.cancelMute") forState:UIControlStateSelected];
-    [_muteButton setTitle:Localize(@"TRTC-API-Example.ScreenAnchor.mute") forState:UIControlStateNormal];
+    self.title = localize(@"TRTC-API-Example.ScreenAnchor.Title");
+    _roomIdLabel.text = [localize(@"TRTC-API-Example.ScreenAnchor.RoomNumber") stringByAppendingString:[@(_roomId) stringValue]];
+    _userIdLabel.text = [localize(@"TRTC-API-Example.ScreenAnchor.UserName") stringByAppendingString:_userId];
+    _resolutionLabel.text = localize(@"TRTC-API-Example.ScreenAnchor.Resolution");
+    _tipLabel.text = localize(@"TRTC-API-Example.ScreenAnchor.Description");
+    [_startScreenButton setTitle:localize(@"TRTC-API-Example.ScreenAnchor.BeginScreenShare") forState:UIControlStateNormal];
+    [_muteButton setTitle:localize(@"TRTC-API-Example.ScreenAnchor.cancelMute") forState:UIControlStateSelected];
+    [_muteButton setTitle:localize(@"TRTC-API-Example.ScreenAnchor.mute") forState:UIControlStateNormal];
     _roomIdLabel.adjustsFontSizeToFitWidth = true;
     _resolutionLabel.adjustsFontSizeToFitWidth = true;
     _tipLabel.adjustsFontSizeToFitWidth = true;
@@ -124,7 +125,7 @@ typedef NS_ENUM(NSInteger, ScreenStatus) {
             [self.trtcCloud startScreenCaptureByReplaykit:_encParams
                                                  appGroup:@"group.com.tencent.liteav.RPLiveStreamShare"];
             [TRTCBroadcastExtensionLauncher launch];
-            [_startScreenButton setTitle:Localize(@"TRTC-API-Example.ScreenAnchor.WaitScreenShare")
+            [_startScreenButton setTitle:localize(@"TRTC-API-Example.ScreenAnchor.WaitScreenShare")
                                 forState:UIControlStateNormal];
             break;
         case ScreenWait:
@@ -148,13 +149,13 @@ typedef NS_ENUM(NSInteger, ScreenStatus) {
 
 - (void)onScreenCaptureStarted {
     _status = ScreenStart;
-    [_startScreenButton setTitle:Localize(@"TRTC-API-Example.ScreenAnchor.StopScreenShare")
+    [_startScreenButton setTitle:localize(@"TRTC-API-Example.ScreenAnchor.StopScreenShare")
                         forState:UIControlStateNormal];
 }
 
 - (void)onScreenCaptureStoped:(int)reason {
     _status = ScreenStop;
-    [_startScreenButton setTitle:Localize(@"TRTC-API-Example.ScreenAnchor.BeginScreenShare")
+    [_startScreenButton setTitle:localize(@"TRTC-API-Example.ScreenAnchor.BeginScreenShare")
                         forState:UIControlStateNormal];
 }
 

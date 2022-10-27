@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/19.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -23,6 +24,7 @@
  */
 
 #import "SetAudioQualityViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 static const NSInteger maxRemoteUserNum = 6;
 
@@ -80,16 +82,16 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = [Localize(@"TRTC-API-Example.SetAudioQuality.Title") stringByAppendingString:_roomIdTextField.text];
-    _roomIdLabel.text = Localize(@"TRTC-API-Example.SetAudioQuality.roomId");
-    _userIdLabel.text = Localize(@"TRTC-API-Example.SetAudioQuality.userId");
-    _audioQualityLabel.text = Localize(@"TRTC-API-Example.SetAudioQuality.chooseQuality");
-    _audioVolumeLabel.text = Localize(@"TRTC-API-Example.SetAudioQuality.chooseVolume");
-    [_audioSpeechButton setTitle:Localize(@"TRTC-API-Example.SetAudioQuality.qualitySpeech") forState:UIControlStateNormal];
-    [_audioDefaultButton setTitle:Localize(@"TRTC-API-Example.SetAudioQuality.qualityDefalut") forState:UIControlStateNormal];
-    [_audioMusicButton setTitle:Localize(@"TRTC-API-Example.SetAudioQuality.qualityMusic") forState:UIControlStateNormal];
-    [_startPublisherButton setTitle:Localize(@"TRTC-API-Example.SetAudioQuality.start") forState:UIControlStateNormal];
-    [_startPublisherButton setTitle:Localize(@"TRTC-API-Example.SetAudioQuality.stop") forState:UIControlStateSelected];
+    self.title = [localize(@"TRTC-API-Example.SetAudioQuality.Title") stringByAppendingString:_roomIdTextField.text];
+    _roomIdLabel.text = localize(@"TRTC-API-Example.SetAudioQuality.roomId");
+    _userIdLabel.text = localize(@"TRTC-API-Example.SetAudioQuality.userId");
+    _audioQualityLabel.text = localize(@"TRTC-API-Example.SetAudioQuality.chooseQuality");
+    _audioVolumeLabel.text = localize(@"TRTC-API-Example.SetAudioQuality.chooseVolume");
+    [_audioSpeechButton setTitle:localize(@"TRTC-API-Example.SetAudioQuality.qualitySpeech") forState:UIControlStateNormal];
+    [_audioDefaultButton setTitle:localize(@"TRTC-API-Example.SetAudioQuality.qualityDefalut") forState:UIControlStateNormal];
+    [_audioMusicButton setTitle:localize(@"TRTC-API-Example.SetAudioQuality.qualityMusic") forState:UIControlStateNormal];
+    [_startPublisherButton setTitle:localize(@"TRTC-API-Example.SetAudioQuality.start") forState:UIControlStateNormal];
+    [_startPublisherButton setTitle:localize(@"TRTC-API-Example.SetAudioQuality.stop") forState:UIControlStateSelected];
     
     _roomIdLabel.adjustsFontSizeToFitWidth = true;
     _userIdLabel.adjustsFontSizeToFitWidth = true;
@@ -186,40 +188,11 @@ static const NSInteger maxRemoteUserNum = 6;
         [self.trtcCloud exitRoom];
         [self destroyTRTCCloud];
     } else {
-        self.title = [Localize(@"TRTC-API-Example.SetAudioQuality.Title") stringByAppendingString:_roomIdTextField.text];
+        self.title = [localize(@"TRTC-API-Example.SetAudioQuality.Title") stringByAppendingString:_roomIdTextField.text];
         [self setupTRTCCloud];
     }
     sender.selected = !sender.selected;
 }
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 20;
-     }];
-     return YES;
-}
-
 
 #pragma mark - TRTCCloud Delegate
 

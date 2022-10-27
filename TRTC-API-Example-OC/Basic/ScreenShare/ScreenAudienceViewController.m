@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/15.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 
@@ -25,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = [Localize(@"TRTC-API-Example.ScreenAudience.Title")
+    self.title = [localize(@"TRTC-API-Example.ScreenAudience.Title")
                   stringByAppendingString: [@(_roomId) stringValue]];
     
     self.trtcCloud.delegate = self;

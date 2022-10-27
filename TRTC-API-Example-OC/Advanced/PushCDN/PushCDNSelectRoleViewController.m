@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by abyyxwang on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 // CDN发布功能 - 进房入口
@@ -72,26 +73,26 @@ typedef NS_ENUM(NSInteger, UserType) {
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.PushCDN.Title");
+    self.title = localize(@"TRTC-API-Example.PushCDN.Title");
     
-    [self.tipsLable setText:Localize(@"TRTC-API-Example.PushCDN.TipsTitle")];
-    [self.tipItemOneLabel setText:Localize(@"TRTC-API-Example.PushCDN.TipsOne")];
-    [self.tipItemTowLabel setText:Localize(@"TRTC-API-Example.PushCDN.TipsTwo")];
-    [self.tipItemThreeLabel setText:Localize(@"TRTC-API-Example.PushCDN.TipsThree")];
+    [self.tipsLable setText:localize(@"TRTC-API-Example.PushCDN.TipsTitle")];
+    [self.tipItemOneLabel setText:localize(@"TRTC-API-Example.PushCDN.TipsOne")];
+    [self.tipItemTowLabel setText:localize(@"TRTC-API-Example.PushCDN.TipsTwo")];
+    [self.tipItemThreeLabel setText:localize(@"TRTC-API-Example.PushCDN.TipsThree")];
     
     UIImage *normalBackgroundImage = [[UIColor themeGrayColor] trans2Image:CGSizeMake(1, 1)];
     UIImage *selectBackgroundImage = [[UIColor themeGreenColor] trans2Image:CGSizeMake(1, 1)];
     
-    [self.anchorButton setTitle:Localize(@"TRTC-API-Example.PushCDN.AnchorStart") forState:UIControlStateNormal];
+    [self.anchorButton setTitle:localize(@"TRTC-API-Example.PushCDN.AnchorStart") forState:UIControlStateNormal];
     [self.anchorButton setBackgroundImage:normalBackgroundImage forState:UIControlStateNormal];
     [self.anchorButton setBackgroundImage:selectBackgroundImage forState:UIControlStateSelected];
     
-    [self.audienceButton setTitle:Localize(@"TRTC-API-Example.PushCDN.AudienceStart") forState:UIControlStateNormal];
+    [self.audienceButton setTitle:localize(@"TRTC-API-Example.PushCDN.AudienceStart") forState:UIControlStateNormal];
     [self.audienceButton setBackgroundImage:normalBackgroundImage forState:UIControlStateNormal];
     [self.audienceButton setBackgroundImage:selectBackgroundImage forState:UIControlStateSelected];
     
-    self.tipsTextView.text = Localize(@"TRTC-API-Example.PushCDN.TipsURL");
-    [self.nextStepButton setTitle:Localize(@"TRTC-API-Example.PushCDN.NextStep") forState:UIControlStateNormal];
+    self.tipsTextView.text = localize(@"TRTC-API-Example.PushCDN.TipsURL");
+    [self.nextStepButton setTitle:localize(@"TRTC-API-Example.PushCDN.NextStep") forState:UIControlStateNormal];
     
     // Layer Corner
     self.anchorButton.layer.cornerRadius = 60;
