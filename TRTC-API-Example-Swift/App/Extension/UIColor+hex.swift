@@ -74,8 +74,8 @@ extension UIColor {
     }
     
     // 颜色转化为图片
-    public func trans2Image() -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)
+    public func trans2Image(imageSize : CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(self.cgColor)

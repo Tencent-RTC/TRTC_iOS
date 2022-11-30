@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/14.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -85,11 +86,11 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.anchorLabel.text = Localize(@"TRTC-API-Example.VoiceChatRoomAnchor.AnchorOperate");
-    [self.muteButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoomAnchor.mute") forState:UIControlStateNormal];
-    [self.muteButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoomAnchor.cancelmute") forState:UIControlStateSelected];
-    [self.downMicButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoomAnchor.downMic") forState:UIControlStateNormal];
-    [self.downMicButton setTitle:Localize(@"TRTC-API-Example.VoiceChatRoomAnchor.upMic") forState:UIControlStateSelected];
+    self.anchorLabel.text = localize(@"TRTC-API-Example.VoiceChatRoomAnchor.AnchorOperate");
+    [self.muteButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoomAnchor.mute") forState:UIControlStateNormal];
+    [self.muteButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoomAnchor.cancelmute") forState:UIControlStateSelected];
+    [self.downMicButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoomAnchor.downMic") forState:UIControlStateNormal];
+    [self.downMicButton setTitle:localize(@"TRTC-API-Example.VoiceChatRoomAnchor.upMic") forState:UIControlStateSelected];
     
     self.muteButton.titleLabel.adjustsFontSizeToFitWidth = true;
     self.downMicButton.titleLabel.adjustsFontSizeToFitWidth = true;

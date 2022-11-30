@@ -27,6 +27,6 @@ func LocalizeReplaceTwoCharacter(origin:String,xxx_replace:String,yyy_replace:St
     if yyy_replace == nil{
         yyyy_replace = ""
     }
-    return LocalizeReplace(Localize(origin), xxx_replace).replacingOccurrences(of: "yyy", with: yyyy_replace)
+    return LocalizeReplace(Localize(origin), xxx_replace).replacingOccurrences(of: "yyy", with: yyy_replace)
 }
 

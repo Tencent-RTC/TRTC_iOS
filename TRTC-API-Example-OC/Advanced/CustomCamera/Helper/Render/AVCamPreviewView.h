@@ -1,3 +1,11 @@
+//
+//  TestRenderCustomVideoData.m
+//  TXLiteAVDemo
+//
+//  Created by rushanting on 2019/3/27.
+//  Copyright © 2019 Tencent. All rights reserved.
+//
+
 /*
 See LICENSE folder for this sample’s licensing information.
 

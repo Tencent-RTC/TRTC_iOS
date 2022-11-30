@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/14.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -83,15 +84,15 @@
 }
 
 - (void)setupDefaultUIConfig {
-    self.videoOperatingLabel.text = Localize(@"TRTC-API-Example.LiveAnchor.VideoOptions");
-    self.audioOperatingLabel.text = Localize(@"TRTC-API-Example.LiveAnchor.AudioOptions");
+    self.videoOperatingLabel.text = localize(@"TRTC-API-Example.LiveAnchor.VideoOptions");
+    self.audioOperatingLabel.text = localize(@"TRTC-API-Example.LiveAnchor.AudioOptions");
     
-    [self.changeCameraButton setTitle:Localize(@"TRTC-API-Example.LiveAnchor.rearcamera") forState:UIControlStateNormal];
-    [self.changeCameraButton setTitle:Localize(@"TRTC-API-Example.LiveAnchor.frontcamera") forState:UIControlStateSelected];
-    [self.openCameraButton setTitle:Localize(@"TRTC-API-Example.LiveAnchor.closecamera") forState:UIControlStateNormal];
-    [self.openCameraButton setTitle:Localize(@"TRTC-API-Example.LiveAnchor.opencamera") forState:UIControlStateSelected];
-    [self.muteButton setTitle:Localize(@"TRTC-API-Example.LiveAnchor.mute") forState:UIControlStateNormal];
-    [self.muteButton setTitle:Localize(@"TRTC-API-Example.LiveAnchor.cancelmute") forState:UIControlStateSelected];
+    [self.changeCameraButton setTitle:localize(@"TRTC-API-Example.LiveAnchor.rearcamera") forState:UIControlStateNormal];
+    [self.changeCameraButton setTitle:localize(@"TRTC-API-Example.LiveAnchor.frontcamera") forState:UIControlStateSelected];
+    [self.openCameraButton setTitle:localize(@"TRTC-API-Example.LiveAnchor.closecamera") forState:UIControlStateNormal];
+    [self.openCameraButton setTitle:localize(@"TRTC-API-Example.LiveAnchor.opencamera") forState:UIControlStateSelected];
+    [self.muteButton setTitle:localize(@"TRTC-API-Example.LiveAnchor.mute") forState:UIControlStateNormal];
+    [self.muteButton setTitle:localize(@"TRTC-API-Example.LiveAnchor.cancelmute") forState:UIControlStateSelected];
     
     self.videoOperatingLabel.adjustsFontSizeToFitWidth = true;
     self.changeCameraButton.titleLabel.adjustsFontSizeToFitWidth = true;

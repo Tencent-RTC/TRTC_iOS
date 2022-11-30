@@ -9,29 +9,48 @@
 import UIKit
 import TXLiteAVSDK_TRTC
 
+/*
+实时语音通话功能
+ TRTC APP 实时语音通话功能
+ 本文件展示如何集成实时语音通话功能
+ 1、切换听筒与扬声器 API: trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
+ 2、静音当前设备，其他人将无法听到该设备的声音 API: trtcCloud.muteLocalAudio(true)
+ 3、显示其他的网络信息和音量信息 API：delegate -> onNetworkQuality, onUserVoiceVolume
+ 参考文档：https://cloud.tencent.com/document/product/647/42046
+ */
+
+/*
+Real-Time Audio Call
+ TRTC Audio Call
+ This document shows how to integrate the real-time audio call feature.
+ 1. Switch between the speaker and receiver: trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
+ 2. Mute the device so that others won’t hear the audio of the device: trtcCloud.muteLocalAudio(true)
+ 3. Display other network and volume information: delegate -> onNetworkQuality, onUserVoiceVolume
+ Documentation: https://cloud.tencent.com/document/product/647/42046
+*/
+
 class UserBox: UIView {
-    lazy var userPortrait: UIImageView = {
-        var imageV = UIImageView()
+    let userPortrait: UIImageView = {
+        var imageV = UIImageView(image: UIImage(named: "audiocall_user_portrait"))
         imageV.backgroundColor = .white
         return imageV
     }()
     
-    lazy var label: UILabel = {
+    let label: UILabel = {
         var label = UILabel()
-        label.backgroundColor = .blue
+        label.backgroundColor = .clear
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .center
         return label
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: CGRect(x: 0, y: 0, width: 80, height: 90))
         contentMode = .scaleToFill
         semanticContentAttribute = .unspecified
         isUserInteractionEnabled = true
-        backgroundColor = .red
+        backgroundColor = .clear
         alpha = 1
     }
     
@@ -40,6 +59,7 @@ class UserBox: UIView {
     }
     
     private var isViewReady = false
+    
     override func didMoveToWindow() {
         super.didMoveToWindow()
         guard !isViewReady else {
@@ -81,51 +101,43 @@ class CustomRemoteInfo {
 
 class AudioCallingViewController : UIViewController {
     
-    let hangUp: String = "挂断"
-    let speaker: String = "使用扬声器"
-    let earPhone: String = "使用听筒"
-    let mute: String = "关闭麦克风"
-    let cancelMute: String = "打开麦克风"
-    let sectionTitle0: String = "信息面板"
-    let sectionTitle1: String = "音量信息"
-    let sectionTitle2: String = "网络信息"
-    let navgationTitle: String = "房间号:"
+    let navgationTitle: String = Localize("TRTC-API-Example.AudioCalling.Title")
     var roomId: UInt32 = 0
     var userId: String = ""
     let maxRemoteUserNum = 6
     let SDKAppID: UInt32 = 0
 
-    lazy var userBox1: UserBox = {
+    let userBox1: UserBox = {
         var box = UserBox()
         box.isHidden = true
         return box
     }()
     
-    lazy var userBox2: UserBox = {
+    let userBox2: UserBox = {
         var box = UserBox()
         box.isHidden = true
         return box
     }()
     
-    lazy var userBox3: UserBox = {
+    let userBox3: UserBox = {
         var box = UserBox()
         box.isHidden = true
         return box
     }()
     
-    lazy var userBox4: UserBox = {
+    let userBox4: UserBox = {
         var box = UserBox()
         box.isHidden = true
         return box
     }()
     
-    lazy var userBox5: UserBox = {
+    let userBox5: UserBox = {
         var box = UserBox()
         box.isHidden = true
         return box
     }()
     
-    lazy var userBox6: UserBox = {
+    let userBox6: UserBox = {
         var box = UserBox()
         box.isHidden = true
         return box
@@ -136,9 +148,9 @@ class AudioCallingViewController : UIViewController {
         return array
     }()
     
-    lazy var stackView1: UIStackView = {
+    let stackView1: UIStackView = {
         var view = UIStackView(frame: .zero)
-//        view.backgroundColor = .green
+        view.backgroundColor = .clear
         view.axis = .horizontal
         view.alignment = .fill
         view.distribution = .fillEqually
@@ -146,9 +158,9 @@ class AudioCallingViewController : UIViewController {
         return view
     }()
     
-    lazy var stackView2: UIStackView = {
+    let stackView2: UIStackView = {
         var view = UIStackView(frame: .zero)
-//        view.backgroundColor = .green
+        view.backgroundColor = .clear
         view.axis = .horizontal
         view.alignment = .fill
         view.distribution = .fillEqually
@@ -156,49 +168,52 @@ class AudioCallingViewController : UIViewController {
         return view
     }()
     
-    lazy var userStatusTableView: UITableView = {
+    let userStatusTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.backgroundColor = .gray
         return tableView
     }()
     
-    lazy var hansFreeButton: UIButton = {
+    let hansFreeButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(speaker, for: .normal)
-        button.setTitle(earPhone, for: .selected)
+        button.setTitle(Localize("TRTC-API-Example.AudioCalling.speaker"), for: .normal)
+        button.setTitle(Localize("TRTC-API-Example.AudioCalling.earPhone"), for: .selected)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
         button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
-        button.addTarget(self, action: #selector(onSwitchSpeakerClick), for: .touchUpInside)
+
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
         return button
     }()
     
-    lazy var muteButton: UIButton = {
+    let muteButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(mute, for: .normal)
-        button.setTitle(cancelMute, for: .selected)
+        button.setTitle(Localize("TRTC-API-Example.AudioCalling.mute"), for: .normal)
+        button.setTitle(Localize("TRTC-API-Example.AudioCalling.cancelMute"), for: .selected)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(onMicCaptureClick), for: .touchUpInside)
+        
         return button
     }()
     
-    lazy var hangUpButton: UIButton = {
+    let hangUpButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.backgroundColor = UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
-        button.setTitle(hangUp, for: .normal)
+        button.setTitle(Localize("TRTC-API-Example.AudioCalling.hangup"), for: .normal)
         button.layer.cornerRadius = 8
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(onAudioCallStopClick), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 15.0)
+
         return button
     }()
     
-    lazy var dashBoardLabel: UILabel = {
+    let dashBoardLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = sectionTitle0
+        label.text = Localize("TRTC-API-Example.AudioCalling.dashBorad")
         label.textColor =  UIColor(red: 52.0/255, green: 184.0/255, blue: 97.0/255, alpha: 1)
         label.adjustsFontSizeToFitWidth = true
         return label
@@ -232,18 +247,18 @@ class AudioCallingViewController : UIViewController {
     
     @objc func onSwitchSpeakerClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        if sender.isSelected{
+        if sender.isSelected {
             trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
-        }else{
+        } else {
             trtcCloud.getDeviceManager().setAudioRoute(.earpiece)
         }
     }
     
     @objc func onMicCaptureClick(sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        if sender.isSelected{
+        if sender.isSelected {
             trtcCloud.muteLocalAudio(true)
-        }else{
+        } else {
             trtcCloud.muteLocalAudio(false)
         }
     }
@@ -255,18 +270,18 @@ class AudioCallingViewController : UIViewController {
     
     func setupTRTCCloud() {
         let params = TRTCParams()
-        params.sdkAppId = SDKAppID
+        params.sdkAppId = UInt32(SDKAPPID)
         params.roomId = roomId
         params.userId = userId as String
         params.role = .anchor
-        params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId)  as String
+        params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId) as String
 
         self.trtcCloud.enterRoom(params, appScene: .videoCall)
         self.trtcCloud.startLocalAudio(.music)
         self.trtcCloud.enableAudioVolumeEvaluation(1000)
     }
 
-    func dealloc() {
+    deinit {
         trtcCloud.exitRoom()
         TRTCCloud.destroySharedIntance()
     }
@@ -305,24 +320,24 @@ extension AudioCallingViewController {
         
         hansFreeButton.snp.makeConstraints { make in
             make.bottom.equalTo(-40)
-            make.leading.equalTo(10)
-            make.height.equalTo(35)
+            make.leading.equalTo(20)
+            make.height.equalTo(30)
+            make.width.equalTo(100)
             
         }
         
         hangUpButton.snp.makeConstraints { make in
-         
             make.bottom.equalTo(-40)
-            make.leading.equalTo(210)
-            make.width.equalTo(90)
-            make.height.equalTo(35)
-            
+            make.leading.equalTo(muteButton.snp.trailing).offset(15)
+            make.width.equalTo(100)
+            make.height.equalTo(30)
         }
         
         muteButton.snp.makeConstraints { make in
             make.bottom.equalTo(-40)
-            make.leading.equalTo(110)
-            make.height.equalTo(35)
+            make.leading.equalTo(hansFreeButton.snp.trailing).offset(15)
+            make.height.equalTo(30)
+            make.width.equalTo(100)
         }
         
         stackView1.snp.makeConstraints { make in
@@ -347,13 +362,16 @@ extension AudioCallingViewController {
         userStatusTableView.delegate = self
         userStatusTableView.dataSource = self
         userStatusTableView.allowsSelection = false
+        hansFreeButton.addTarget(self, action: #selector(onSwitchSpeakerClick(sender: )), for: .touchUpInside)
+        muteButton.addTarget(self, action: #selector(onMicCaptureClick(sender: )), for: .touchUpInside)
+        hangUpButton.addTarget(self, action: #selector(onAudioCallStopClick(sender: )), for: .touchUpInside)
     }
 }
 
 // MARK: - UITableViewDataSource
 extension AudioCallingViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userIdArray.count;
+        return userIdArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -362,8 +380,13 @@ extension AudioCallingViewController : UITableViewDataSource {
         cell.backgroundColor = UIColor.clear
         let userId = userIdArray[indexPath.row]
         if indexPath.section == 1 {
-            let volume = remoteInfoDictionary[userId]?.volume
-            cell.textLabel?.text = String(volume!)
+            guard let remoteInfo = remoteInfoDictionary[userId] else {
+                return UITableViewCell()
+            }
+            guard let volume = remoteInfo.volume else {
+                return UITableViewCell()
+            }
+            cell.textLabel?.text = userId + ":" + String(volume)
         }
         else if indexPath.section == 2 {
             var quality: String = ""
@@ -377,28 +400,27 @@ extension AudioCallingViewController : UITableViewDataSource {
             default:
                 quality = "unknow"
             }
-            cell.textLabel?.text = quality
+            cell.textLabel?.text =  userId + ":" + quality
         }
         
-        return cell;
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0{
-            return sectionTitle0
+            return dashBoardLabel.text
         }
         
         else if section == 1{
-            return sectionTitle1
+            return Localize("TRTC-API-Example.AudioCalling.volumInfo")
         }
         else{
-            return sectionTitle2
+            return Localize("TRTC-API-Example.AudioCalling.network")
         }
     }
     
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3;
+        return 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -411,24 +433,24 @@ extension AudioCallingViewController : UITableViewDataSource {
         return header
     }
     
-    
 }
 
 // MARK: - UITableViewDelegate
 extension AudioCallingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 15;
+        return 15
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30;
+        return 30
     }
     
 }
 
 //MARK: - TRTCCloudDelegate
 extension AudioCallingViewController: TRTCCloudDelegate {
+    
     func onRemoteUserEnterRoom(_ userId: String) {
         userIdArray.append(userId)
         remoteInfoDictionary[userId] = CustomRemoteInfo()
@@ -436,9 +458,11 @@ extension AudioCallingViewController: TRTCCloudDelegate {
     }
     
     func onRemoteUserLeaveRoom(_ userId: String, reason: Int) {
-        let index = userIdArray.firstIndex(of: userId)
-        userIdArray.remove(at: index!)
-        userBoxArray[index!].isHidden = true
+        guard let index = userIdArray.firstIndex(of: userId) else {
+            return
+        }
+        userBoxArray[index].isHidden = true
+        userIdArray.remove(at: index)
         remoteInfoDictionary.removeValue(forKey: userId)
         refreshRemoteAudioViews()
     }
@@ -447,8 +471,7 @@ extension AudioCallingViewController: TRTCCloudDelegate {
         for box in userBoxArray{
             box.isHidden = true
         }
-        
-        var index = 0;
+        var index = 0
         for id in userIdArray {
             if index >= maxRemoteUserNum {
                 return
@@ -457,11 +480,9 @@ extension AudioCallingViewController: TRTCCloudDelegate {
             userBoxArray[index].label.text = id
             index += 1
         }
-
     }
     
     func onNetworkQuality(_ localQuality: TRTCQualityInfo, remoteQuality: [TRTCQualityInfo]) {
-        
         for userId in userIdArray {
             for info in remoteQuality {
                 if userId == info.userId {
@@ -482,6 +503,7 @@ extension AudioCallingViewController: TRTCCloudDelegate {
         }
         userStatusTableView.reloadData()
     }
+    
 }
 
 

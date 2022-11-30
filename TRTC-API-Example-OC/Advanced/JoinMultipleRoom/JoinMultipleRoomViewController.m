@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/22.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -69,15 +70,15 @@ static const NSInteger maxRoom = 4;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = Localize(@"TRTC-API-Example.JoinMultipleRoom.title");
+    self.title = localize(@"TRTC-API-Example.JoinMultipleRoom.title");
     for (UILabel *label in _roomNumLabelArr) {
-        label.text = Localize(@"TRTC-API-Example.JoinMultipleRoom.roomNum");
+        label.text = localize(@"TRTC-API-Example.JoinMultipleRoom.roomNum");
         label.adjustsFontSizeToFitWidth = true;
     }
     for (UIButton *button in _startButtonArr) {
-        [button setTitle:Localize(@"TRTC-API-Example.JoinMultipleRoom.start")
+        [button setTitle:localize(@"TRTC-API-Example.JoinMultipleRoom.start")
                 forState:UIControlStateNormal];
-        [button setTitle:Localize(@"TRTC-API-Example.JoinMultipleRoom.stop")
+        [button setTitle:localize(@"TRTC-API-Example.JoinMultipleRoom.stop")
                 forState:UIControlStateSelected];
         button.titleLabel.adjustsFontSizeToFitWidth = true;
     }
