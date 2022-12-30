@@ -43,7 +43,14 @@
     }
     AudioBufferList audioBufferList;
     CMBlockBufferRef blockBuffer;
-    OSStatus state = CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sampleBuffer, NULL, &audioBufferList, sizeof(audioBufferList), NULL, NULL, 0, &blockBuffer);
+    OSStatus state = CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sampleBuffer,
+                                                                             NULL,
+                                                                             &audioBufferList,
+                                                                             sizeof(audioBufferList),
+                                                                             NULL,
+                                                                             NULL,
+                                                                             0,
+                                                                             &blockBuffer);
 
     if (state == noErr) {
         NSMutableData *audioPCMData = [[NSMutableData alloc] init];
@@ -99,7 +106,10 @@
 - (void)startVideo {
     __weak __typeof(self) weakSelf = self;
     [weakSelf.mediaReader startVideoRead];
-    [weakSelf.mediaReader readVideoFrameFromTime:0 toTime:(float)weakSelf.mediaReader.duration.value/weakSelf.mediaReader.duration.timescale fps:weakSelf.mediaReader.fps readOneFrame:^(CMSampleBufferRef sampleBuffer) {
+    [weakSelf.mediaReader readVideoFrameFromTime:0
+                                          toTime:(float)weakSelf.mediaReader.duration.value/weakSelf.mediaReader.duration.timescale
+                                             fps:weakSelf.mediaReader.fps
+                                    readOneFrame:^(CMSampleBufferRef sampleBuffer) {
         @autoreleasepool {
             __strong __typeof(weakSelf) strongSelf = weakSelf;
             
@@ -140,7 +150,9 @@
 - (void)startAudio {
     __weak __typeof(self) weakSelf = self;
     [weakSelf.mediaReader startAudioRead];
-    [weakSelf.mediaReader readAudioFrameFromTime:0 toTime:(float)weakSelf.mediaReader.duration.value/weakSelf.mediaReader.duration.timescale readOneFrame:^(CMSampleBufferRef sampleBuffer) {
+    [weakSelf.mediaReader readAudioFrameFromTime:0
+                                          toTime:(float)weakSelf.mediaReader.duration.value/weakSelf.mediaReader.duration.timescale
+                                    readOneFrame:^(CMSampleBufferRef sampleBuffer) {
         @autoreleasepool {
             __typeof(self) strongSelf = weakSelf;
             

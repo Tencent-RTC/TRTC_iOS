@@ -3,24 +3,25 @@
 //  TRTC-API-Example-OC
 //
 //  Created by abyyxwang on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
  CDN发布功能 - 观众端
  TRTC APP CDN发布功能
  本文件展示如何集成CDN发布功能
- 1、设置播放器代理。 API:[self.livePlayer setDelegate:self];
- 2、设置播放容器视图。 API: [self.livePlayer setupVideoWidget:CGRectZero containView:self.playerView insertIndex:0];
- 2、开始播放。 API: [self.livePlayer startPlay:streamUrl type:PLAY_TYPE_LIVE_FLV];
+ 1、设置播放器代理。 API:[self.livePlayer setObserver:self];
+ 2、设置播放容器视图。 API: [self.livePlayer setRenderView:self.playerView];
+ 3、开始播放。 API: [self.livePlayer startLivePlay:streamUrl];
  参考文档：https://cloud.tencent.com/document/product/647/16827
  */
 /*
  CDN Publishing - Audience
  TRTC CDN Publishing
  This document shows how to integrate the CDN publishing feature.
- 1. Set the player delegate: [self.livePlayer setDelegate:self]
- 2. Set the player container view: [self.livePlayer setupVideoWidget:CGRectZero containView:self.playerView insertIndex:0]
- 3. Start playback: [self.livePlayer startPlay:streamUrl type:PLAY_TYPE_LIVE_FLV]
+ 1. Set the player delegate: [self.livePlayer setObserver:self];
+ 2. Set the player container view: [self.livePlayer setRenderView:self.playerView];
+ 3. Start playback: [self.livePlayer startLivePlay:streamUrl];
  Documentation: https://cloud.tencent.com/document/product/647/16827
  */
 
@@ -52,11 +53,11 @@
 }
 
 - (void)setupDefaultUIConfig {
-    self.streamIDLabel.text = Localize(@"TRTC-API-Example.PushCDNAudience.pushStreamAddress");
-    [self.startPlayButton setTitle:Localize(@"TRTC-API-Example.PushCDNAudience.startPlay") forState:UIControlStateNormal];
-    [self.startPlayButton setTitle:Localize(@"TRTC-API-Example.PushCDNAudience.stopPlay") forState:UIControlStateSelected];
+    self.streamIDLabel.text = localize(@"TRTC-API-Example.PushCDNAudience.pushStreamAddress");
+    [self.startPlayButton setTitle:localize(@"TRTC-API-Example.PushCDNAudience.startPlay") forState:UIControlStateNormal];
+    [self.startPlayButton setTitle:localize(@"TRTC-API-Example.PushCDNAudience.stopPlay") forState:UIControlStateSelected];
     [self.startPlayButton setBackgroundColor: UIColor.themeGreenColor];
-    self.streamIDTextField.placeholder = Localize(@"TRTC-API-Example.PushCDNAudience.inputStreamId");
+    self.streamIDTextField.placeholder = localize(@"TRTC-API-Example.PushCDNAudience.inputStreamId");
     self.streamIDLabel.adjustsFontSizeToFitWidth = YES;
 }
 
@@ -64,7 +65,7 @@
     NSString *streamUrl = [NSString stringWithFormat:@"%@/%@.flv",kCDN_URL,self.streamIDTextField.text];
     [self.livePlayer setObserver:self];
     [self.livePlayer setRenderView:self.playerView];
-    V2TXLiveCode ret = [self.livePlayer startPlay:streamUrl];
+    V2TXLiveCode ret = [self.livePlayer startLivePlay:streamUrl];
     if (ret != 0) {
         NSLog(@"play error. code: %ld", ret);
     }

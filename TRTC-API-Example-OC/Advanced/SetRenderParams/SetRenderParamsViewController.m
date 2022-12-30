@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by bluedang on 2021/4/20.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -40,6 +41,7 @@
 
 
 #import "SetRenderParamsViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 static const NSInteger maxRemoteUserNum = 6;
 
@@ -109,26 +111,26 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)setupDefaultUIConfig {
-    self.title = [Localize(@"TRTC-API-Example.RenderParams.Title")
+    self.title = [localize(@"TRTC-API-Example.RenderParams.Title")
                   stringByAppendingString:_roomIdTextField.text];
 
-    _roomIdLabel.text = Localize(@"TRTC-API-Example.RenderParams.roomId");
-    _userIdLabel.text = Localize(@"TRTC-API-Example.RenderParams.userId");
-    _localRotateLabel.text = Localize(@"TRTC-API-Example.RenderParams.localRate");
-    _localRenderModeLabel.text = Localize(@"TRTC-API-Example.RenderParams.localRenderMode");
-    _remoteRotateLabel.text = Localize(@"TRTC-API-Example.RenderParams.remoteRate");
-    _remoteRenderModeLabel.text = Localize(@"TRTC-API-Example.RenderParams.remoteRenderMode");
-    _localMirrorModeLabel.text = Localize(@"TRTC-API-Example.RenderParams.localMirrorMode");
-    _remoteUserIdLabel.text = Localize(@"TRTC-API-Example.RenderParams.remoteUserId");
+    _roomIdLabel.text = localize(@"TRTC-API-Example.RenderParams.roomId");
+    _userIdLabel.text = localize(@"TRTC-API-Example.RenderParams.userId");
+    _localRotateLabel.text = localize(@"TRTC-API-Example.RenderParams.localRate");
+    _localRenderModeLabel.text = localize(@"TRTC-API-Example.RenderParams.localRenderMode");
+    _remoteRotateLabel.text = localize(@"TRTC-API-Example.RenderParams.remoteRate");
+    _remoteRenderModeLabel.text = localize(@"TRTC-API-Example.RenderParams.remoteRenderMode");
+    _localMirrorModeLabel.text = localize(@"TRTC-API-Example.RenderParams.localMirrorMode");
+    _remoteUserIdLabel.text = localize(@"TRTC-API-Example.RenderParams.remoteUserId");
     
     [_remoteUserIdButton setTitle:@"" forState:UIControlStateNormal];
-    [_localRotateButton setTitle:Localize(@"TRTC-API-Example.RenderParams.rotate0") forState:UIControlStateNormal];
-    [_localMirrorModeButton setTitle:Localize(@"TRTC-API-Example.RenderParams.frontSymmetric") forState:UIControlStateNormal];
-    [_localFillModeButton setTitle:Localize(@"TRTC-API-Example.RenderParams.renderModeFill") forState:UIControlStateNormal];
-    [_remoteRotateButton setTitle:Localize(@"TRTC-API-Example.RenderParams.rotate0") forState:UIControlStateNormal];
-    [_remoteFillModeButton setTitle:Localize(@"TRTC-API-Example.RenderParams.renderModeFill") forState:UIControlStateNormal];
-    [_startButton setTitle:Localize(@"TRTC-API-Example.RenderParams.start") forState:UIControlStateNormal];
-    [_startButton setTitle:Localize(@"TRTC-API-Example.RenderParams.stop") forState:UIControlStateSelected];
+    [_localRotateButton setTitle:localize(@"TRTC-API-Example.RenderParams.rotate0") forState:UIControlStateNormal];
+    [_localMirrorModeButton setTitle:localize(@"TRTC-API-Example.RenderParams.frontSymmetric") forState:UIControlStateNormal];
+    [_localFillModeButton setTitle:localize(@"TRTC-API-Example.RenderParams.renderModeFill") forState:UIControlStateNormal];
+    [_remoteRotateButton setTitle:localize(@"TRTC-API-Example.RenderParams.rotate0") forState:UIControlStateNormal];
+    [_remoteFillModeButton setTitle:localize(@"TRTC-API-Example.RenderParams.renderModeFill") forState:UIControlStateNormal];
+    [_startButton setTitle:localize(@"TRTC-API-Example.RenderParams.start") forState:UIControlStateNormal];
+    [_startButton setTitle:localize(@"TRTC-API-Example.RenderParams.stop") forState:UIControlStateSelected];
     
     _roomIdLabel.adjustsFontSizeToFitWidth = true;
     _userIdLabel.adjustsFontSizeToFitWidth = true;
@@ -197,20 +199,20 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)showRateMenuListWithIsLocal:(BOOL)isLocal handler:(void (^ __nullable)(TRTCVideoRotation rotate))handler {
-    NSString* alertTitle = isLocal ? Localize(@"TRTC-API-Example.RenderParams.localRate") : Localize(@"TRTC-API-Example.RenderParams.remoteRate");
+    NSString* alertTitle = isLocal ? localize(@"TRTC-API-Example.RenderParams.localRate") : localize(@"TRTC-API-Example.RenderParams.remoteRate");
      
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:alertTitle message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.rotate0") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.rotate0") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoRotation_0); }
     }];
-    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.rotate90") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.rotate90") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoRotation_90); }
     }];
-    UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.rotate180") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.rotate180") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoRotation_180); }
     }];
-    UIAlertAction *alertAction3 = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.rotate270") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction3 = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.rotate270") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoRotation_270); }
     }];
 
@@ -223,14 +225,14 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)showFillModeListWithIsLocal:(BOOL)isLocal handler:(void (^ __nullable)(TRTCVideoFillMode))handler {
-    NSString* alertTitle = isLocal ? Localize(@"TRTC-API-Example.RenderParams.localRenderMode") : Localize(@"TRTC-API-Example.RenderParams.remoteRenderMode");
+    NSString* alertTitle = isLocal ? localize(@"TRTC-API-Example.RenderParams.localRenderMode") : localize(@"TRTC-API-Example.RenderParams.remoteRenderMode");
 
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:alertTitle message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.renderModeFill") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.renderModeFill") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoFillMode_Fill); }
     }];
-    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.renderModeAdaptor") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.renderModeAdaptor") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoFillMode_Fit); }
     }];
 
@@ -241,19 +243,19 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)showMirrorTypeListWithHandler:(void (^ __nullable)(TRTCVideoMirrorType))handler {
-    NSString* alertTitle = Localize(@"TRTC-API-Example.RenderParams.localMirrorMode");
+    NSString* alertTitle = localize(@"TRTC-API-Example.RenderParams.localMirrorMode");
 
     UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:alertTitle message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.frontSymmetric") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *alertAction = [UIAlertAction actionWithTitle:localize(@"TRTC-API-Example.RenderParams.frontSymmetric") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoMirrorTypeAuto); }
     }];
     UIAlertAction *alertAction1 = [UIAlertAction
-        actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.allSymmetric") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        actionWithTitle:localize(@"TRTC-API-Example.RenderParams.allSymmetric") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoMirrorTypeEnable); }
     }];
     UIAlertAction *alertAction2 = [UIAlertAction
-        actionWithTitle:Localize(@"TRTC-API-Example.RenderParams.allKeep") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        actionWithTitle:localize(@"TRTC-API-Example.RenderParams.allKeep") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (handler) { handler(TRTCVideoMirrorTypeDisable); }
     }];
 
@@ -265,7 +267,9 @@ static const NSInteger maxRemoteUserNum = 6;
 }
 
 - (void)showRemoteUsersListWithHandle:(void (^ __nullable)(NSString*))handler {
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:Localize(@"TRTC-API-Example.RenderParams.chooseUserId") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:localize(@"TRTC-API-Example.RenderParams.chooseUserId")
+                                                                     message:nil
+                                                              preferredStyle:UIAlertControllerStyleActionSheet];
 
     for (NSString* userId in _remoteUidSet) {
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:userId style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
@@ -306,19 +310,19 @@ static const NSInteger maxRemoteUserNum = 6;
 - (void)refreshRotationButton:(UIButton*)button withRotation:(TRTCVideoRotation)rotate {
     switch (rotate) {
         case TRTCVideoRotation_0:
-            [button setTitle:Localize(@"TRTC-API-Example.RenderParams.rotate0")
+            [button setTitle:localize(@"TRTC-API-Example.RenderParams.rotate0")
                           forState:UIControlStateNormal];
             break;
         case TRTCVideoRotation_90:
-            [button setTitle:Localize(@"TRTC-API-Example.RenderParams.rotate90")
+            [button setTitle:localize(@"TRTC-API-Example.RenderParams.rotate90")
                           forState:UIControlStateNormal];
             break;
         case TRTCVideoRotation_180:
-            [button setTitle:Localize(@"TRTC-API-Example.RenderParams.rotate180")
+            [button setTitle:localize(@"TRTC-API-Example.RenderParams.rotate180")
                           forState:UIControlStateNormal];
             break;
         case TRTCVideoRotation_270:
-            [button setTitle:Localize(@"TRTC-API-Example.RenderParams.rotate270")
+            [button setTitle:localize(@"TRTC-API-Example.RenderParams.rotate270")
                           forState:UIControlStateNormal];
             break;
     }
@@ -327,11 +331,11 @@ static const NSInteger maxRemoteUserNum = 6;
 - (void)refreshFillModeButton:(UIButton*)button withFillMode:(TRTCVideoFillMode)fillMode {
     switch (fillMode) {
         case TRTCVideoFillMode_Fill:
-            [button setTitle:Localize(@"TRTC-API-Example.RenderParams.renderModeFill")
+            [button setTitle:localize(@"TRTC-API-Example.RenderParams.renderModeFill")
                           forState:UIControlStateNormal];
             break;
         case TRTCVideoFillMode_Fit:
-            [button setTitle:Localize(@"TRTC-API-Example.RenderParams.renderModeAdaptor")
+            [button setTitle:localize(@"TRTC-API-Example.RenderParams.renderModeAdaptor")
                           forState:UIControlStateNormal];
             break;
     }
@@ -340,15 +344,15 @@ static const NSInteger maxRemoteUserNum = 6;
 - (void)refreshLocalMirrorModeButton {
     switch (_localMirroType) {
         case TRTCVideoMirrorTypeAuto:
-            [_localMirrorModeButton setTitle:Localize(@"TRTC-API-Example.RenderParams.frontSymmetric")
+            [_localMirrorModeButton setTitle:localize(@"TRTC-API-Example.RenderParams.frontSymmetric")
                           forState:UIControlStateNormal];
             break;
         case TRTCVideoMirrorTypeEnable:
-            [_localMirrorModeButton setTitle:Localize(@"TRTC-API-Example.RenderParams.allSymmetric")
+            [_localMirrorModeButton setTitle:localize(@"TRTC-API-Example.RenderParams.allSymmetric")
                           forState:UIControlStateNormal];
             break;
         case TRTCVideoMirrorTypeDisable:
-            [_localMirrorModeButton setTitle:Localize(@"TRTC-API-Example.RenderParams.allKeep")
+            [_localMirrorModeButton setTitle:localize(@"TRTC-API-Example.RenderParams.allKeep")
                           forState:UIControlStateNormal];
             break;
     }
@@ -387,7 +391,7 @@ static const NSInteger maxRemoteUserNum = 6;
 - (IBAction)onRemoteRotationClick:(id)sender {
     if ([_remoteUserIdButton.currentTitle isEqualToString:@""]) {
         [self showAlertViewController:nil
-                              message:Localize(@"TRTC-API-Example.RenderParams.waitOtherUser")
+                              message:localize(@"TRTC-API-Example.RenderParams.waitOtherUser")
                               handler:nil];
         return;
     }
@@ -401,7 +405,7 @@ static const NSInteger maxRemoteUserNum = 6;
 - (IBAction)onRemoteFillModeClick:(id)sender {
     if ([_remoteUserIdButton.currentTitle isEqualToString:@""]) {
         [self showAlertViewController:nil
-                              message:Localize(@"TRTC-API-Example.RenderParams.waitOtherUser")
+                              message:localize(@"TRTC-API-Example.RenderParams.waitOtherUser")
                               handler:nil];
         return;
     }
@@ -415,7 +419,7 @@ static const NSInteger maxRemoteUserNum = 6;
 - (IBAction)onRemoteUserIdClick:(id)sender {
     if (_remoteUidSet.count == 0) {
         [self showAlertViewController:nil
-                              message:Localize(@"TRTC-API-Example.RenderParams.waitOtherUser")
+                              message:localize(@"TRTC-API-Example.RenderParams.waitOtherUser")
                               handler:nil];
         return ;
     }
@@ -435,39 +439,11 @@ static const NSInteger maxRemoteUserNum = 6;
         [self.trtcCloud exitRoom];
         [self destroyTRTCCloud];
     } else {
-        self.title = [Localize(@"TRTC-API-Example.RenderParams.Title")
+        self.title = [localize(@"TRTC-API-Example.RenderParams.Title")
                       stringByAppendingString:_roomIdTextField.text];
         [self setupTRTCCloud];
     }
     sender.selected = !sender.selected;
-}
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 20;
-     }];
-     return YES;
 }
 
 #pragma mark - TRTCCloud Delegate

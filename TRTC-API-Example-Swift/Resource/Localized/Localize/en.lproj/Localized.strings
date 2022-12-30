@@ -34,6 +34,7 @@
 "TRTC-API-Example.Home.QuicklySwitchRooms" = "Switch Room";
 "TRTC-API-Example.Home.RoomPK" = "Cross-room Competition";
 "TRTC-API-Example.Home.ThirdBeauty" = "Third-party Beauty Filter";
+"TRTC-API-Example.Home.PictureInPicture" = "Picture In Picture";
 
 "TRTC-API-Example.VoiceChatRoom.Title" = "Interactive Live Audio Streaming";
 "TRTC-API-Example.VoiceChatRoom.EnterRoomNumber" = "Room ID (Required)";
@@ -340,3 +341,10 @@ On-Cloud MixTranscoding
 "TRTC-API-Example.StringRoomId.userId" = "User ID";
 "TRTC-API-Example.StringRoomId.start" = "Start Push";
 "TRTC-API-Example.StringRoomId.stop" = "End Push";
+
+"TRTC-API-Example.PictureInPicture.OpenPictureInPicture" = "Open Picture in Picture";
+"TRTC-API-Example.PictureInPicture.ClosePictureInPicture" = "Close Picture in Picture";
+"TRTC-API-Example.PictureInPicture.PermissionFailed" = "Failed to enable permission";
+"TRTC-API-Example.PictureInPicture.NotSupported" = "Picture-in-picture is not supported";
+"TRTC-API-Example.PictureInPicture.Errormessage" = "Error message:";
+"TRTC-API-Example.PictureInPicture.Ignorenullsamplebuffer" = "Ignore null samplebuffer";

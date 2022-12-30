@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/22.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -28,6 +29,7 @@
  */
 
 #import "ThirdBeautyFaceunityViewController.h"
+#import "UIViewController+KeyBoard.h"
 //#import "FUManager.h"
 
 static const NSInteger RemoteUserMaxNum = 6;
@@ -96,16 +98,16 @@ static const NSInteger RemoteUserMaxNum = 6;
     
     self.roomIdTextField.text = [NSString generateRandomRoomNumber];
     self.userIdTextField.text = [NSString generateRandomUserId];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.ThirdBeauty.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.ThirdBeauty.Title"), self.roomIdTextField.text);
     
-    self.roomIdLabel.text = Localize(@"TRTC-API-Example.ThirdBeauty.roomId");
-    self.userIdLabel.text = Localize(@"TRTC-API-Example.ThirdBeauty.userId");
-    self.setBeautyLabel.text = Localize(@"TRTC-API-Example.ThirdBeauty.SetBeautyLevel");
+    self.roomIdLabel.text = localize(@"TRTC-API-Example.ThirdBeauty.roomId");
+    self.userIdLabel.text = localize(@"TRTC-API-Example.ThirdBeauty.userId");
+    self.setBeautyLabel.text = localize(@"TRTC-API-Example.ThirdBeauty.SetBeautyLevel");
     NSInteger value = self.setBeautySlider.value * 6;
     self.beautyNumLabel.text = [NSString stringWithFormat:@"%ld",value];
     
-    [self.startPushStreamButton setTitle:Localize(@"TRTC-API-Example.ThirdBeauty.startPush") forState:UIControlStateNormal];
-    [self.startPushStreamButton setTitle:Localize(Localize(@"TRTC-API-Example.ThirdBeauty.stopPush")) forState:UIControlStateSelected];
+    [self.startPushStreamButton setTitle:localize(@"TRTC-API-Example.ThirdBeauty.startPush") forState:UIControlStateNormal];
+    [self.startPushStreamButton setTitle:localize(localize(@"TRTC-API-Example.ThirdBeauty.stopPush")) forState:UIControlStateSelected];
     
     self.startPushStreamButton.titleLabel.adjustsFontSizeToFitWidth = true;
   
@@ -157,7 +159,7 @@ static const NSInteger RemoteUserMaxNum = 6;
         UIView *userView = [self.view viewWithTag:count + 200];
         UILabel *userIdLabel = [self.view viewWithTag:count + 300];
         userView.alpha = 1;
-        userIdLabel.text = LocalizeReplace(Localize(@"TRTC-API-Example.ThirdBeauty.UserIdxx"), userId);
+        userIdLabel.text = localizeReplace(localize(@"TRTC-API-Example.ThirdBeauty.UserIdxx"), userId);
         [self.trtcCloud startRemoteView:userId streamType:TRTCVideoStreamTypeSmall view:userView];
     }
 }
@@ -170,34 +172,6 @@ static const NSInteger RemoteUserMaxNum = 6;
     userIdLabel.text = @"";
     [self.trtcCloud stopRemoteView:userId streamType:TRTCVideoStreamTypeSmall];
     [self.remoteUserIdSet removeObject:userId];
-}
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 25;
-     }];
-     return YES;
 }
 
 #pragma mark - IBActions
@@ -241,7 +215,7 @@ static const NSInteger RemoteUserMaxNum = 6;
 
 #pragma mark - StartPushStream & StopPushStream
 - (void)startPushStream {
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.ThirdBeauty.Title"), self.roomIdTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.ThirdBeauty.Title"), self.roomIdTextField.text);
     [self.trtcCloud startLocalPreview:true view:self.view];
 
     TRTCParams *params = [[TRTCParams alloc] init];
