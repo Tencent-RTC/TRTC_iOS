@@ -749,7 +749,6 @@ class SetRenderParamsViewController : UIViewController {
     }
     
     func showFillModeListWithIsLocal(isLocal:Bool,handler: @escaping (TRTCVideoFillMode)->Void) {
-        
         let alertTitle = isLocal ? Localize("TRTC-API-Example.RenderParams.localRenderMode") :
          Localize("TRTC-API-Example.RenderParams.remoteRenderMode")
         let alertVC = UIAlertController.init(title: alertTitle, message: nil, preferredStyle: .actionSheet)

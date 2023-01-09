@@ -68,6 +68,9 @@
 		8225AB512865D20000AA70B1 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB502865D20000AA70B1 /* UIColor+hex.swift */; };
 		8225AB542865D24600AA70B1 /* AudioCallingEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB532865D24600AA70B1 /* AudioCallingEnterViewController.swift */; };
 		8225AB562865D25A00AA70B1 /* AudioCallingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */; };
+		82B19DE2288E428800861048 /* PushCDNAudienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B19DDF288E428800861048 /* PushCDNAudienceViewController.swift */; };
+		82B19DE3288E428800861048 /* PushCDNSelectRoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B19DE0288E428800861048 /* PushCDNSelectRoleViewController.swift */; };
+		82B19DE4288E428800861048 /* PushCDNAnchorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B19DE1288E428800861048 /* PushCDNAnchorViewController.swift */; };
 		82CA7CF428607240005F5A75 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA7CF028607240005F5A75 /* HomeViewController.swift */; };
 		82CA7CF528607240005F5A75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA7CF128607240005F5A75 /* AppDelegate.swift */; };
 		82CA7CF728607240005F5A75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA7CF328607240005F5A75 /* SceneDelegate.swift */; };
@@ -156,6 +159,9 @@
 		8225AB502865D20000AA70B1 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		8225AB532865D24600AA70B1 /* AudioCallingEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallingEnterViewController.swift; sourceTree = "<group>"; };
 		8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallingViewController.swift; sourceTree = "<group>"; };
+		82B19DDF288E428800861048 /* PushCDNAudienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNAudienceViewController.swift; sourceTree = "<group>"; };
+		82B19DE0288E428800861048 /* PushCDNSelectRoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNSelectRoleViewController.swift; sourceTree = "<group>"; };
+		82B19DE1288E428800861048 /* PushCDNAnchorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNAnchorViewController.swift; sourceTree = "<group>"; };
 		82CA7CF028607240005F5A75 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		82CA7CF128607240005F5A75 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82CA7CF228607240005F5A75 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -485,6 +491,16 @@
 				8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */,
 			);
 			path = AudioCall;
+			sourceTree = "<group>";
+		};
+		82B19DDE288E428800861048 /* PushCDN */ = {
+			isa = PBXGroup;
+			children = (
+				82B19DDF288E428800861048 /* PushCDNAudienceViewController.swift */,
+				82B19DE0288E428800861048 /* PushCDNSelectRoleViewController.swift */,
+				82B19DE1288E428800861048 /* PushCDNAnchorViewController.swift */,
+			);
+			path = PushCDN;
 			sourceTree = "<group>";
 		};
 		82CA7CEF28607240005F5A75 /* App */ = {

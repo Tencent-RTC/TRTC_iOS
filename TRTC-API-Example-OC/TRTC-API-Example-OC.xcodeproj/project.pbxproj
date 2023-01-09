@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		176DF04018916271DC56B8EF /* TXLiteAVSDK_TRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 448640226EF1E3479D688B9C /* TXLiteAVSDK_TRTC.framework */; };
 		17A5BD8626CBABBC007E91B1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 17A5BD8326CBABBC007E91B1 /* README.md */; };
 		17A5BE0726CBCC21007E91B1 /* TRTC-API-Example-OC-PrefixHeader.pch in Sources */ = {isa = PBXBuildFile; fileRef = 477EC9F12626F77E007AAC4F /* TRTC-API-Example-OC-PrefixHeader.pch */; };
 		17A5C13F26CCF723007E91B1 /* ThirdBeautyBytedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A5C13926CCF722007E91B1 /* ThirdBeautyBytedViewController.m */; };
@@ -16,6 +17,7 @@
 		471A24B328ACC11200BEFE63 /* PictureInPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 471A24B128ACC11200BEFE63 /* PictureInPictureViewController.m */; };
 		471A24B428ACC11200BEFE63 /* PictureInPictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471A24B228ACC11200BEFE63 /* PictureInPictureViewController.xib */; };
 		4723A8902631666E0094AC81 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 4723A88F2631666E0094AC81 /* NSString+Common.m */; };
+		473560AF339E54FDC638DD1D /* TXLiteAVSDK_TRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 448640226EF1E3479D688B9C /* TXLiteAVSDK_TRTC.framework */; };
 		477EC97A26268B0A007AAC4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 477EC96726268B09007AAC4F /* Assets.xcassets */; };
 		477EC97B26268B0A007AAC4F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 477EC96A26268B09007AAC4F /* SceneDelegate.m */; };
 		477EC97C26268B0A007AAC4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 477EC96B26268B09007AAC4F /* LaunchScreen.storyboard */; };
