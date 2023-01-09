@@ -277,8 +277,10 @@ class LocalRecordViewController : UIViewController {
     }
 
     func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:
+         UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:
+         UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardObserver() {
@@ -331,7 +333,11 @@ extension LocalRecordViewController:TRTCCloudDelegate {
             min %= min
         }
         recordLabel.isHidden = false
-        recordLabel.text = LocalizeReplace(Localize("TRTC-API-Example.LocalRecord.recordingxx"), String.localizedStringWithFormat("%.2ld:%.2ld:%.2ld", hor,min,sec))
+        recordLabel.text = LocalizeReplace(Localize("TRTC-API-Example.LocalRecord.recordingxx"),
+                                           String.localizedStringWithFormat("%.2ld:%.2ld:%.2ld",
+                                           hor,
+                                           min,
+                                           sec))
     }
     
     func onLocalRecordComplete(_ errCode: Int, storagePath: String) {
@@ -349,7 +355,8 @@ extension LocalRecordViewController:TRTCCloudDelegate {
             } completionHandler: {[weak self] success, error in
                 if success {
                     DispatchQueue.main.async {
-                        self?.showAlertViewController(title: Localize("TRTC-API-Example.LocalRecord.recordSuccess"), message: Localize("TRTC-API-Example.LocalRecord.recordSuccessPath"))
+                        self?.showAlertViewController(title: Localize("TRTC-API-Example.LocalRecord.recordSuccess"),
+                                                      message: Localize("TRTC-API-Example.LocalRecord.recordSuccessPath"))
                     }
                 }
             }

@@ -371,7 +371,7 @@ extension AudioCallingViewController {
 // MARK: - UITableViewDataSource
 extension AudioCallingViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userIdArray.count;
+        return userIdArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -403,7 +403,7 @@ extension AudioCallingViewController : UITableViewDataSource {
             cell.textLabel?.text =  userId + ":" + quality
         }
         
-        return cell;
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -420,7 +420,7 @@ extension AudioCallingViewController : UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3;
+        return 3
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -439,11 +439,11 @@ extension AudioCallingViewController : UITableViewDataSource {
 extension AudioCallingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 15;
+        return 15
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30;
+        return 30
     }
     
 }
@@ -471,7 +471,7 @@ extension AudioCallingViewController: TRTCCloudDelegate {
         for box in userBoxArray{
             box.isHidden = true
         }
-        var index = 0;
+        var index = 0
         for id in userIdArray {
             if index >= maxRemoteUserNum {
                 return

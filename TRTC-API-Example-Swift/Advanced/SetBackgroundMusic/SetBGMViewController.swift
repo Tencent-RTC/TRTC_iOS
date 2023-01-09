@@ -14,7 +14,8 @@ import TXLiteAVSDK_TRTC
  TRTC APP 支持设置背景音乐功能
  本文件展示如何集成设置背景音乐功能
  1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、播放背景音乐。  API:trtcCloud.getAudioEffectManager().startPlayMusic(bgmParam) { errCode in } onProgress: { progressMs, durationMs in } onComplete: { errCode in }
+ 2、播放背景音乐。
+ API:trtcCloud.getAudioEffectManager().startPlayMusic(bgmParam) { errCode in } onProgress: { progressMs, durationMs in } onComplete: { errCode in }
  3、暂停背景音乐。  API:trtcCloud.getAudioEffectManager().stopPlayMusic(bgmParam.id)
  4、调整播放的背景音乐音量。API:trtcCloud.getAudioEffectManager().setMusicPlayoutVolume(bgmParam.id, volume: Int(volume))
  5、调整远端播放的背景音乐音量。API:trtcCloud.getAudioEffectManager().setMusicPublishVolume(bgmParam.id, volume: Int(volume))
@@ -26,7 +27,8 @@ import TXLiteAVSDK_TRTC
  The TRTC app supports background music setting.
  This document shows how to integrate the background music setting feature.
  1. Enter a room: trtcCloud.enterRoom(params, appScene: .LIVE)
- 2. Play background music: trtcCloud.getAudioEffectManager().startPlayMusic(bgmParam) { errCode in } onProgress: { progressMs, durationMs in } onComplete: { errCode in }
+ 2. Play background music:
+ trtcCloud.getAudioEffectManager().startPlayMusic(bgmParam) { errCode in } onProgress: { progressMs, durationMs in } onComplete: { errCode in }
  3. Pause background music: trtcCloud.getAudioEffectManager().stopPlayMusic(bgmParam.id)
  4. Adjust the playback volume of background music: trtcCloud.getAudioEffectManager().setMusicPlayoutVolume(bgmParam.id, volume: Int(volume))
  5. Adjust the remote playback volume of background music: trtcCloud.getAudioEffectManager().setMusicPublishVolume(bgmParam.id, volume: Int(volume))
@@ -603,8 +605,10 @@ class SetBGMViewController : UIViewController {
     }
     
     func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:
+         UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:
+         UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardObserver() {

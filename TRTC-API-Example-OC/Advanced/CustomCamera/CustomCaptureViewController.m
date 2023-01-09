@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by abyyxwang on 2021/4/22.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -25,6 +26,7 @@
 #import "CustomCaptureViewController.h"
 #import "CustomCameraHelper.h"
 #import "CustomCameraFrameRender.h"
+#import "UIViewController+KeyBoard.h"
 
 
 static const NSInteger maxRemoteUserNum = 6;
@@ -95,15 +97,15 @@ TRTCVideoRenderDelegate
         self.cameraHelper.windowOrientation = UIInterfaceOrientationPortrait;
     }
     self.cameraHelper.delegate = self;
-    self.roomIDLabel.text = Localize(@"TRTC-API-Example.CustomCamera.roomId");
-    self.userIDLabel.text = Localize(@"TRTC-API-Example.CustomCamera.userId");
+    self.roomIDLabel.text = localize(@"TRTC-API-Example.CustomCamera.roomId");
+    self.userIDLabel.text = localize(@"TRTC-API-Example.CustomCamera.userId");
     self.roomIDTextField.text = [NSString generateRandomRoomNumber];
     self.userIDTextField.text= [NSString generateRandomUserId];
     UIImage *backgroundImage = [[UIColor themeGreenColor] trans2Image:CGSizeMake(1, 1)];
     [self.startPushButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    [self.startPushButton setTitle:Localize(@"TRTC-API-Example.CustomCamera.startPush")
+    [self.startPushButton setTitle:localize(@"TRTC-API-Example.CustomCamera.startPush")
                           forState:UIControlStateNormal];
-    [self.startPushButton setTitle:Localize(@"TRTC-API-Example.CustomCamera.stopPush") forState:UIControlStateSelected];
+    [self.startPushButton setTitle:localize(@"TRTC-API-Example.CustomCamera.stopPush") forState:UIControlStateSelected];
     [self refreshViewTitle];
 }
 
@@ -118,7 +120,7 @@ TRTCVideoRenderDelegate
 }
 
 - (void)refreshViewTitle {
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.CustomCamera.viewTitle"), self.roomIDTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.CustomCamera.viewTitle"), self.roomIDTextField.text);
 }
 
 - (IBAction)startPushTRTC:(UIButton *)sender {
@@ -159,37 +161,6 @@ TRTCVideoRenderDelegate
 
 - (void)exitRoom {
     [self.trtcCloud exitRoom];
-}
-
-#pragma mark - Keyboard Observer
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomBtnConstraint.constant = keyboardBounds.size.height;
-        [self.view layoutIfNeeded];
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomBtnConstraint.constant = 20;
-         [self.view layoutIfNeeded];
-     }];
-     return YES;
-}
-
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 #pragma mark - CustomCameraHelperSampleBufferDelegate

@@ -15,7 +15,7 @@ import TXLiteAVSDK_TRTC
  本文件展示如何集成CDN发布功能
  1、设置播放器代理。 API: livePlayer.setObserver(self)
  2、设置播放容器视图。 API: livePlayer.setRenderView(playerView)
- 2、开始播放。 API: livePlayer.startPlay(streamUrl)
+ 2、开始播放。 API: livePlayer.startLivePlay(streamUrl)
  参考文档：https://cloud.tencent.com/document/product/647/16827
  */
 /*
@@ -24,7 +24,7 @@ import TXLiteAVSDK_TRTC
  This document shows how to integrate the CDN publishing feature.
  1. Set the player delegate: livePlayer.setObserver(self)
  2. Set the player container view: livePlayer.setRenderView(playerView)
- 3. Start playback: livePlayer.startPlay(streamUrl)
+ 3. Start playback: livePlayer.startLivePlay(streamUrl)
  Documentation: https://cloud.tencent.com/document/product/647/16827
  */
 
@@ -133,7 +133,7 @@ extension PushCDNAudienceViewController {
         let streamUrl = kCDN_URL + "/" + streamId + ".flv"
         livePlayer.setObserver(self)
         livePlayer.setRenderView(playerView)
-        let ret: V2TXLiveCode = livePlayer.startPlay(streamUrl)
+        let ret: V2TXLiveCode = livePlayer.startLivePlay(streamUrl)
         if ret.rawValue != 0 {
             print(String(format: "play error. code: %ld", ret.rawValue))
         }

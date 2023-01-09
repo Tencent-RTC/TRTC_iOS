@@ -123,9 +123,9 @@ class CustomCaptureViewController : UIViewController {
     
     private func setupDefaultUIConfig() {
         if #available(iOS 13.0, *) {
-            cameraHelper.windowOrientation = self.view.window?.windowScene?.interfaceOrientation;
+            cameraHelper.windowOrientation = self.view.window?.windowScene?.interfaceOrientation
         }else{
-            cameraHelper.windowOrientation = .portrait;
+            cameraHelper.windowOrientation = .portrait
         }
     }
     
@@ -217,8 +217,10 @@ class CustomCaptureViewController : UIViewController {
 
 extension CustomCaptureViewController {
     func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:
+         UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:
+         UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardObserver() {

@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by adams on 2021/4/26.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 /*
@@ -23,6 +24,7 @@
  */
 
 #import "StringRoomIdViewController.h"
+#import "UIViewController+KeyBoard.h"
 
 @interface StringRoomIdViewController () <TRTCCloudDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *roomIdLabel;
@@ -59,44 +61,16 @@
     
     self.roomIDTextField.text = @"abc123";
     self.userIDTextField.text = [NSString generateRandomUserId];
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.StringRoomId.Title"), self.roomIDTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.StringRoomId.Title"), self.roomIDTextField.text);
     
-    self.roomIdLabel.text = Localize(@"TRTC-API-Example.StringRoomId.roomId");
-    self.userIdLabel.text = Localize(@"TRTC-API-Example.StringRoomId.userId");
+    self.roomIdLabel.text = localize(@"TRTC-API-Example.StringRoomId.roomId");
+    self.userIdLabel.text = localize(@"TRTC-API-Example.StringRoomId.userId");
     
-    [self.startPushButton setTitle:Localize(@"TRTC-API-Example.StringRoomId.start") forState:UIControlStateNormal];
-    [self.startPushButton setTitle:Localize(Localize(@"TRTC-API-Example.StringRoomId.stop")) forState:UIControlStateSelected];
+    [self.startPushButton setTitle:localize(@"TRTC-API-Example.StringRoomId.start") forState:UIControlStateNormal];
+    [self.startPushButton setTitle:localize(localize(@"TRTC-API-Example.StringRoomId.stop")) forState:UIControlStateSelected];
     
     self.startPushButton.titleLabel.adjustsFontSizeToFitWidth = true;
   }
-
-#pragma mark - Notification
-- (void)addKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)removeKeyboardObserver {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (BOOL)keyboardWillShow:(NSNotification *)noti {
-    CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGRect keyboardBounds = [[[noti userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [UIView animateWithDuration:animationDuration animations:^{
-        self.bottomConstraint.constant = keyboardBounds.size.height;
-    }];
-    return YES;
-}
-
-- (BOOL)keyboardWillHide:(NSNotification *)noti {
-     CGFloat animationDuration = [[[noti userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-     [UIView animateWithDuration:animationDuration animations:^{
-         self.bottomConstraint.constant = 25;
-     }];
-     return YES;
-}
 
 #pragma mark - IBActions
 - (IBAction)onStartPushClick:(UIButton *)sender {
@@ -112,7 +86,7 @@
 - (void)startPushStream {
     [self.trtcCloud startLocalPreview:true view:self.view];
 
-    self.title = LocalizeReplace(Localize(@"TRTC-API-Example.StringRoomId.Title"), self.roomIDTextField.text);
+    self.title = localizeReplace(localize(@"TRTC-API-Example.StringRoomId.Title"), self.roomIDTextField.text);
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
     params.strRoomId = self.roomIDTextField.text;

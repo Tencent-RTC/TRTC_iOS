@@ -27,8 +27,11 @@ import TXLiteAVSDK_TRTC
  1. Set the mirror mode for the preview image: trtcCloud.setLocalRenderParams(renderParams)
  2. Set the rendering mode for the preview image: trtcCloud.setLocalRenderParams(renderParams)
  3. Set the rotation (clockwise) of the preview image: trtcCloud.setLocalRenderParams(renderParams)
- 4. Set the rendering mode of a remote image: trtcCloud.setRemoteRenderParams(remoteUserIdButton.currentTitle ?? "", streamType: .small, params: renderParams)
- 5. Set the rotation (clockwise) of a remote image: trtcCloud.setRemoteRenderParams(remoteUserIdButton.currentTitle ?? "", streamType: .small, params: renderParams)
+ 4. Set the rendering mode of a remote image:
+     trtcCloud.setRemoteRenderParams(remoteUserIdButton.currentTitle ?? "", streamType: .small,
+     params: renderParams)
+ 5. Set the rotation (clockwise) of a remote image: trtcCloud.setRemoteRenderParams(remoteUserIdButton.currentTitle ?? "", streamType: .small, params:
+      renderParams)
  6. Set the key code of TRTC : setupTRTCCloud()
  Documentation: https://cloud.tencent.com/document/product/647/32237
  */
@@ -575,8 +578,8 @@ class SetRenderParamsViewController : UIViewController {
     
     private func setupRemoteViews() {
         for i in 0...remoteViewArr.count-1 {
-            remoteViewArr[i].isHidden = true;
-            remoteUserIdLabelArr[i].isHidden = true;
+            remoteViewArr[i].isHidden = true
+            remoteUserIdLabelArr[i].isHidden = true
         }
         
     }
@@ -597,7 +600,7 @@ class SetRenderParamsViewController : UIViewController {
     
     @objc private func onLocalMirrorModeClick(sender: UIButton) {
         showMirrorTypeListWithHandler(isLocal: true) { mirrorType in
-            self.localMirroType = mirrorType;
+            self.localMirroType = mirrorType
             self.reloadRenderParamsWithIsLocal(isLocal: true)
         }
     }
@@ -672,8 +675,10 @@ class SetRenderParamsViewController : UIViewController {
     }
     
     func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:
+         UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:
+         UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardObserver() {
@@ -744,8 +749,8 @@ class SetRenderParamsViewController : UIViewController {
     }
     
     func showFillModeListWithIsLocal(isLocal:Bool,handler: @escaping (TRTCVideoFillMode)->Void) {
-        
-        let alertTitle = isLocal ? Localize("TRTC-API-Example.RenderParams.localRenderMode") : Localize("TRTC-API-Example.RenderParams.remoteRenderMode")
+        let alertTitle = isLocal ? Localize("TRTC-API-Example.RenderParams.localRenderMode") :
+         Localize("TRTC-API-Example.RenderParams.remoteRenderMode")
         let alertVC = UIAlertController.init(title: alertTitle, message: nil, preferredStyle: .actionSheet)
         let  alertAction = UIAlertAction.init(title: Localize("TRTC-API-Example.RenderParams.renderModeFill"), style: .default) { acction in
             handler(.fill)
@@ -767,7 +772,7 @@ class SetRenderParamsViewController : UIViewController {
         
         for userId in remoteUidSet {
             guard let userID = userId as? String else{
-                continue;
+                continue
             }
             let alertAction = UIAlertAction.init(title: userID, style: .default) { acction in
                 if let userid = userID as? String {

@@ -3,6 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by WesleyLei on 2021/8/17.
+//  Copyright © 2021 Tencent. All rights reserved.
 //
 
 #import "ThirdBeautyBytedViewController.h"
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = Localize(@"TRTC-API-Example.Home.ThirdBeauty");
+    self.title = localize(@"TRTC-API-Example.Home.ThirdBeauty");
     [self setupUI];
 }
 
@@ -65,7 +66,7 @@
         _beautyButton.layer.cornerRadius = 5;
         [_beautyButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         _beautyButton.backgroundColor = [UIColor greenColor];
-        [_beautyButton setTitle:Localize(@"TRTC-API-Example.ThirdBeauty.faceunity") forState:UIControlStateNormal];
+        [_beautyButton setTitle:localize(@"TRTC-API-Example.ThirdBeauty.faceunity") forState:UIControlStateNormal];
         [_beautyButton addTarget:self
                           action:@selector(clickBeautyButton)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -79,7 +80,7 @@
         [_bytedButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         _bytedButton.layer.cornerRadius = 5;
         _bytedButton.backgroundColor = [UIColor greenColor];
-        [_bytedButton setTitle:Localize(@"TRTC-API-Example.ThirdBeauty.bytedance") forState:UIControlStateNormal];
+        [_bytedButton setTitle:localize(@"TRTC-API-Example.ThirdBeauty.bytedance") forState:UIControlStateNormal];
         [_bytedButton addTarget:self
                          action:@selector(clickBytedButton)
                forControlEvents:UIControlEventTouchUpInside];
@@ -93,7 +94,7 @@
         [_xMagicButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         _xMagicButton.layer.cornerRadius = 5;
         _xMagicButton.backgroundColor = [UIColor greenColor];
-        [_xMagicButton setTitle:Localize(@"TRTC-API-Example.ThirdBeauty.xmagic") forState:UIControlStateNormal];
+        [_xMagicButton setTitle:localize(@"TRTC-API-Example.ThirdBeauty.xmagic") forState:UIControlStateNormal];
         [_xMagicButton addTarget:self
                           action:@selector(clickXmagicButton)
                 forControlEvents:UIControlEventTouchUpInside];

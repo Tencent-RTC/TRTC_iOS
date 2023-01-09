@@ -523,8 +523,10 @@ class SendAndReceiveSEIMessageViewController : UIViewController {
     }
     
     func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name:
+         UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name:
+         UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func removeKeyboardObserver() {
@@ -608,7 +610,9 @@ extension SendAndReceiveSEIMessageViewController:TRTCCloudDelegate {
     
     func onRecvSEIMsg(_ userId: String, message: Data) {
         if let SEIMessage = String(data: message, encoding: String.Encoding.utf8) {
-            seiMessageLabel.text = LocalizeReplaceTwoCharacter(origin: Localize("TRTC-API-Example.SendAndReceiveSEI.ReceiveSEIxxyy"), xxx_replace: userId, yyy_replace: SEIMessage)
+            seiMessageLabel.text = LocalizeReplaceTwoCharacter(origin:
+             Localize("TRTC-API-Example.SendAndReceiveSEI.ReceiveSEIxxyy"), xxx_replace: userId,
+             yyy_replace: SEIMessage)
             UIView.animate(withDuration: 1) {
                 self.seiMessageView.alpha = 1
             } completion: { finish in

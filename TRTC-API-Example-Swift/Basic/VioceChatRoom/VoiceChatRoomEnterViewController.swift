@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 /*
- 语音互动直播功能 
+ 语音互动直播功能
  TRTC APP 支持语音互动直播功能
  本文件展示如何集成语音互动直播功能
  1、audience为观众，点击进入VoiceChatRoomAudienceViewController(观众端示例)

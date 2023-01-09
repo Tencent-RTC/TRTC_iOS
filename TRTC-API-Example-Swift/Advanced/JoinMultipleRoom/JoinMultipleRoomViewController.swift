@@ -36,7 +36,8 @@ import TXLiteAVSDK_TRTC
  TRTC Multiple Room Entry
  
  This document shows how to integrate the multiple room entry feature.
- The SDK does not assign identifiers to TRTCCloud instances. You need to identify and distinguish instances by yourself. In the demo, subId is used to identify instances.
+ The SDK does not assign identifiers to TRTCCloud instances.
+ You need to identify and distinguish instances by yourself. In the demo, subId is used to identify instances.
  Because a delegate callback must be set for each instance, SubCloudHelper is used to forward delegates, and subId is used for identification.
  
  1. Create an instance: self.trtcCloud.createSubCloud()
@@ -75,7 +76,7 @@ class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
         return lable
     }()
     
@@ -109,7 +110,7 @@ class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
         lable.backgroundColor = .gray
         return lable
     }()
@@ -144,7 +145,7 @@ class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
         return lable
     }()
     
@@ -178,7 +179,7 @@ class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate {
         let lable = UILabel(frame: .zero)
         lable.textColor = .white
         lable.adjustsFontSizeToFitWidth = true
-        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum");
+        lable.text = Localize("TRTC-API-Example.JoinMultipleRoom.roomNum")
         return lable
     }()
     

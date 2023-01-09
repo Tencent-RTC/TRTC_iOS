@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		471A24B928ACE44600BEFE63 /* PictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A24B828ACE44600BEFE63 /* PictureInPictureViewController.swift */; };
 		7D7178172877C4AE00926479 /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D7178132877C4AE00926479 /* Localized.strings */; };
 		7D7178182877C4AE00926479 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D7178152877C4AE00926479 /* InfoPlist.strings */; };
 		7D71781E2877C4B700926479 /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D71781A2877C4B700926479 /* Localized.strings */; };
@@ -61,6 +62,9 @@
 		7DFB2A75286AD72A00F843B7 /* RoomPkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFB2A74286AD72A00F843B7 /* RoomPkViewController.swift */; };
 		7DFB2A78286AD75F00F843B7 /* LocalRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFB2A77286AD75F00F843B7 /* LocalRecordViewController.swift */; };
 		7DFB2A7B286AD77F00F843B7 /* SetBGMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFB2A7A286AD77F00F843B7 /* SetBGMViewController.swift */; };
+		822331BA288FE1B500567BD2 /* PushCDNAudienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822331B7288FE1B500567BD2 /* PushCDNAudienceViewController.swift */; };
+		822331BB288FE1B500567BD2 /* PushCDNSelectRoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822331B8288FE1B500567BD2 /* PushCDNSelectRoleViewController.swift */; };
+		822331BC288FE1B500567BD2 /* PushCDNAnchorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822331B9288FE1B500567BD2 /* PushCDNAnchorViewController.swift */; };
 		8225AB512865D20000AA70B1 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB502865D20000AA70B1 /* UIColor+hex.swift */; };
 		8225AB542865D24600AA70B1 /* AudioCallingEnterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB532865D24600AA70B1 /* AudioCallingEnterViewController.swift */; };
 		8225AB562865D25A00AA70B1 /* AudioCallingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */; };
@@ -93,6 +97,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		471A24B828ACE44600BEFE63 /* PictureInPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureInPictureViewController.swift; sourceTree = "<group>"; };
 		7D7178142877C4AE00926479 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localized.strings; sourceTree = "<group>"; };
 		7D7178162877C4AE00926479 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		7D71781B2877C4B700926479 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localized.strings; sourceTree = "<group>"; };
@@ -148,6 +153,9 @@
 		7DFB2A77286AD75F00F843B7 /* LocalRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRecordViewController.swift; sourceTree = "<group>"; };
 		7DFB2A7A286AD77F00F843B7 /* SetBGMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBGMViewController.swift; sourceTree = "<group>"; };
 		8212A69B285C62A1006BE4D3 /* TRTC-API-Example-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TRTC-API-Example-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		822331B7288FE1B500567BD2 /* PushCDNAudienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNAudienceViewController.swift; sourceTree = "<group>"; };
+		822331B8288FE1B500567BD2 /* PushCDNSelectRoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNSelectRoleViewController.swift; sourceTree = "<group>"; };
+		822331B9288FE1B500567BD2 /* PushCDNAnchorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushCDNAnchorViewController.swift; sourceTree = "<group>"; };
 		8225AB502865D20000AA70B1 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		8225AB532865D24600AA70B1 /* AudioCallingEnterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallingEnterViewController.swift; sourceTree = "<group>"; };
 		8225AB552865D25A00AA70B1 /* AudioCallingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallingViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +202,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		471A24B728ACE3AD00BEFE63 /* PictureInPicture */ = {
+			isa = PBXGroup;
+			children = (
+				471A24B828ACE44600BEFE63 /* PictureInPictureViewController.swift */,
+			);
+			path = PictureInPicture;
+			sourceTree = "<group>";
+		};
 		7D7178112877C46E00926479 /* Localize */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +466,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		822331B6288FE1B500567BD2 /* PushCDN */ = {
+			isa = PBXGroup;
+			children = (
+				822331B7288FE1B500567BD2 /* PushCDNAudienceViewController.swift */,
+				822331B8288FE1B500567BD2 /* PushCDNSelectRoleViewController.swift */,
+				822331B9288FE1B500567BD2 /* PushCDNAnchorViewController.swift */,
+			);
+			path = PushCDN;
+			sourceTree = "<group>";
+		};
 		8225AB4F2865D1E100AA70B1 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,7 +549,8 @@
 		82CA7D0928607428005F5A75 /* Advanced */ = {
 			isa = PBXGroup;
 			children = (
-				82B19DDE288E428800861048 /* PushCDN */,
+				471A24B728ACE3AD00BEFE63 /* PictureInPicture */,
+				822331B6288FE1B500567BD2 /* PushCDN */,
 				7DB66DD52874556A00D07778 /* SEIMessage */,
 				7DB66DCF287437BA00D07778 /* JoinMultipleRoom */,
 				7DB66DCC287425B000D07778 /* SetAudioEffect */,
@@ -646,8 +673,8 @@
 				7D7FD229286DC11C0092FF4E /* LiveAudienceViewController.swift in Sources */,
 				7DE7B0262872EF7A00110EF1 /* CustomCameraHelper.swift in Sources */,
 				7DFB2A4228698BB000F843B7 /* ScreenEntranceViewController.swift in Sources */,
-				82B19DE2288E428800861048 /* PushCDNAudienceViewController.swift in Sources */,
-				82B19DE4288E428800861048 /* PushCDNAnchorViewController.swift in Sources */,
+				822331BA288FE1B500567BD2 /* PushCDNAudienceViewController.swift in Sources */,
+				822331BC288FE1B500567BD2 /* PushCDNAnchorViewController.swift in Sources */,
 				7DB66DCE287425C600D07778 /* SetAudioEffectViewController.swift in Sources */,
 				7DFB2A4628699E5600F843B7 /* ScreenAudienceViewController.swift in Sources */,
 				82CA7CF528607240005F5A75 /* AppDelegate.swift in Sources */,
@@ -660,6 +687,7 @@
 				7DE7B0232872E1C600110EF1 /* CustomCaptureViewController.swift in Sources */,
 				7DE7B0202872982A00110EF1 /* SetRenderParamsViewController.swift in Sources */,
 				82CA7CF428607240005F5A75 /* HomeViewController.swift in Sources */,
+				471A24B928ACE44600BEFE63 /* PictureInPictureViewController.swift in Sources */,
 				82E0F4F028630569002281F9 /* HomeTableSectionHeaderView.swift in Sources */,
 				7DCA9A9028645BBD0094CB8D /* VideoCallingEnterViewController.swift in Sources */,
 				7D7FD22B286DC1290092FF4E /* LiveEnterViewController.swift in Sources */,
@@ -682,7 +710,7 @@
 				7DE7B02C2872F31E00110EF1 /* SetAudioQualityViewController.swift in Sources */,
 				7D7FD22E286DC7600092FF4E /* StringRoomIdViewController.swift in Sources */,
 				7D7FD227286DC10E0092FF4E /* LiveAnchorViewController.swift in Sources */,
-				82B19DE3288E428800861048 /* PushCDNSelectRoleViewController.swift in Sources */,
+				822331BB288FE1B500567BD2 /* PushCDNSelectRoleViewController.swift in Sources */,
 				7DE7B02F287316E700110EF1 /* SwitchRoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

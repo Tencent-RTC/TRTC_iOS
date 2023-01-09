@@ -37,7 +37,8 @@ class HomeViewController: UIViewController {
             Localize("TRTC-API-Example.Home.JoinMultipleRoom"),
             Localize("TRTC-API-Example.Home.SendReceiveSEIMessage"),
             Localize("TRTC-API-Example.Home.QuicklySwitchRooms"),
-            Localize("TRTC-API-Example.Home.RoomPK"),]
+            Localize("TRTC-API-Example.Home.RoomPK"),
+            Localize("TRTC-API-Example.Home.PictureInPicture"),]
     }()
     
     let sectionTitle: [String] = {
@@ -203,6 +204,10 @@ extension HomeViewController: UITableViewDelegate {
             }
             if indexPath.row == 13 {
                 let controller = RoomPkViewController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            if indexPath.row == 14 {
+                let controller = PictureInPictureViewController()
                 navigationController?.pushViewController(controller, animated: true)
             }
             

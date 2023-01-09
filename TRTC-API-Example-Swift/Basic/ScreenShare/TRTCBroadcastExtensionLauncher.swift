@@ -21,7 +21,8 @@ import ReplayKit
  Screen Recording Live Streaming
  The TRTC app supports screen recording live streaming.
  This document shows how to integrate the screen recording live streaming feature.
- 1. RPSystemBroadcastPickerView enable app screen recoding function : let picker = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+ 1. RPSystemBroadcastPickerView enable app screen recoding function : let picker =
+     RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
  2. Set preferredExtension：picker：picker.preferredExtension = bundle.bundleIdentifier
  Documentation: https://cloud.tencent.com/document/product/647/45750
  */

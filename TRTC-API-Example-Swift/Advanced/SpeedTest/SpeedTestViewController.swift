@@ -12,14 +12,16 @@ import TXLiteAVSDK_TRTC
  网络测速功能
  TRTC 网络测速
  本文件展示如何集成网络测速
- 1、网络测试 API: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) { [weak self] resul, completedCount, totalCount in  }
+ 1、网络测试 API: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig:
+  userSig) { [weak self] resul, completedCount, totalCount in  }
  参考文档：https://cloud.tencent.com/document/product/647/32239
  */
 /*
  Network Speed Testing
  TRTC Network Speed Testing
  This document shows how to integrate the network speed testing capability.
- 1. Test the network: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) { [weak self] resul, completedCount, totalCount in  }
+ 1. Test the network: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "",
+  userSig: userSig) { [weak self] resul, completedCount, totalCount in  }
  Documentation: https://cloud.tencent.com/document/product/647/32239
  */
 class SpeedTestViewController : UIViewController, TRTCCloudDelegate {
@@ -149,9 +151,12 @@ class SpeedTestViewController : UIViewController, TRTCCloudDelegate {
     private func beginSpeedTest() {
         isSpeedTesting = true
         let userSig = GenerateTestUserSig.genTestUserSig(identifier: userIdTextField.text ?? "")
-        trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) { [weak self] resul, completedCount, totalCount in
+        trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig: userSig) {
+            [weak self] resul, completedCount, totalCount in
             guard let strongSelf = self else { return }
-            let printResult = "current server:\(completedCount), total server: \(totalCount)\n current ip: \(resul.ip), quality: \(resul.quality), upLostRate: \(resul.upLostRate * 100)\n downLostRate: \(resul.downLostRate * 100), rtt: \(resul.rtt)\n\n"
+            let printResult = "current server:\(completedCount),total server: \(totalCount)\n current ip:\(resul.ip)," +
+                        "quality: \(resul.quality),upLostRate: \(resul.upLostRate * 100)\n downLostRate:\(resul.downLostRate * 100)," +
+                        "rtt: \(resul.rtt)\n\n"
             strongSelf.speedResultTextView.text = self?.speedResultTextView.text.appending(printResult)
             if completedCount == totalCount{
                 strongSelf.isSpeedTesting = false
@@ -163,7 +168,7 @@ class SpeedTestViewController : UIViewController, TRTCCloudDelegate {
             let percent = Float(complete / total )
             let strPercent = String(format: "%.2f %%", percent * 100)
             strongSelf.startButton.setTitle(strPercent, for: .normal)
-        };
+        }
     }
     private func stopPushStream() {
         trtcCloud.stopLocalPreview()
