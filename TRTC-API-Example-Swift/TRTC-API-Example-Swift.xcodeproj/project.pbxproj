@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		471A24B928ACE44600BEFE63 /* PictureInPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A24B828ACE44600BEFE63 /* PictureInPictureViewController.swift */; };
-		47FE4C462A3185C100D1C82F /* TXLiteAVSDK_TRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47FE4C452A3185C000D1C82F /* TXLiteAVSDK_TRTC.xcframework */; };
-		47FE4C472A3185C100D1C82F /* TXLiteAVSDK_TRTC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47FE4C452A3185C000D1C82F /* TXLiteAVSDK_TRTC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D7178172877C4AE00926479 /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D7178132877C4AE00926479 /* Localized.strings */; };
 		7D7178182877C4AE00926479 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D7178152877C4AE00926479 /* InfoPlist.strings */; };
 		7D71781E2877C4B700926479 /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D71781A2877C4B700926479 /* Localized.strings */; };
@@ -31,6 +29,7 @@
 		7DCA9AA9286468730094CB8D /* TXSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCA9AA1286468600094CB8D /* TXSoundTouch.xcframework */; };
 		7DCA9AAA286468730094CB8D /* TXSoundTouch.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCA9AA1286468600094CB8D /* TXSoundTouch.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7DCA9AAD2864693E0094CB8D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DCA9AAC2864693E0094CB8D /* SnapKit */; };
+		7DCA9AAF28646A660094CB8D /* TXLiteAVSDK_TRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCA9A9F286468600094CB8D /* TXLiteAVSDK_TRTC.framework */; };
 		7DCF41DE2865512F00597D8F /* GenerateTestUserSig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCF41DD2865512F00597D8F /* GenerateTestUserSig.swift */; };
 		7DCF41E0286556D600597D8F /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCF41DF286556C100597D8F /* libc++.tbd */; };
 		7DCF41E628655BAE00597D8F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCF41E528655BAD00597D8F /* Accelerate.framework */; };
@@ -87,7 +86,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7DCA9AA7286468710094CB8D /* TXFFmpeg.xcframework in Embed Frameworks */,
-				47FE4C472A3185C100D1C82F /* TXLiteAVSDK_TRTC.xcframework in Embed Frameworks */,
 				7DCA9AAA286468730094CB8D /* TXSoundTouch.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -97,7 +95,6 @@
 
 /* Begin PBXFileReference section */
 		471A24B828ACE44600BEFE63 /* PictureInPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureInPictureViewController.swift; sourceTree = "<group>"; };
-		47FE4C452A3185C000D1C82F /* TXLiteAVSDK_TRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TXLiteAVSDK_TRTC.xcframework; path = ../SDK/TXLiteAVSDK_TRTC.xcframework; sourceTree = "<group>"; };
 		7D7178142877C4AE00926479 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localized.strings; sourceTree = "<group>"; };
 		7D7178162877C4AE00926479 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		7D71781B2877C4B700926479 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localized.strings; sourceTree = "<group>"; };
@@ -178,6 +175,7 @@
 				7DCF420028655EA900597D8F /* ReplayKit.framework in Frameworks */,
 				7DCF41EA28655BC900597D8F /* AVFoundation.framework in Frameworks */,
 				7DCF41F828655C2F00597D8F /* SystemConfiguration.framework in Frameworks */,
+				7DCA9AAF28646A660094CB8D /* TXLiteAVSDK_TRTC.framework in Frameworks */,
 				7DCF41EE28655BE200597D8F /* CoreTelephony.framework in Frameworks */,
 				7DCF41F028655BF100597D8F /* GLKit.framework in Frameworks */,
 				7DCF41E0286556D600597D8F /* libc++.tbd in Frameworks */,
@@ -185,7 +183,6 @@
 				7DCF41EC28655BD400597D8F /* CoreMedia.framework in Frameworks */,
 				7DCF41FB28655CA700597D8F /* libresolv.tbd in Frameworks */,
 				7DCF41E828655BBC00597D8F /* AssetsLibrary.framework in Frameworks */,
-				47FE4C462A3185C100D1C82F /* TXLiteAVSDK_TRTC.xcframework in Frameworks */,
 				7DCF41F628655C2300597D8F /* OpenGLES.framework in Frameworks */,
 				7DCA9AA6286468710094CB8D /* TXFFmpeg.xcframework in Frameworks */,
 				7DCF41F428655C0E00597D8F /* MobileCoreServices.framework in Frameworks */,
@@ -301,7 +298,6 @@
 		7DCA9AAE28646A660094CB8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				47FE4C452A3185C000D1C82F /* TXLiteAVSDK_TRTC.xcframework */,
 				7DCF41FF28655EA900597D8F /* ReplayKit.framework */,
 				7DCF41FD28655E4300597D8F /* CoreMotion.framework */,
 				7DCF41FA28655C4C00597D8F /* libsqlite3.0.tbd */,
