@@ -77,6 +77,7 @@
 		82CA7D0C28607698005F5A75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82CA7D04286072EE005F5A75 /* Main.storyboard */; };
 		82E0F4EE28630549002281F9 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0F4ED28630549002281F9 /* HomeTableViewCell.swift */; };
 		82E0F4F028630569002281F9 /* HomeTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0F4EF28630569002281F9 /* HomeTableSectionHeaderView.swift */; };
+		ED14F8012B957EA500E52959 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCF41FD28655E4300597D8F /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -175,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED14F8012B957EA500E52959 /* CoreMotion.framework in Frameworks */,
 				7DCF420028655EA900597D8F /* ReplayKit.framework in Frameworks */,
 				7DCF41EA28655BC900597D8F /* AVFoundation.framework in Frameworks */,
 				7DCF41F828655C2F00597D8F /* SystemConfiguration.framework in Frameworks */,
