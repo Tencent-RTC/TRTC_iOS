@@ -128,6 +128,7 @@
 		D6D63B7025D86CFC1006B19E /* Pods_TRTC_API_Example_OC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B2CC51BDD884255109D5F7 /* Pods_TRTC_API_Example_OC.framework */; };
 		EB147B20282E477900C0E2DC /* ThirdBeautyTencentEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB147B1F282E477900C0E2DC /* ThirdBeautyTencentEffectViewController.m */; };
 		EB147B22282E477E00C0E2DC /* ThirdBeautyTencentEffectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB147B21282E477E00C0E2DC /* ThirdBeautyTencentEffectViewController.xib */; };
+		ED14F8002B957E7C00E52959 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED14F7FF2B957E7C00E52959 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +349,7 @@
 		EB147B1F282E477900C0E2DC /* ThirdBeautyTencentEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdBeautyTencentEffectViewController.m; sourceTree = "<group>"; };
 		EB147B21282E477E00C0E2DC /* ThirdBeautyTencentEffectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdBeautyTencentEffectViewController.xib; sourceTree = "<group>"; };
 		EBAF1EF2283243C600BE7998 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		ED14F7FF2B957E7C00E52959 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		FC1FE5DC9D70E1703C9DD80A /* Pods-TXReplayKit_Screen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TXReplayKit_Screen.debug.xcconfig"; path = "Target Support Files/Pods-TXReplayKit_Screen/Pods-TXReplayKit_Screen.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -356,6 +358,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED14F8002B957E7C00E52959 /* CoreMotion.framework in Frameworks */,
 				7DE039A8288AACC6009C3F1F /* Accelerate.framework in Frameworks */,
 				7DE0399A288AABB0009C3F1F /* SystemConfiguration.framework in Frameworks */,
 				7DE0399F288AAC32009C3F1F /* libc++.tbd in Frameworks */,
@@ -874,6 +877,7 @@
 		88ED6FE02624364700C75B9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED14F7FF2B957E7C00E52959 /* CoreMotion.framework */,
 				88BC38A5284471F300814931 /* GLKit.framework */,
 				EBAF1EF2283243C600BE7998 /* MobileCoreServices.framework */,
 				880DC44928042E7200278CAC /* SystemConfiguration.framework */,
