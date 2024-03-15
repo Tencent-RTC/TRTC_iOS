@@ -41,7 +41,7 @@ This demo covers the following features (click to view the details of a feature)
 You have [signed up for a Tencent Cloud account](https://intl.cloud.tencent.com/document/product/378/17985) and completed [identity verification](https://intl.cloud.tencent.com/document/product/378/3629).
 
 
-### Obtaining `SDKAPPID` and `SECRETKEY`
+### Obtaining `SDKAPPID` and `SDKSECRETKEY`
 1. Log in to the TRTC console and select **Application Management** > **[Create application](https://console.tencentcloud.com/trtc/app/create)**.
 2. Enter an application name such as `TestTRTC`, and click **Next**.
 
@@ -53,13 +53,13 @@ You have [signed up for a Tencent Cloud account](https://intl.cloud.tencent.com/
 1. Open the [GenerateTestUserSig.swift](Debug/GenerateTestUserSig.swift) file in the Debug directory.
 2. Configure two parameters in the `GenerateTestUserSig.swift` file:
   - `SDKAPPID`: `PLACEHOLDER` by default. Set it to the actual `SDKAppID`.
-  - `SECRETKEY`: left empty by default. Set it to the actual key.
+  - `SDKSECRETKEY`: left empty by default. Set it to the actual key.
  ![ #900px](https://qcloudimg.tencent-cloud.cn/raw/79a57d5e09bb050d8798492732cfd33b/TRTC-sdkAppId-iOS.png)
 
 3. Return to the TRTC console and click **Next**.
 4. Click **Return to Overview Page**.
 
->!The method for generating `UserSig` described in this document involves configuring `SECRETKEY` in client code. In this method, `SECRETKEY` may be easily decompiled and reversed, and if your key is disclosed, attackers can steal your Tencent Cloud traffic. Therefore, **this method is suitable only for the local execution and debugging of the demo**.
+>!The method for generating `UserSig` described in this document involves configuring `SDKSECRETKEY` in client code. In this method, `SDKSECRETKEY` may be easily decompiled and reversed, and if your key is disclosed, attackers can steal your Tencent Cloud traffic. Therefore, **this method is suitable only for the local execution and debugging of the demo**.
 >The correct `UserSig` distribution method is to integrate the calculation code of `UserSig` into your server and provide an application-oriented API. When `UserSig` is needed, your application can make a request to the business server for dynamic `UserSig`. For more information, please see [How to Calculate UserSig](https://www.tencentcloud.com/document/product/647/35166).
 
 ## Configuring CDN parameters (optional)

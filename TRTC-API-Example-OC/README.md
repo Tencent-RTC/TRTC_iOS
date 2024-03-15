@@ -44,7 +44,7 @@ _中文 | [English](README.en.md)_
 您已 [注册腾讯云](https://cloud.tencent.com/document/product/378/17985) 账号，并完成 [实名认证](https://cloud.tencent.com/document/product/378/3629)。
 
 
-### 申请 SDKAPPID 和 SECRETKEY
+### 申请 SDKAPPID 和 SDKSECRETKEY
 1. 登录实时音视频控制台，选择【开发辅助】>【[快速跑通Demo](https://console.cloud.tencent.com/trtc/quickstart)】。
 2. 单击【立即开始】，输入您的应用名称，例如`TestTRTC`，单击【创建应用】。
 
@@ -56,13 +56,13 @@ _中文 | [English](README.en.md)_
 1. 打开 Debug 目录下的 [GenerateTestUserSig.h](debug/GenerateTestUserSig.h) 文件。
 2. 配置`GenerateTestUserSig.h`文件中的两个参数：
   - SDKAPPID：替换该变量值为上一步骤中在页面上看到的 SDKAppID。
-  - SECRETKEY：替换该变量值为上一步骤中在页面上看到的密钥。
+  - SDKSECRETKEY：替换该变量值为上一步骤中在页面上看到的密钥。
  ![ #900px](https://main.qcloudimg.com/raw/8fb309ce8c378dd3ad2c0099c57795a5.png)
 
 4. 返回实时音视频控制台，单击【粘贴完成，下一步】。
 5. 单击【关闭指引，进入控制台管理应用】。
 
->!本文提到的生成 UserSig 的方案是在客户端代码中配置 SECRETKEY，该方法中 SECRETKEY 很容易被反编译逆向破解，一旦您的密钥泄露，攻击者就可以盗用您的腾讯云流量，因此**该方法仅适合本地跑通 Demo 和功能调试**。
+>!本文提到的生成 UserSig 的方案是在客户端代码中配置 SDKSECRETKEY，该方法中 SDKSECRETKEY 很容易被反编译逆向破解，一旦您的密钥泄露，攻击者就可以盗用您的腾讯云流量，因此**该方法仅适合本地跑通 Demo 和功能调试**。
 >正确的 UserSig 签发方式是将 UserSig 的计算代码集成到您的服务端，并提供面向 App 的接口，在需要 UserSig 时由您的 App 向业务服务器发起请求获取动态 UserSig。更多详情请参见 [服务端生成 UserSig](https://cloud.tencent.com/document/product/647/17275#Server)。
 
 ### 配置CDN 相关（可选）
@@ -76,7 +76,7 @@ _中文 | [English](README.en.md)_
 详细操作可以参考 [实现 CDN 直播观看](https://cloud.tencent.com/document/product/647/16826#.E9.80.82.E7.94.A8.E5.9C.BA.E6.99.AF)
 
 >注意：
->本文提到的生成 UserSig 的方案是在客户端代码中配置 SECRETKEY，该方法中 SECRETKEY 很容易被反编译逆向破解，一旦您的密钥泄露，攻击者就可以盗用您的腾讯云流量，因此**该方法仅适合本地跑通 Demo 和功能调试**。
+>本文提到的生成 UserSig 的方案是在客户端代码中配置 SDKSECRETKEY，该方法中 SDKSECRETKEY 很容易被反编译逆向破解，一旦您的密钥泄露，攻击者就可以盗用您的腾讯云流量，因此**该方法仅适合本地跑通 Demo 和功能调试**。
 >正确的 UserSig 签发方式请参见 [服务端生成 UserSig](https://cloud.tencent.com/document/product/647/17275#Server)。
 
 ### 编译运行
