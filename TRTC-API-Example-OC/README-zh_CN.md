@@ -1,6 +1,5 @@
-# TRTC API-Example Swift
-
-中文 | [English](README.en.md)
+# TRTC API-Example 
+_中文 | [English](README.md)_
 
 ## 前言
 这个开源示例Demo主要演示了 [TRTC 实时音视频 SDK](https://cloud.tencent.com/document/product/647/32689) 部分API的使用示例，帮助开发者可以更好的理解 TRTC 实时音视频 SDK 的API，从而快速实现一些音视频场景的基本功能。 
@@ -24,11 +23,13 @@
   - [自定义视频采集&渲染](./Advanced/CustomCamera)
   - [设置音效](./Advanced/SetAudioEffect)
   - [设置背景音乐](./Advanced/SetBackgroundMusic)
+  - [本地视频文件分享](./Advanced/LocalVideoShare)
   - [本地视频录制](./Advanced/LocalRecord)
   - [加入多个房间](./Advanced/JoinMultipleRoom)
   - [收发SEI消息](./Advanced/SEIMessage)
   - [快速切换房间](./Advanced/SwitchRoom)
   - [跨房PK](./Advanced/RoomPk)
+  - [第三方美颜](./Advanced/ThirdBeauty)
   - [画中画功能](./Advanced/PictureInPicture)
   
 
@@ -52,8 +53,8 @@
 
 
 ### 配置 Demo 工程文件
-1. 打开 Debug 目录下的 [GenerateTestUserSig.swift](Debug/GenerateTestUserSig.swift) 文件。
-2. 配置`GenerateTestUserSig.swift`文件中的两个参数：
+1. 打开 Debug 目录下的 [GenerateTestUserSig.h](debug/GenerateTestUserSig.h) 文件。
+2. 配置`GenerateTestUserSig.h`文件中的两个参数：
   - SDKAPPID：替换该变量值为上一步骤中在页面上看到的 SDKAppID。
   - SDKSECRETKEY：替换该变量值为上一步骤中在页面上看到的密钥。
  ![ #900px](https://main.qcloudimg.com/raw/8fb309ce8c378dd3ad2c0099c57795a5.png)
