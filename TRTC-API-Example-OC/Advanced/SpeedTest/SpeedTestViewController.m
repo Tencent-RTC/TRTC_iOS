@@ -7,14 +7,6 @@
 //
 
 /*
- 网络测速功能
- TRTC 网络测速
- 本文件展示如何集成网络测速
- 1、网络测试 API: [self.trtcCloud startSpeedTest:SDKAppID userId:_userIdTextField.text userSig:userSig completion:
-                    ^(TRTCSpeedTestResult* result, NSInteger completedCount, NSInteger totalCount){}];
- 参考文档：https://cloud.tencent.com/document/product/647/32239
- */
-/*
  Network Speed Testing
  TRTC Network Speed Testing
  This document shows how to integrate the network speed testing capability.

@@ -9,14 +9,6 @@
 import UIKit
 
 /*
- CDN发布功能 
- TRTC APP CDN发布功能
- 本文件展示如何集成CDN发布功能
- 1、audience为观众，点击进入PushCDNAudienceViewController(观众端示例)
- 2、anchor为主播，点击进入PushCDNAnchorViewController（主播端示例）
- 参考文档：https://cloud.tencent.com/document/product/647/16827
- */
-/*
  CDN Publishing - Audience
  TRTC CDN Publishing
  This document shows how to integrate the CDN publishing feature.
@@ -167,7 +159,7 @@ extension PushCDNSelectRoleViewController {
 //MARK: - UI Layout
 extension PushCDNSelectRoleViewController {
     
-    // 构建视图
+    // Build view
     private func constructViewHierarchy() {
         view.addSubview(nextStepButton)
         view.addSubview(anchorButton)
@@ -179,7 +171,7 @@ extension PushCDNSelectRoleViewController {
         view.addSubview(tipsTextView)
     }
     
-    // 视图布局
+    // view layout
     private func activateConstraints() {
         
         tipsLable.snp.makeConstraints { make in
@@ -237,7 +229,7 @@ extension PushCDNSelectRoleViewController {
         
     }
     
-    // 绑定事件 / 回调
+    // Binding events/callbacks
     private func bindInteraction() {
         anchorButton.addTarget(self, action: #selector(onAnchorClick(sender: )), for: .touchUpInside)
         audienceButton.addTarget(self, action: #selector(onAudienceClick(sender: )), for: .touchUpInside)

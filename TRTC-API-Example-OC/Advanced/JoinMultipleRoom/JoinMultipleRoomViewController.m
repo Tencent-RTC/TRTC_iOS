@@ -7,20 +7,6 @@
 //
 
 /*
- 加入多个房间功能
- TRTC 加入多个房间
- 
- 本文件展示如何集成加入多个房间
- 因为SDK中没有给subCloud定义标识，用户需要自行标识以区分不同的subCloud。该demo中使用subId进行标识。
- 因为每个子subCloud都需要设置delegate回调，所以使用SubCloudHelper来进行delegate的转发，并加入subId来区分
- 
- 1、创建子对象 API: [self.trtcCloud createSubCloud]
- 2、加入房间 API: [[_subCloudHelperArr[subId] getCloud] enterRoom:params appScene:TRTCAppSceneLIVE];
- 3、退出房间 API: [[_subCloudHelperArr[subId] getCloud] exitRoom];
- 
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
-/*
  Entering Multiple Rooms
 TRTC Multiple Room Entry
 

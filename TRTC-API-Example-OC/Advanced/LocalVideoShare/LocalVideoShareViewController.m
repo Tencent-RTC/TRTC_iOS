@@ -7,19 +7,6 @@
 //
 
 /*
- 本地视频分享功能
- TRTC 本地视频分享
- 
- 本文件展示如何集成本地视频分享
-
- 1、设置自定义视频发送 API: [self.trtcCloud enableCustomVideoCapture:true];
- 2、设置自定义音频发送 API: [self.trtcCloud enableCustomAudioCapture:true];
- 3、发送自定义视频 API: [self.trtcCloud sendCustomVideoData:videoFrame];
- 4、发送自定义音频 API: [self.trtcCloud sendCustomAudioData:audioFrame];
- 
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
-/*
  Sharing Local Video
  TRTC Local Video Sharing
 
@@ -314,7 +301,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *
     
     NSString *mediaType=[info objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:@"public.movie"]){
-        NSURL *url = info[UIImagePickerControllerMediaURL];//获得视频的URL
+        NSURL *url = info[UIImagePickerControllerMediaURL]; // Get the URL of the video
         self.videoURL = url;
         _localFileTextField.text = url.lastPathComponent;
         

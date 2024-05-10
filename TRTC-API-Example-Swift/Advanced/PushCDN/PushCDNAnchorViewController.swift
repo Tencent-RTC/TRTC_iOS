@@ -10,14 +10,6 @@ import UIKit
 import TXLiteAVSDK_TRTC
 
 /*
- CDN发布功能 - 主播端
- TRTC APP CDN发布功能
- 本文件展示如何集成CDN发布功能
- 1、进入TRTC房间。 API: trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、多云端混流。 API: trtcCloud.setMix(transcodingConfig)
- 参考文档：https://cloud.tencent.com/document/product/647/16827
- */
-/*
  CDN Publishing - Anchor
  TRTC CDN Publishing
  This document shows how to integrate the CDN publishing feature.
@@ -228,7 +220,7 @@ class PushCDNAnchorViewController: UIViewController {
 //MARK: - UI Layout
 extension PushCDNAnchorViewController {
     
-    // 构建视图
+    // Build view
     private func constructViewHierarchy() {
         view.addSubview(roomNumberLabel)
         view.addSubview(streamIDLabel)
@@ -245,7 +237,7 @@ extension PushCDNAnchorViewController {
         view.addSubview(audienceViewC)
     }
     
-    // 视图布局
+    // view layout
     private func activateConstraints() {
         
         audienceViewA.snp.makeConstraints { make in
@@ -340,7 +332,7 @@ extension PushCDNAnchorViewController {
         }
     }
     
-    // 绑定事件 / 回调
+    // Binding events/callbacks
     private func bindInteraction() {
         moreMixStreamButton.addTarget(self, action: #selector(onStartPublishCDNStreamClick(sender: )), for: .touchUpInside)
         startPushButton.addTarget(self, action: #selector(onStartPushTRTCClick(sender: )), for: .touchUpInside)

@@ -2,22 +2,13 @@
 //  LiveAudienceViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/30.
+//  Created by janejntang on 2022/6/30.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 视频互动直播功能 - 观众端示例
- TRTC APP 支持视频互动直播功能
- 本文件展示如何集成视频互动直播功能
- 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、开启远程用户直播。API:trtcCloud.startRemoteView(userId, streamType: .big, view: view)
- 3、静音远端：API:trtcCloud.muteRemoteAudio(userId as! String, mute: muteButton.isSelected)
- 参考文档：https://cloud.tencent.com/document/product/647/43181
- */
 
 /*
  Interactive Live Video Streaming - Audience
@@ -90,7 +81,7 @@ class LiveAudienceViewController:UIViewController {
         view.addSubview(muteButton)
     }
     
-    //布局
+    //layout
     private func activateConstraints() {
         audienceLabel.snp.makeConstraints { make in
             make.width.equalTo(200)
@@ -107,7 +98,7 @@ class LiveAudienceViewController:UIViewController {
         }
     }
     
-    //绑定
+    //Bind
     private func bindInteraction() {
         muteButton.addTarget(self, action: #selector(clickmuteButton), for: .touchUpInside)
     }

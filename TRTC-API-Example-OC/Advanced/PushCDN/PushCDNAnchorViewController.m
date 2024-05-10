@@ -7,14 +7,6 @@
 //
 
 /*
- CDN发布功能 - 主播端
- TRTC APP CDN发布功能
- 本文件展示如何集成CDN发布功能
- 1、进入TRTC房间。 API:[self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE];
- 2、多云端混流。 API: [self.trtcCloud setMixTranscodingConfig:self.transcodingConfig];
- 参考文档：https://cloud.tencent.com/document/product/647/16827
- */
-/*
  CDN Publishing - Anchor
  TRTC CDN Publishing
  This document shows how to integrate the CDN publishing feature.

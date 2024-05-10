@@ -10,14 +10,6 @@ import UIKit
 import SnapKit
 
 /*
- 实时语音通话功能
- TRTC APP 实时语音通话功能
- 本文件展示如何集成实时语音通话功能
- 为之后的语音通话提供roomId和userId
- 参考文档：https://cloud.tencent.com/document/product/647/42046
- */
-
-/*
  Real-Time Audio Call
  TRTC Audio Call
  This document shows how to integrate the real-time audio call feature.
@@ -99,7 +91,7 @@ class AudioCallingEnterViewController: UIViewController {
 //MARK: - UI Layout
 extension AudioCallingEnterViewController {
     
-    // 构建视图
+    // Build view
     private func constructViewHierarchy() {
         view.addSubview(inputRoomLabel)
         view.addSubview(roomIdTextField)
@@ -108,7 +100,7 @@ extension AudioCallingEnterViewController {
         view.addSubview(startButton)
     }
     
-    // 视图布局
+    // view layout
     private func activateConstraints() {
         userIdTextField.snp.makeConstraints { make in
             make.top.equalTo(280)
@@ -141,7 +133,7 @@ extension AudioCallingEnterViewController {
         }
     }
     
-    // 绑定事件 / 回调
+    // Binding events/callbacks
     private func bindInteraction() {
         startButton.addTarget(self, action: #selector(OnStartClick(sender: )), for: .touchUpInside)
     }

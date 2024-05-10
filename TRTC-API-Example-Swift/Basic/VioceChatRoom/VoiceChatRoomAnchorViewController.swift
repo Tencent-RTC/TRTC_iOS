@@ -10,18 +10,6 @@ import UIKit
 import TXLiteAVSDK_TRTC
 
 /*
- 语音互动直播功能 - 主播端示例
- TRTC APP 支持语音互动直播功能
- 本文件展示如何集成语音互动直播功能
- 1、进入TRTC房间。 API: trtcCloud.enterRoom(params, appScene: .voiceChatRoom)
- 2、开启本地音频。  API: trtcCloud.startLocalAudio(.music)
- 3、静音远端：API：trtcCloud.muteRemoteAudio(userId as String, mute: sender.isSelected)
- 4、上下麦：API：trtcCloud.switch(.audience)
- 5、 Demo中最大限制进房用户个数为6, 具体可根据需求来定最大进房人数。
- 参考文档：https://cloud.tencent.com/document/product/647/45753
- */
-
-/*
  Interactive Live Audio Streaming - Room Owner
  The TRTC app supports interactive live audio streaming.
  This document shows how to integrate the interactive live audio streaming feature.
@@ -144,14 +132,14 @@ class VoiceChatRoomAnchorViewController: UIViewController {
 // MARK: - UI Layout
 extension VoiceChatRoomAnchorViewController {
     
-    //构建视图
+    //Build view
     private func constructViewHierarchy() {
         view.addSubview(muteButton)
         view.addSubview(downMicButton)
         view.addSubview(anchorLabel)
     }
     
-    //视图布局
+    //view layout
     private func activateConstraints() {
         muteButton.snp.makeConstraints { make in
             make.width.equalTo(90)
@@ -174,7 +162,7 @@ extension VoiceChatRoomAnchorViewController {
         }
     }
     
-    //绑定事件
+    //Binding events
     private func bindInteraction() {
         downMicButton.addTarget(self, action: #selector(onDownMicClick(sender: )), for: .touchUpInside)
         muteButton.addTarget(self, action: #selector(onMuteClick(sender: )), for: .touchUpInside)

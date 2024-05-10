@@ -2,21 +2,12 @@
 //  LiveEnterViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/30.
+//  Created by janejntang on 2022/6/30.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
 import Foundation
 import UIKit
-
-/*
- 视频互动直播功能
- TRTC APP 支持视频互动直播功能
- 本文件展示如何集成视频互动直播功能
- 1、audience为观众，点击进入LiveAudienceViewController(观众端示例)
- 2、anchor为主播，点击进入LiveAnchorViewController（主播端示例）
- 参考文档：https://cloud.tencent.com/document/product/647/43181
- */
 
 /*
  Interactive Live Video Streaming

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//MARK: 屏幕录制直播示例 - 进房入口
+//MARK: Screen recording live broadcast example - room entry
 @interface ScreenEntranceViewController : UIViewController
 @end
 

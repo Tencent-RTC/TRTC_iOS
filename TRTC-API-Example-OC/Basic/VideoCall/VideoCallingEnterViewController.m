@@ -5,9 +5,9 @@
 //  Created by bluedang on 2021/4/12.
 //  Copyright © 2021 Tencent. All rights reserved.
 //
-//  TRTC 视频通话入口界面
-//  包含如下功能：
-//  1、 进入房间，生成音频通话界面
+// TRTC video call entrance interface
+// Contains the following functions:
+// 1. Enter the room and generate the audio call interface
 
 #import "VideoCallingEnterViewController.h"
 #import "VideoCallingViewController.h"

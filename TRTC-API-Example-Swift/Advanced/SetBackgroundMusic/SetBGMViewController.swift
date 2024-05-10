@@ -2,26 +2,13 @@
 //  SetBGMViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/28.
+//  Created by janejntang on 2022/6/28.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 设置背景音乐功能示例
- TRTC APP 支持设置背景音乐功能
- 本文件展示如何集成设置背景音乐功能
- 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、播放背景音乐。
- API:trtcCloud.getAudioEffectManager().startPlayMusic(bgmParam) { errCode in } onProgress: { progressMs, durationMs in } onComplete: { errCode in }
- 3、暂停背景音乐。  API:trtcCloud.getAudioEffectManager().stopPlayMusic(bgmParam.id)
- 4、调整播放的背景音乐音量。API:trtcCloud.getAudioEffectManager().setMusicPlayoutVolume(bgmParam.id, volume: Int(volume))
- 5、调整远端播放的背景音乐音量。API:trtcCloud.getAudioEffectManager().setMusicPublishVolume(bgmParam.id, volume: Int(volume))
- 6、设置TRTC的关键代码。 API：startPushStream()
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
 /*
  Setting Background Music
  The TRTC app supports background music setting.

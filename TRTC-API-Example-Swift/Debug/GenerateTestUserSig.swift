@@ -1,19 +1,22 @@
 /*
- * Module:   GenerateTestUserSig
+ * Module: GenerateTestUserSig
  *
- * Function: 用于生成测试用的 UserSig，UserSig 是腾讯云为其云服务设计的一种安全保护签名。
- *           其计算方法是对 SDKAppID、UserID 和 EXPIRETIME 进行加密，加密算法为 HMAC-SHA256。
+ * Function: used to generate UserSig for testing. UserSig is a security protection signature designed by Tencent Cloud for its cloud services.
+ * The calculation method is to encrypt SDKAppID, UserID and EXPIRETIME, and the encryption algorithm is HMAC-SHA256.
  *
- * Attention: 请不要将如下代码发布到您的线上正式版本的 App 中，原因如下：
+ * Attention: Please do not publish the following code into your online official version of the App for the following reasons:
  *
- *            本文件中的代码虽然能够正确计算出 UserSig，但仅适合快速调通 SDK 的基本功能，不适合线上产品，
- *            这是因为客户端代码中的 SDKSECRETKEY 很容易被反编译逆向破解，尤其是 Web 端的代码被破解的难度几乎为零。
- *            一旦您的密钥泄露，攻击者就可以计算出正确的 UserSig 来盗用您的腾讯云流量。
+ * Although the code in this file can correctly calculate UserSig,
+ * it is only suitable for quickly adjusting the basic functions of the SDK and is not suitable for online products.
+ * This is because the SDKSECRETKEY in the client code is easily decompiled and reverse-engineered, especially the web-side code,
+ * which is almost zero difficulty in cracking.
+ * Once your key is leaked, an attacker can calculate the correct UserSig to steal your Tencent Cloud traffic.
  *
- *            正确的做法是将 UserSig 的计算代码和加密密钥放在您的业务服务器上，然后由 App 按需向您的服务器获取实时算出的 UserSig。
- *            由于破解服务器的成本要高于破解客户端 App，所以服务器计算的方案能够更好地保护您的加密密钥。
+ * The correct approach is to put the UserSig calculation code and encryption key on your business server,
+ * and then have the App obtain the real-time calculated UserSig from your server on demand.
+ * Since it is more expensive to crack a server than a client app, a server-computed approach better protects your encryption keys.
  *
- * Reference：https://cloud.tencent.com/document/product/269/32688#Server
+ * Reference: https://cloud.tencent.com/document/product/269/32688#Server
  */
 
 import Foundation
@@ -21,8 +24,8 @@ import CommonCrypto
 import zlib
 
 /**
- * 腾讯云直播license管理页面(https://console.cloud.tencent.com/live/license)
- * 当前应用的License LicenseUrl
+ * Tencent Cloud Live License Management Page (https://console.cloud.tencent.com/live/license)
+ * Currently applied License LicenseUrl
  *
  * License Management View (https://console.cloud.tencent.com/live/license)
  * License URL of your application
@@ -30,8 +33,8 @@ import zlib
 let LICENSEURL = ""
 
 /**
- * 腾讯云直播license管理页面(https://console.cloud.tencent.com/live/license)
- * 当前应用的License Key
+ * Tencent Cloud Live License Management Page (https://console.cloud.tencent.com/live/license)
+ * Currently applied License Key
  *
  * License Management View (https://console.cloud.tencent.com/live/license)
  * License key of your application
@@ -39,78 +42,84 @@ let LICENSEURL = ""
 let LICENSEURLKEY = ""
 
 /**
- * 腾讯云 SDKAppId，需要替换为您自己账号下的 SDKAppId。
+ * Tencent Cloud SDKAppId needs to be replaced with the SDKAppId under your own account.
  *
- * 进入腾讯云云通信[控制台](https://console.cloud.tencent.com/avc) 创建应用，即可看到 SDKAppId，
- * 它是腾讯云用于区分客户的唯一标识。
+ * Enter Tencent Cloud Communication [Console] (https://console.cloud.tencent.com/avc) to create an application and you will see the SDKAppId.
+ * It is the unique identifier used by Tencent Cloud to distinguish customers.
  */
 let SDKAPPID: Int = 0
 
 /**
- *  签名过期时间，建议不要设置的过短
+ * It is recommended not to set the signature expiration time too short.
  *
- *  时间单位：秒
- *  默认时间：7 x 24 x 60 x 60 = 604800 = 7 天
+ * Time unit: seconds
+ *Default time: 7 x 24 x 60 x 60 = 604800 = 7 days
  */
 let EXPIRETIME: Int = 0
 
 /**
- * CDN发布功能 混流appId
+ * CDN publishing function mixed streaming appId
  */
 let CDNAPPID = 0
 
 /**
- * CDN发布功能 混流bizId
+ * CDN publishing function mixed bizId
  */
 let CDNBIZID = 0
 
 /**
- * CDN发布功能 混流CDN_URL
+ * CDN publishing function mixed flow CDN_URL
  */
 let kCDN_URL: String = ""
 
 /**
- * 计算签名用的加密密钥，获取步骤如下：
+ * The encryption key used to calculate the signature, the steps to obtain are as follows:
  *
- * step1. 进入腾讯云云通信[控制台](https://console.cloud.tencent.com/avc) ，如果还没有应用就创建一个，
- * step2. 单击“应用配置”进入基础配置页面，并进一步找到“帐号体系集成”部分。
- * step3. 点击“查看密钥”按钮，就可以看到计算 UserSig 使用的加密的密钥了，请将其拷贝并复制到如下的变量中
+ * step1. Enter Tencent Cloud Communication [Console](https://console.cloud.tencent.com/avc), if there is no application yet, create one.
+ * step2. Click "Application Configuration" to enter the basic configuration page, and further find the "Account System Integration" section.
+ * step3. Click the "View Key" button to see the encrypted key used to calculate UserSig. Please copy it to the following variable
  *
- * 注意：该方案仅适用于调试Demo，正式上线前请将 UserSig 计算代码和密钥迁移到您的后台服务器上，以避免加密密钥泄露导致的流量盗用。
- * 文档：https://cloud.tencent.com/document/product/269/32688#Server
+ * Note: This solution is only suitable for debugging Demo.
+ * Please migrate the UserSig calculation code and key to your backend server before official launch to
+ * avoid traffic theft caused by encryption key leakage.
+ * Document: https://cloud.tencent.com/document/product/269/32688#Server
  */
 let SDKSECRETKEY = ""
 
 /**
- * 计算 UserSig 签名
+ * Calculate UserSig signature
  *
- * 函数内部使用 HMAC-SHA256 非对称加密算法，对 SDKAPPID、userId 和 EXPIRETIME 进行加密。
+ * The HMAC-SHA256 asymmetric encryption algorithm is used internally to encrypt SDKAPPID, userId and EXPIRETIME.
  *
- * @note: 请不要将如下代码发布到您的线上正式版本的 App 中，原因如下：
+ * @note: Please do not publish the following code into your online official version of the App for the following reasons:
  *
- * 本文件中的代码虽然能够正确计算出 UserSig，但仅适合快速调通 SDK 的基本功能，不适合线上产品，
- * 这是因为客户端代码中的 SDKSECRETKEY 很容易被反编译逆向破解，尤其是 Web 端的代码被破解的难度几乎为零。
- * 一旦您的密钥泄露，攻击者就可以计算出正确的 UserSig 来盗用您的腾讯云流量。
+ * Although the code in this file can correctly calculate UserSig,
+ * it is only suitable for quickly adjusting the basic functions of the SDK and is not suitable for online products.
+ * This is because the SDKSECRETKEY in the client code is easily decompiled and reverse-engineered, especially the web-side code,
+ * which is almost zero difficulty in cracking.
+ * Once your key is compromised, an attacker can calculate the correct UserSig to steal your Tencent Cloud traffic.
  *
- * 正确的做法是将 UserSig 的计算代码和加密密钥放在您的业务服务器上，然后由 App 按需向您的服务器获取实时算出的 UserSig。
- * 由于破解服务器的成本要高于破解客户端 App，所以服务器计算的方案能够更好地保护您的加密密钥。
+ * The correct approach is to put the UserSig calculation code and encryption key on your business server,
+ * and then have the App obtain the real-time calculated UserSig from your server on demand.
+ * Since it is more expensive to crack a server than a client app, a server-computed approach better protects your encryption keys.
  *
- * 文档：https://cloud.tencent.com/document/product/269/32688#Server
+ * Document: https://cloud.tencent.com/document/product/269/32688#Server
  */
 
 let PUSHURL = ""
 
 /**
- * 配置的拉流地址
+ * Configured streaming address
  *
- * 腾讯云域名管理页面：https://console.cloud.tencent.com/live/domainmanage
+ * Tencent Cloud domain name management page: https://console.cloud.tencent.com/live/domainmanage
  */
 let PLAY_DOMAIN: String = ""
 
 /**
- * 配置的后台服务域名，类似：https://service-3vscss6c-xxxxxxxxxxx.gz.apigw.tencentcs.com"
+ * Configured background service domain name, similar to: https://service-3vscss6c-xxxxxxxxxxx.gz.apigw.tencentcs.com"
  *
- * 小直播后台提供有登录、房间列表等服务，更多细节见文档：https://cloud.tencent.com/document/product/454/38625
+ * The small live broadcast backend provides services such as login and room list.
+ * For more details, please see the document: https://cloud.tencent.com/document/product/454/38625
  */
 let SERVERLESSURL = ""
 

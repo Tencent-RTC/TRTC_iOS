@@ -2,27 +2,13 @@
 //  VideoCallingViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/23.
+//  Created by janejntang on 2022/6/23.
 //  Copyright © 2022 Tencent. All rights reserved.
 
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
 import SnapKit
-/*
- 实时视频通话功能
- TRTC APP 实时视频通话功能
- 本文件展示如何集成实时视频通话功能
- 1、切换摄像头 API:trtcCloud.getDeviceManager().switchCamera(isFrontCamera)
- 2、打开关闭摄像头 API: trtcCloud.startLocalPreview(isFrontCamera, view: view)
- self.trtcCloud.stopLocalPreview()
- 3、切换听筒与扬声器 API：trtcCloud.getDeviceManager().setAudioRoute(.earpiece)
- trtcCloud.getDeviceManager().setAudioRoute(.speakerphone)
- 4、静音当前设备，其他人将无法听到该设备的声音 API:trtcCloud.muteLocalAudio(true)
- 5、设置TRTC的关键代码：setupTRTCCloud()
- 参考文档：https://cloud.tencent.com/document/product/647/42044
- */
-
 /*
  Real-Time Audio Call
  TRTC Audio Call
@@ -36,7 +22,8 @@ import SnapKit
  5. Set the key code of TRTC : setupTRTCCloud()
  Documentation: https://cloud.tencent.com/document/product/647/42046
  */
-/// Demo中最大限制进房用户个数为6, 具体可根据需求来定最大进房人数。
+/// In the demo, the maximum number of users who can enter the room is
+// 6. The maximum number of users who can enter the room can be determined according to the needs.
 let maxRemoteUserNum : Int = 6
 class VideoCallingViewController:UIViewController {
     

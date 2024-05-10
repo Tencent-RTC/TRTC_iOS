@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//MARK: 视频通话示例 - 进房入口
+//MARK: Video call example - room entry
 @interface VideoCallingEnterViewController : UIViewController
 @end
 
