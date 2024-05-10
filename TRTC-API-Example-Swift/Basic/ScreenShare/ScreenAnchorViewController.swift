@@ -2,7 +2,7 @@
 //  ScreenAnchorViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/27.
+//  Created by janejntang on 2022/6/27.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 import Foundation
@@ -14,16 +14,6 @@ enum ScreenStatus {
     case screenWait
     case screenStop
 }
-/*
- 录屏直播功能
- TRTC APP 录屏直播功能
- 本文件展示如何集成录屏直播功能
- 1、开始屏幕分享 API:   trtcCloud.startScreenCapture(byReplaykit: .big, encParam: encParams, appGroup: "group.com.tencent.liteav.RPLiveStreamShare")
- 2、静音 API: trtcCloud.muteLocalAudio(true)
- 3、TRTC关键推流代码：API：setupTRTCCloud()
- 参考文档：https://cloud.tencent.com/document/product/647/45750
- */
-
 /*
  Screen Recording Live Streaming
  The TRTC app supports screen recording live streaming.

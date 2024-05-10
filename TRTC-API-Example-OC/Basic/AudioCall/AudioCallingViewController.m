@@ -7,16 +7,6 @@
 //
 
 /*
-实时语音通话功能 
- TRTC APP 实时语音通话功能
- 本文件展示如何集成实时语音通话功能
- 1、切换听筒与扬声器 API:[[_trtcCloud getDeviceManager] setAudioRoute:TXAudioRouteSpeakerphone];
- 2、静音当前设备，其他人将无法听到该设备的声音 API: [_trtcCloud muteLocalAudio:true];
- 3、显示其他的网络信息和音量信息 API：delegate -> onNetworkQuality, onUserVoiceVolume
- 参考文档：https://cloud.tencent.com/document/product/647/42046
- */
-
-/*
 Real-Time Audio Call
  TRTC Audio Call
  This document shows how to integrate the real-time audio call feature.

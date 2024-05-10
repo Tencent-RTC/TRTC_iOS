@@ -2,21 +2,12 @@
 //  ScreenEntranceViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/27.
+//  Created by janejntang on 2022/6/27.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 import Foundation
 import UIKit
 import CoreMedia
-
-/*
- 录屏直播功能
- TRTC APP 录屏直播功能
- 本文件展示如何集成录屏直播功能
- 1、audience为观众，点击进入ScreenAudienceViewController(观众端示例)
- 2、anchor为主播，点击进入ScreenAnchorViewController（主播端示例）
- 参考文档：https://cloud.tencent.com/document/product/647/45750
- */
 
 /*
  Screen Recording Live Streaming

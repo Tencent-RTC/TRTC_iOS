@@ -3,7 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by taopu-iMac on 16/12/1.
-//  Copyright © 2016年 qqcloud. All rights reserved.
+//  Copyright © 2016 qqcloud. All rights reserved.
 //
 
 #ifndef AVReader_h

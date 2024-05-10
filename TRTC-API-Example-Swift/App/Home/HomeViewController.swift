@@ -70,19 +70,19 @@ class HomeViewController: UIViewController {
 // MARK: - UI Layout
 extension HomeViewController {
     
-    // 构建视图
+    // Build view
     private func constructViewHierarchy() {
         view.addSubview(tableView)
     }
     
-    // 视图布局
+    // view layout
     private func activateConstraints() {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
-    // 绑定事件 / 回调
+    // Binding events/callbacks
     private func bindInteraction() {
         tableView.delegate = self
         tableView.dataSource = self

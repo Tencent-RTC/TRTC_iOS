@@ -7,16 +7,6 @@
 //
 
 /*
-设置画面质量功能
- TRTC APP 设置画面质量功能
- 本文件展示如何集成设置画面质量功能
- 1、设置分辨率 API: [self.trtcCloud setVideoEncoderParam:self.videoEncParam];
- 2、设置码率 API: [self.trtcCloud setVideoEncoderParam:self.videoEncParam];
- 3、设置帧率 API: [self.trtcCloud setVideoEncoderParam:self.videoEncParam];
- 参考文档：https://cloud.tencent.com/document/product/647/32236
- */
-
-/*
  Setting Video Quality
   TRTC Video Quality Setting
   This document shows how to integrate the video quality setting feature.

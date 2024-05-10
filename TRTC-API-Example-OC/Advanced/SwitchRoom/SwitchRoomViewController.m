@@ -7,14 +7,6 @@
 //
 
 /*
- 快速切换房间示例
- TRTC APP 支持快速切换房间功能
- 本文件展示如何集成快速切换房间功能
- 1、进入TRTC房间。 API:[self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE];
- 2、快速切换房间。  API:[self.trtcCloud switchRoom:self.switchRoomConfig];
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
-/*
  Switching Rooms
  The TRTC app supports quick room switching.
  This document shows how to integrate the room switching feature.

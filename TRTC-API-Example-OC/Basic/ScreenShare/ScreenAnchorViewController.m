@@ -7,16 +7,6 @@
 //
 
 /*
-录屏直播功能
- TRTC APP 录屏直播功能
- 本文件展示如何集成录屏直播功能
- 1、开始屏幕分享 API:    [self.trtcCloud startScreenCaptureByReplaykit:_encParams
-                            appGroup:@"group.com.tencent.liteav.RPLiveStreamShare"];
- 2、静音 API: [_trtcCloud muteLocalAudio:true];
- 参考文档：https://cloud.tencent.com/document/product/647/45750
- */
-
-/*
  Screen Recording Live Streaming
  The TRTC app supports screen recording live streaming.
  This document shows how to integrate the screen recording live streaming feature.

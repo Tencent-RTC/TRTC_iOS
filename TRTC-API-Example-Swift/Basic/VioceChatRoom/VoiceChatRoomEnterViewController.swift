@@ -10,15 +10,6 @@ import UIKit
 import SnapKit
 
 /*
- 语音互动直播功能
- TRTC APP 支持语音互动直播功能
- 本文件展示如何集成语音互动直播功能
- 1、audience为观众，点击进入VoiceChatRoomAudienceViewController(观众端示例)
- 2、anchor为主播，点击进入VoiceChatRoomAnchorViewController（主播端示例）
- 参考文档：https://cloud.tencent.com/document/product/647/45753
- */
-
-/*
  Interactive Live Audio Streaming - Room Owner
  The TRTC app supports interactive live audio streaming.
  This document shows how to integrate the interactive live audio streaming feature.
@@ -176,7 +167,7 @@ class VoiceChatRoomEnterViewController: UIViewController {
 //MARK: - UI Layout
 extension VoiceChatRoomEnterViewController {
     
-    // 构建视图
+    // Build view
     private func constructViewHierarchy() {
         view.addSubview(inputRoomLabel)
         view.addSubview(roomIdTextField)
@@ -188,7 +179,7 @@ extension VoiceChatRoomEnterViewController {
         view.addSubview(userIdentifyLabel)
     }
     
-    // 视图布局
+    // view layout
     private func activateConstraints() {
         
         userIdTextField.snp.makeConstraints { make in
@@ -241,7 +232,7 @@ extension VoiceChatRoomEnterViewController {
         }
     }
     
-    // 绑定事件 / 回调
+    // Binding events/callbacks
     private func bindInteraction() {
         startButton.addTarget(self, action: #selector(OnStartClick(sender: )), for: .touchUpInside)
         anchorButton.addTarget(self, action: #selector(onAnchorClick(sender: )), for: .touchUpInside)

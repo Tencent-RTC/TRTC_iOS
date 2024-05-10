@@ -7,15 +7,6 @@
 //
 
 /*
- 收发SEI消息功能示例
- TRTC APP 支持收发SEI消息功能
- 本文件展示如何集成收发SEI消息功能
- 1、进入TRTC房间。API:[self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE];
- 2、发送SEI消息。 API:[self.trtcCloud sendSEIMsg:SEIData repeatCount:1];
- 3、接收SEI消息。 API：TRTCCloudDelegate：- (void)onRecvSEIMsg:(NSString *)userId message:(NSData *)message;
- 参考文档：https://cloud.tencent.com/document/product/647/32241
- */
-/*
  SEI Message Receiving/Sending
  The TRTC app supports sending and receiving SEI messages.
  This document shows how to integrate the SEI message sending/receiving feature.

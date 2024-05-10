@@ -10,11 +10,11 @@
 #import <AVKit/AVKit.h>
 
 /*
- 画中画功能（iOS15及以上支持）
- MLVB APP 画中画功能代码示例：
- 本文件展示如何通过移动直播SDK实现iOS系统上的画中画功能
- 1、开启本地自定义渲染 API: [self.trtcCloud setLocalVideoRenderDelegate:self pixelFormat:TRTCVideoPixelFormat_NV12 bufferType:TRTCVideoBufferType_PixelBuffer];
- 2、需要开启SDK的后台解码能力 API:
+ Picture-in-picture function (supported by iOS15 and above)
+ MLVB APP picture-in-picture function code example:
+ This document shows how to implement the picture-in-picture function on iOS through the mobile live broadcast SDK
+ 1. Enable local custom rendering API: [self.trtcCloud setLocalVideoRenderDelegate:self pixelFormat:TRTCVideoPixelFormat_NV12 bufferType:TRTCVideoBufferType_PixelBuffer];
+ 2. You need to enable the background decoding capability API of the SDK:
 ```
     NSDictionary *param = @{
         @"api" : @"enableBackgroundDecoding",
@@ -34,13 +34,13 @@
                                                       encoding:NSUTF8StringEncoding];
     [self.trtcCloud callExperimentalAPI:paramJsonString];
  ```
- 3、使用系统 API创建画中画内容源: AVPictureInPictureControllerContentSource *contentSource = [[AVPictureInPictureControllerContentSource alloc] initWithSampleBufferDisplayLayer:self.sampleBufferDisplayLayer playbackDelegate:self];;
- 4、使用系统 API创建画中画控制器: [[AVPictureInPictureController alloc] initWithContentSource:contentSource];
- 5、在SDK回调:- (void)onRenderVideoFrame:(TRTCVideoFrame *)frame userId:(NSString *)userId streamType:(TRTCVideoStreamType)streamType内将pixelBuffer转为SampleBuffer并交给AVSampleBufferDisplayLayer进行渲染;
- 6、使用系统 API开启画中画功能：[self.pipViewController startPictureInPicture];
+ 3. Use the system API to create a picture-in-picture content source: AVPictureInPictureControllerContentSource *contentSource = [[AVPictureInPictureControllerContentSource alloc] initWithSampleBufferDisplayLayer:self.sampleBufferDisplayLayer playbackDelegate:self];;
+ 4. Use the system API to create a picture-in-picture controller: [[AVPictureInPictureController alloc] initWithContentSource:contentSource];
+ 5. Convert pixelBuffer to SampleBuffer in SDK callback:- (void)onRenderVideoFrame:(TRTCVideoFrame *)frame userId:(NSString *)userId streamType:(TRTCVideoStreamType)streamType and hand it to AVSampleBufferDisplayLayer for rendering;
+ 6. Use the system API to turn on the picture-in-picture function: [self.pipViewController startPictureInPicture];
  */
 
-/// 画中画功能演示，示例拉流地址。
+/// Picture-in-picture function demonstration, sample streaming address.
 @interface PictureInPictureViewController ()<
 TRTCCloudDelegate,
 TRTCVideoRenderDelegate,
@@ -83,7 +83,7 @@ AVPictureInPictureSampleBufferPlaybackDelegate
     
     if (@available(iOS 15.0, *)) {
         if ([AVPictureInPictureController isPictureInPictureSupported]) {
-            //开启画中画后台声音权限
+            // Enable picture-in-picture background sound permissions
             NSError *error = nil;
             [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
             [[AVAudioSession sharedInstance] setActive:YES error:nil];
@@ -174,7 +174,7 @@ AVPictureInPictureSampleBufferPlaybackDelegate
 }
 
 - (IBAction)onPictureInPictureButtonClick:(id)sender {
-    //在点击画中画按钮的时候 开启画中画
+    //Enable picture-in-picture when clicking the picture-in-picture button
     if (self.pipViewController.isPictureInPictureActive) {
         [self.pipViewController stopPictureInPicture];
     } else {
@@ -199,14 +199,14 @@ AVPictureInPictureSampleBufferPlaybackDelegate
     }
 }
 
-//把pixelBuffer包装成samplebuffer送给displayLayer
+// Pack the pixelBuffer into samplebuffer and send it to displayLayer
 - (void)dispatchPixelBuffer:(CVPixelBufferRef)pixelBuffer {
     if (!pixelBuffer) {
         return;
     }
-    //不设置具体时间信息
+    //No specific time information is set
     CMSampleTimingInfo timing = {kCMTimeInvalid, kCMTimeInvalid, kCMTimeInvalid};
-    //获取视频信息
+    //Get video information
     CMVideoFormatDescriptionRef videoInfo = NULL;
     OSStatus result = CMVideoFormatDescriptionCreateForImageBuffer(NULL, pixelBuffer, &videoInfo);
     NSParameterAssert(result == 0 && videoInfo != NULL);
@@ -309,7 +309,7 @@ failedToStartPictureInPictureWithError:(NSError *)error {
 - (void)pictureInPictureController:(AVPictureInPictureController *)pictureInPictureController
 restoreUserInterfaceForPictureInPictureStopWithCompletionHandler:(void (^)(BOOL))completionHandler {
     NSLog(@"restoreUserInterfaceForPictureInPictureStopWithCompletionHandler");
-    // 执行回调的闭包
+    // Execute callback closure
     completionHandler(true);
 }
 

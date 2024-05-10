@@ -11,11 +11,11 @@ import TXLiteAVSDK_TRTC
 import AVKit
  
 /*
- 画中画功能（iOS15及以上支持）
- MLVB APP 画中画功能代码示例：
- 本文件展示如何通过移动直播SDK实现iOS系统上的画中画功能
- 1、开启本地自定义渲染 API: trtcCloud.setLocalVideoRenderDelegate(self, pixelFormat:._NV12, bufferType:.pixelBuffer)
- 2、需要开启SDK的后台解码能力 API:
+  Picture-in-picture function (supported by iOS15 and above)
+  MLVB APP picture-in-picture function code example:
+  This document shows how to implement the picture-in-picture function on iOS through the mobile live broadcast SDK
+  1. Enable local custom rendering API: trtcCloud.setLocalVideoRenderDelegate(self, pixelFormat:._NV12, bufferType:.pixelBuffer)
+  2. You need to enable the background decoding capability API of the SDK:
  ```
  let param: [String : Any] = ["api": "enableBackgroundDecoding",
                               "params": ["enable":true]]
@@ -25,14 +25,14 @@ import AVKit
      trtcCloud.callExperimentalAPI(paramJsonString)
  }
  ```
- 3、使用系统 API创建画中画内容源:
-    let contentSource = AVPictureInPictureController.ContentSource.init(sampleBufferDisplayLayer: sampleBufferDisplayLayer,
-                                                                                playbackDelegate: self)
- 4、使用系统 API创建画中画控制器:
-    pipViewController = AVPictureInPictureController.init(contentSource: contentSource)
- 5、在SDK回调: onRenderVideoFrame(_ frame: TRTCVideoFrame, userId: String?, streamType: TRTCVideoStreamType)
-    内将pixelBuffer转为SampleBuffer并交给AVSampleBufferDisplayLayer进行渲染;
- 6、使用系统 API开启画中画功能：pipViewController.startPictureInPicture()
+ 3. Use the system API to create a picture-in-picture content source:
+     let contentSource = AVPictureInPictureController.ContentSource.init(sampleBufferDisplayLayer: sampleBufferDisplayLayer,
+                                                                                 playbackDelegate: self)
+  4. Use the system API to create a picture-in-picture controller:
+     pipViewController = AVPictureInPictureController.init(contentSource: contentSource)
+  5. Callback in SDK: onRenderVideoFrame(_ frame: TRTCVideoFrame, userId: String?, streamType: TRTCVideoStreamType)
+     Convert pixelBuffer to SampleBuffer and hand it to AVSampleBufferDisplayLayer for rendering;
+  6. Use the system API to turn on the picture-in-picture function: pipViewController.startPictureInPicture()
  */
 
 class PictureInPictureViewController: UIViewController {
@@ -421,7 +421,7 @@ extension PictureInPictureViewController: AVPictureInPictureControllerDelegate {
     func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController,
                                     restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void) {
         debugPrint("restoreUserInterfaceForPictureInPictureStopWithCompletionHandler")
-        // 执行回调的闭包
+        // Execute callback closure
         completionHandler(true)
     }
     
@@ -470,7 +470,7 @@ extension PictureInPictureViewController {
 // MARK: - Button Event
 extension PictureInPictureViewController {
     @objc private func onPictureInPictureButtonClick(sender: UIButton) {
-        //在点击画中画按钮的时候 开启画中画
+        // Enable picture-in-picture when clicking the picture-in-picture button
         guard let pipViewController = self.pipViewController else { return }
         if (pipViewController.isPictureInPictureActive) {
             pipViewController.stopPictureInPicture()

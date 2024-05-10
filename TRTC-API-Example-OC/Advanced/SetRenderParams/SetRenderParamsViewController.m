@@ -7,22 +7,6 @@
 //
 
 /*
- 渲染控制功能
- TRTC 渲染控制页面
- 本文件展示如何集成渲染控制功能
- 1、设置预览图像镜像模式 API: [self.trtcCloud setLocalRenderParams:renderParams];
- 2、设置预览图像渲染模式 API: [self.trtcCloud setLocalRenderParams:renderParams];
- 3、设置预览图像旋转角度(顺时针) API: [self.trtcCloud setLocalRenderParams:renderParams];
- 4、设置远端图像渲染模式 API: [self.trtcCloud setRemoteRenderParams:_remoteUserIdButton.currentTitle
-                                    streamType:TRTCVideoStreamTypeSmall
-                                        params:renderParams];
- 5、设置远端图像旋转角度(顺时针) API: [self.trtcCloud setRemoteRenderParams:_remoteUserIdButton.currentTitle
-                                    streamType:TRTCVideoStreamTypeSmall
-                                        params:renderParams];
-
- 参考文档：https://cloud.tencent.com/document/product/647/32237
- */
-/*
  Rendering Control
  TRTC Rendering Control View
  This document shows how to integrate the rendering control feature.

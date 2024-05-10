@@ -2,7 +2,7 @@
 //  SubCloudHelper.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/7/5.
+//  Created by janejntang on 2022/7/5.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 

@@ -2,23 +2,13 @@
 //  SetAudioEffectViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/7/5.
+//  Created by janejntang on 2022/7/5.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 设置音效功能示例
- TRTC APP 支持设置音效功能
- 本文件展示如何集成设置音效功能
- 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、选择变声。API:trtcCloud.getAudioEffectManager().setVoiceChangerType(._0)
- 3、选择混响。 API:trtcCloud.getAudioEffectManager().setVoiceReverbType(._0)
- 4、设置TRTC的关键代码。 API：startPushStream()
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
 /*
  Setting Audio Effects
  The TRTC app supports audio effect setting.

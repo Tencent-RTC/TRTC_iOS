@@ -2,7 +2,7 @@
 //  RoomPkViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/28.
+//  Created by janejntang on 2022/6/28.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
 /*
- 跨房PK功能
- TRTC 跨房PK
- 
- 本文件展示如何集成跨房PK
- 
- 1、连接其他房间 API: trtcCloud.connectOtherRoom(jsonString)
- 2、设置TRTC的关键代码 API：setupTRTCCloud()
- 参考文档：https://cloud.tencent.com/document/product/647/32258
+ Cross-room PK function
+  TRTC cross-room PK
+
+  This document shows how to integrate cross-room PK
+
+  1. Connect to other rooms API: trtcCloud.connectOtherRoom(jsonString)
+  2. Set the key code API of TRTC: setupTRTCCloud()
+  Reference document: https://cloud.tencent.com/document/product/647/32258
  */
 /*
  Cross-room Competition
@@ -288,7 +288,7 @@ class RoomPkViewController : UIViewController {
     
     func checkPkRoomAndUserIdIsValid() -> Bool {
         
-        //这里判断正负再看一下
+        //Let’s take a look at whether it’s positive or negative here.
         if !(otherRoomIdTextField.text?.isEmpty ?? true) && otherRoomIdTextField.text != "" {
             if !(otherUserIdTextField.text?.isEmpty ?? true) && otherUserIdTextField.text != "" {
                 return true

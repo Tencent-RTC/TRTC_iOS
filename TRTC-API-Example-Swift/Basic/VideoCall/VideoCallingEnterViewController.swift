@@ -2,20 +2,12 @@
 //  VideoCallingEnterViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/23.
+//  Created by janejntang on 2022/6/23.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
 import Foundation
 import UIKit
-
-/*
- 实时视频通话功能
- TRTC APP 实时视频通话功能
- 本文件展示如何集成实时视频通话功能
- 为之后的视频通话提供roomId和userId
- 参考文档：https://cloud.tencent.com/document/product/647/42044
- */
 
 /*
  Real-Time Audio Call

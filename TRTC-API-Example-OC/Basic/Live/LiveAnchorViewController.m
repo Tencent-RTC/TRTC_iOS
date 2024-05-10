@@ -7,17 +7,6 @@
 //
 
 /*
- 视频互动直播功能 - 主播端示例
- TRTC APP 支持视频互动直播功能
- 本文件展示如何集成视频互动直播功能
- 1、进入TRTC房间。 API:[self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE];
- 2、开启本地视频预览。  API:[self.trtcCloud startLocalPreview:true view:self.view];
- 3、切换摄像头：API:[[self.trtcCloud getDeviceManager] switchCamera:!sender.selected];
- 4、本地静音：API:[self.trtcCloud muteLocalAudio:sender.selected];
- 参考文档：https://cloud.tencent.com/document/product/647/43181
- */
-
-/*
  Interactive Live Video Streaming - Anchor
   The TRTC app supports interactive live video streaming.
   This document shows how to integrate the interactive live video streaming feature.
