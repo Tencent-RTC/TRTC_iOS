@@ -2,20 +2,12 @@
 //  SpeedTestViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/7/4.
+//  Created by janejntang on 2022/7/4.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 网络测速功能
- TRTC 网络测速
- 本文件展示如何集成网络测速
- 1、网络测试 API: trtcCloud.startSpeedTest(UInt32(SDKAPPID), userId: userIdTextField.text ?? "", userSig:
-  userSig) { [weak self] resul, completedCount, totalCount in  }
- 参考文档：https://cloud.tencent.com/document/product/647/32239
- */
 /*
  Network Speed Testing
  TRTC Network Speed Testing

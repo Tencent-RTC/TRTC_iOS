@@ -5,7 +5,7 @@
 //  Created by rushanting on 2019/3/27.
 //  Copyright © 2019 Tencent. All rights reserved.
 //
-//  传入的userId是nil为本地画面
+//  The incoming userId is nil and is the local screen.
 
 
 #import <UIKit/UIKit.h>

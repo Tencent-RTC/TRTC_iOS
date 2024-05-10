@@ -7,16 +7,16 @@
 //
 
 /**
- 第三方美颜接入火山美颜功能
- 接入步骤：
- 第一步：集成火山美颜SDK（可参考火山美颜提供的接入文档：http://ailab-cv-sdk.bytedance.com/docs/2036/157784/）
- 1.1、拷贝 iossample 项目中的 Core/Core 目录下的文件到自己项目中
+ Third-party beauty access to volcano beauty function
+ Access steps:
+ Step 1: Integrate the Volcano Beauty SDK (please refer to the access documentation provided by Volcano Beauty: http://ailab-cv-sdk.bytedance.com/docs/2036/157784/)
+ 1.1. Copy the files in the Core/Core directory in the iossample project to your own project
  <p>
- 第二步：打开火山美颜的调用代码
- 2.1、依次取消此文件内被注释的所有代码
+ Step 2: Open the calling code of Volcano Beauty
+ 2.1. Cancel all the commented codes in this file one by one.
  <p>
- 第三步：在TRTC中使用火山美颜功能
- 3.1、编译并运行此工程
+ Step 3: Use the volcano beauty function in TRTC
+ 3.1. Compile and run this project
  */
 
 #import "ThirdBeautyBytedViewController.h"
@@ -60,7 +60,7 @@ static const NSInteger RemoteUserMaxNum = 6;
 @property (strong, nonatomic) TRTCCloud *trtcCloud;
 @property (strong, nonatomic) NSMutableOrderedSet *remoteUserIdSet;
 
-// {zh} / 特效 SDK {en} /Special effects SDK
+// {en} / Special effects SDK {en} /Special effects SDK
 //@property (nonatomic, strong) BEEffectManager *manager;
 //@property (nonatomic, strong) BEImageUtils *imageUtils;
 //@property (nonatomic, strong) BEEffectDataManager *dataManager;

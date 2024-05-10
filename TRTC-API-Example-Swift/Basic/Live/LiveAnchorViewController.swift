@@ -2,24 +2,12 @@
 //  LiveAnchorViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/30.
+//  Created by janejntang on 2022/6/30.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-
-/*
- 视频互动直播功能 - 主播端示例
- TRTC APP 支持视频互动直播功能
- 本文件展示如何集成视频互动直播功能
- 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、开启本地视频预览。  API:trtcCloud.startLocalPreview(true, view: view)
- 3、切换摄像头：API:trtcCloud.getDeviceManager().switchCamera(!changeCameraButton.isSelected)
- 4、本地静音：API:trtcCloud.muteLocalAudio(muteButton.isSelected)
- 5、TRTC关键推流代码：API：startPushStream()
- 参考文档：https://cloud.tencent.com/document/product/647/43181
- */
 
 /*
  Interactive Live Video Streaming - Anchor
@@ -121,7 +109,7 @@ class LiveAnchorViewController:UIViewController, TRTCCloudDelegate {
         view.addSubview(audioOperatingLabel)
     }
     
-    //布局
+    //layout
     private func activateConstraints() {
         videoOperatingLabel.snp.makeConstraints { make in
             make.width.equalTo(200)
@@ -158,7 +146,7 @@ class LiveAnchorViewController:UIViewController, TRTCCloudDelegate {
         }
     }
     
-    //绑定
+    //Bind
     private func bindInteraction() {
         changeCameraButton.addTarget(self, action: #selector(clickChangeCameraButton), for: .touchUpInside)
         openCameraButton.addTarget(self, action: #selector(clickOpenCameraButton), for: .touchUpInside)

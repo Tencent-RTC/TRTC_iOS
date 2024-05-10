@@ -7,18 +7,6 @@
 //
 
 /*
- 语音互动直播功能 - 主播端示例
- TRTC APP 支持语音互动直播功能
- 本文件展示如何集成语音互动直播功能
- 1、进入TRTC房间。 API:[self.trtcCloud enterRoom:params appScene:TRTCAppSceneLIVE];
- 2、开启本地音频。  API:[self.trtcCloud startLocalAudio:TRTCAudioQualityMusic];
- 3、静音远端：API：[self.trtcCloud muteRemoteAudio:userId mute:sender.selected];
- 4、上下麦：API：[self.trtcCloud switchRole: TRTCRoleAudience];
- 5、 Demo中最大限制进房用户个数为6, 具体可根据需求来定最大进房人数。
- 参考文档：https://cloud.tencent.com/document/product/647/45753
- */
-
-/*
  Interactive Live Audio Streaming - Room Owner
  The TRTC app supports interactive live audio streaming.
  This document shows how to integrate the interactive live audio streaming feature.

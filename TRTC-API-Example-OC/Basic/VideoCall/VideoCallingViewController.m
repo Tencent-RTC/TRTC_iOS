@@ -7,19 +7,6 @@
 //
 
 /*
-实时视频通话功能
- TRTC APP 实时视频通话功能
- 本文件展示如何集成实时视频通话功能
- 1、切换摄像头 API:[[_trtcCloud getDeviceManager] switchCamera:_isFrontCamera];
- 2、打开关闭摄像头 API: [self.trtcCloud startLocalPreview:_isFrontCamera view:_localVideoView];
-                     [self.trtcCloud stopLocalPreview];
- 3、切换听筒与扬声器 API：[[_trtcCloud getDeviceManager] setAudioRoute:TXAudioRouteEarpiece];
-                      [[_trtcCloud getDeviceManager] setAudioRoute:TXAudioRouteSpeakerphone];
- 4、静音当前设备，其他人将无法听到该设备的声音 API: [_trtcCloud muteLocalAudio:true];
- 参考文档：https://cloud.tencent.com/document/product/647/42044
- */
-
-/*
 Real-Time Audio Call
  TRTC Audio Call
  This document shows how to integrate the real-time audio call feature.

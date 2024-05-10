@@ -3,7 +3,7 @@
 //  TRTC-API-Example-OC
 //
 //  Created by taopu-iMac on 16/12/1.
-//  Copyright © 2016年 qqcloud. All rights reserved.
+//  Copyright © 2016 qqcloud. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -43,7 +43,7 @@
     dispatch_queue_t         _videoReadedQueue;
     dispatch_queue_t         _audioReadedQueue;
     
-    /// 非线程安全，为了解决AVComposition泄漏的问题
+    /// Non-thread safe, in order to solve the problem of AVComposition leakage
     /// @ref https://stackoverflow.com/questions/48806361/avmutablecomposition-memory-leak
     AVMutableComposition     *_sharedComposition;
     
@@ -97,7 +97,7 @@
 
 - (void) initVideoReader
 {
-   //获取视频的总轨道
+   //Get the total track of the video
     videoTrack = [[avAsset tracksWithMediaType:AVMediaTypeVideo] lastObject];
     
     if (videoTrack == nil) {
@@ -125,7 +125,7 @@ static inline CGFloat RadiansToDegrees(CGFloat radians) {
 
 - (void) initAudioReader
 {
-    //获取音频的总轨道
+    //Get the total audio track
     audioTrack = [[avAsset tracksWithMediaType:AVMediaTypeAudio] lastObject];
     
     if (audioTrack == nil) {
@@ -156,7 +156,7 @@ static inline CGFloat RadiansToDegrees(CGFloat radians) {
     }
 }
 
-/// 非线程安全，目前所有用到的地方都在@synchronized(self)中
+/// Not thread safe, currently all used places are in @synchronized(self)
 - (AVMutableComposition *)sharedAVMutableComposition {
     if (nil == _sharedComposition) {
         _sharedComposition = [[AVMutableComposition alloc] init];
@@ -168,7 +168,7 @@ static inline CGFloat RadiansToDegrees(CGFloat radians) {
     return _sharedComposition;
 }
 
-//截取 startTime -> endTime 的视频轨道
+// Intercept the video track of startTime -> endTime
 - (void) cutVideoFromTime:(float)startTime toTime:(float)endTime
 {
     @synchronized (self) {
@@ -194,7 +194,7 @@ static inline CGFloat RadiansToDegrees(CGFloat radians) {
     }
 }
 
-//截取 startTime -> endTime 的音频轨道
+// Intercept the audio track of startTime -> endTime
 - (void) cutAudioFromTime:(float)startTime toTime:(float)endTime
 {
     @synchronized (self) {

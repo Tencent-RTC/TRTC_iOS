@@ -6,8 +6,6 @@
 //  Copyright © 2021 Tencent. All rights reserved.
 //
 
-// CDN发布功能 - 进房入口
-// 1、选择角色身份，进入房间
 
 /**
   CDN Publishing - enter

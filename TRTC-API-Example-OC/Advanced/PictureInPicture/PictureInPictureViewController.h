@@ -6,7 +6,7 @@
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
-//画中画功能（iOS15及以上支持）
+//Picture-in-picture function (supported by iOS15 and above)
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN

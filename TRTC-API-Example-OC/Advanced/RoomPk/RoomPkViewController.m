@@ -7,16 +7,6 @@
 //
 
 /*
- 跨房PK功能
- TRTC 跨房PK
- 
- 本文件展示如何集成跨房PK
- 
- 1、连接其他房间 API: [self.trtcCloud connectOtherRoom:jsonString];
- 
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
-/*
  Cross-room Competition
  The TRTC app supports cross-room competition.
 

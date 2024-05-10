@@ -2,21 +2,13 @@
 //  ScreenAudienceViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/6/27.
+//  Created by janejntang on 2022/6/27.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 录屏直播功能
- TRTC APP 录屏直播功能
- 本文件展示如何集成录屏直播功能
- 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、开启远程用户直播。API:trtcCloud.startRemoteView(userId, streamType: .big, view: view)
- 参考文档：https://cloud.tencent.com/document/product/647/45750
- */
 
 /*
  Screen Recording Live Streaming

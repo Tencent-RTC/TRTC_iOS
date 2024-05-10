@@ -7,14 +7,7 @@
 //
 
 /*
- 第三方美颜功能示例
- 接入步骤：
- 第一步：集成腾讯特效SDK并拷贝资源（可参考腾讯特效提供的接入文档：https://cloud.tencent.com/document/product/616/65887 ）
- 第二步：腾讯特效SDK的鉴权与初始化,详见[self setupBeautySDK],License获取请参考 {https://cloud.tencent.com/document/product/616/65878}
- 第三步：在TRTC中使用腾讯特效美颜，详见[self.trtcCloud setLocalVideoProcessDelegete:self pixelFormat:TRTCVideoPixelFormat_Texture_2D bufferType:TRTCVideoBufferType_Texture]
- 
- 注意：腾讯特效提供的 License 与 applicationId 一一对应的，测试过程中需要修改 applicationId 为 License对应的applicationId
- 
+ Examples of third-party beauty features
  Access steps：
  First step：Integrate Tencent Effect SDK and copy resources（You can refer to the access document provided by Tencent Effects：https://cloud.tencent.com/document/product/616/65888）
  Second step：Authentication and initialization of Tencent Effect SDK,
@@ -171,7 +164,7 @@ static const NSInteger RemoteUserMaxNum = 6;
 //    };
 //    _xMagicKit = [[XMagic alloc] initWithRenderSize:_renderSize assetsDict:assetsDict];
 //
-//    //去掉磨皮
+//    //remove microdermabrasion
 //    [self.xMagicKit configPropertyWithType:@"beauty" withName:@"beauty.smooth" withData:@"0.0" withExtraInfo:nil];
     
 }

@@ -28,7 +28,7 @@
 
 - (void)start:(NSString *)userId videoView:(UIImageView *)videoView
 {
-    //userId是nil为自己
+    // userId is nil for self
     if (!userId) {
         _localVideoView = videoView;
     }
@@ -49,7 +49,7 @@
 
 - (void)onRenderVideoFrame:(TRTCVideoFrame *)frame userId:(NSString *)userId streamType:(TRTCVideoStreamType)streamType
 {
-    //userId是nil时为本地画面，否则为远端画面
+    // When userId is nil, it is the local screen, otherwise it is the remote screen.
     CFRetain(frame.pixelBuffer);
     __weak __typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{

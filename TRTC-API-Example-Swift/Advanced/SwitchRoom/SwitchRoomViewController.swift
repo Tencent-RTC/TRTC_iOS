@@ -2,21 +2,12 @@
 //  SwitchRoomViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/7/4.
+//  Created by janejntang on 2022/7/4.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 快速切换房间示例
- TRTC APP 支持快速切换房间功能
- 本文件展示如何集成快速切换房间功能
- 1、进入TRTC房间。 API:trtcCloud.enterRoom(params, appScene: .LIVE)
- 2、快速切换房间。  API:trtcCloud.switchRoom(switchRoomConfig)
- 3、设置TRTC的关键代码。 API：startPushStream()
- 参考文档：https://cloud.tencent.com/document/product/647/32258
- */
 /*
  Switching Rooms
  The TRTC app supports quick room switching.

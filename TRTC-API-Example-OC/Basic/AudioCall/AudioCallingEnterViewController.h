@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//MARK: 语音通话示例 - 进房入口
+//MARK: Voice call example - room entry
 @interface AudioCallingEnterViewController : UIViewController
 @end
 

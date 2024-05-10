@@ -2,24 +2,12 @@
 //  SetRenderParamsViewController.swift
 //  TRTC-API-Example-Swift
 //
-//  Created by 唐佳宁 on 2022/7/4.
+//  Created by janejntang on 2022/7/4.
 //  Copyright © 2022 Tencent. All rights reserved.
 //
 import Foundation
 import UIKit
 import TXLiteAVSDK_TRTC
-/*
- 渲染控制功能
- TRTC 渲染控制页面
- 本文件展示如何集成渲染控制功能
- 1、设置预览图像镜像模式 API: trtcCloud.setLocalRenderParams(renderParams)
- 2、设置预览图像渲染模式 API: trtcCloud.setLocalRenderParams(renderParams)
- 3、设置预览图像旋转角度(顺时针) API: trtcCloud.setLocalRenderParams(renderParams)
- 4、设置远端图像渲染模式 API:trtcCloud.setRemoteRenderParams(remoteUserIdButton.currentTitle ?? "", streamType: .small, params: renderParams)
- 5、设置远端图像旋转角度(顺时针) API:trtcCloud.setRemoteRenderParams(remoteUserIdButton.currentTitle ?? "", streamType: .small, params: renderParams)
- 6、设置TRTC的关键代码 API：setupTRTCCloud()
- 参考文档：https://cloud.tencent.com/document/product/647/32237
- */
 /*
  Rendering Control
  TRTC Rendering Control View
