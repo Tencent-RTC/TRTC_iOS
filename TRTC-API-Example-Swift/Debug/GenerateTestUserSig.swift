@@ -55,7 +55,7 @@ let SDKAPPID: Int = 0
  * Time unit: seconds
  *Default time: 7 x 24 x 60 x 60 = 604800 = 7 days
  */
-let EXPIRETIME: Int = 0
+let EXPIRETIME: Int = 604800
 
 /**
  * CDN publishing function mixed streaming appId
