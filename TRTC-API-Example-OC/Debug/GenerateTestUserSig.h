@@ -96,7 +96,7 @@ static const int SDKAppID = 0;
  * Unit: second
  * Default value: 604800 (7 days)
  */
-static const int EXPIRETIME = 0;
+static const int EXPIRETIME = 604800;
 
 /**
  * The encryption key used to calculate the signature, the steps to obtain are as follows:
