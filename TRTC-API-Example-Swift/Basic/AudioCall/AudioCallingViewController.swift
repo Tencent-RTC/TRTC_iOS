@@ -281,7 +281,7 @@ class AudioCallingViewController : UIViewController {
 // MARK: - UI Layout
 extension AudioCallingViewController {
     
-    // Build view
+    //Build view
     private func constructViewHierarchy() {
         view.addSubview(userStatusTableView)
         view.addSubview(hansFreeButton)
@@ -299,7 +299,7 @@ extension AudioCallingViewController {
         }
     }
     
-    // view layout
+    //view layout
     private func activateConstraints() {
         userStatusTableView.snp.makeConstraints { make in
             make.width.equalTo(300)
@@ -347,7 +347,7 @@ extension AudioCallingViewController {
         
     }
     
-    // Binding events
+    //Binding events
     private func bindInteraction() {
         userStatusTableView.delegate = self
         userStatusTableView.dataSource = self
