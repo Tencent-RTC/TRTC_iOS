@@ -470,7 +470,7 @@ extension PictureInPictureViewController {
 // MARK: - Button Event
 extension PictureInPictureViewController {
     @objc private func onPictureInPictureButtonClick(sender: UIButton) {
-        // Enable picture-in-picture when clicking the picture-in-picture button
+        //Enable picture-in-picture when clicking the picture-in-picture button
         guard let pipViewController = self.pipViewController else { return }
         if (pipViewController.isPictureInPictureActive) {
             pipViewController.stopPictureInPicture()
