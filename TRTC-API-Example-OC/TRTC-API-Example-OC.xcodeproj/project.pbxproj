@@ -13,6 +13,7 @@
 		17A5C14026CCF723007E91B1 /* ThirdBeautyBytedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17A5C13A26CCF723007E91B1 /* ThirdBeautyBytedViewController.xib */; };
 		17A5C14226CCF723007E91B1 /* ThirdBeautyEntranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 17A5C13C26CCF723007E91B1 /* ThirdBeautyEntranceViewController.m */; };
 		17A5C14326CCF723007E91B1 /* ThirdBeautyEntranceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17A5C13E26CCF723007E91B1 /* ThirdBeautyEntranceViewController.xib */; };
+		3976E57D2C608030000760FB /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3976E57C2C608030000760FB /* MetalPerformanceShaders.framework */; };
 		471A24B328ACC11200BEFE63 /* PictureInPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 471A24B128ACC11200BEFE63 /* PictureInPictureViewController.m */; };
 		471A24B428ACC11200BEFE63 /* PictureInPictureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471A24B228ACC11200BEFE63 /* PictureInPictureViewController.xib */; };
 		4723A8902631666E0094AC81 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 4723A88F2631666E0094AC81 /* NSString+Common.m */; };
@@ -128,7 +129,7 @@
 		D6D63B7025D86CFC1006B19E /* Pods_TRTC_API_Example_OC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B2CC51BDD884255109D5F7 /* Pods_TRTC_API_Example_OC.framework */; };
 		EB147B20282E477900C0E2DC /* ThirdBeautyTencentEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB147B1F282E477900C0E2DC /* ThirdBeautyTencentEffectViewController.m */; };
 		EB147B22282E477E00C0E2DC /* ThirdBeautyTencentEffectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB147B21282E477E00C0E2DC /* ThirdBeautyTencentEffectViewController.xib */; };
-		ED14F8002B957E7C00E52959 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED14F7FF2B957E7C00E52959 /* CoreMotion.framework */; };
+		ED14F7F42B91D5DA00E52959 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED14F7F32B91D5DA00E52959 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,7 @@
 		17A5C13C26CCF723007E91B1 /* ThirdBeautyEntranceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdBeautyEntranceViewController.m; sourceTree = "<group>"; };
 		17A5C13D26CCF723007E91B1 /* ThirdBeautyBytedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdBeautyBytedViewController.h; sourceTree = "<group>"; };
 		17A5C13E26CCF723007E91B1 /* ThirdBeautyEntranceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdBeautyEntranceViewController.xib; sourceTree = "<group>"; };
+		3976E57C2C608030000760FB /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		40D550ED26A6AED600FE9F13 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		40D550EF26A6AEFA00FE9F13 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		42A8F1745853F18AE3E9996B /* Pods-TRTC-API-Example-OC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRTC-API-Example-OC.release.xcconfig"; path = "Target Support Files/Pods-TRTC-API-Example-OC/Pods-TRTC-API-Example-OC.release.xcconfig"; sourceTree = "<group>"; };
@@ -349,7 +351,7 @@
 		EB147B1F282E477900C0E2DC /* ThirdBeautyTencentEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdBeautyTencentEffectViewController.m; sourceTree = "<group>"; };
 		EB147B21282E477E00C0E2DC /* ThirdBeautyTencentEffectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdBeautyTencentEffectViewController.xib; sourceTree = "<group>"; };
 		EBAF1EF2283243C600BE7998 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		ED14F7FF2B957E7C00E52959 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		ED14F7F32B91D5DA00E52959 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		FC1FE5DC9D70E1703C9DD80A /* Pods-TXReplayKit_Screen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TXReplayKit_Screen.debug.xcconfig"; path = "Target Support Files/Pods-TXReplayKit_Screen/Pods-TXReplayKit_Screen.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -358,7 +360,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED14F8002B957E7C00E52959 /* CoreMotion.framework in Frameworks */,
+				3976E57D2C608030000760FB /* MetalPerformanceShaders.framework in Frameworks */,
+				ED14F7F42B91D5DA00E52959 /* CoreMotion.framework in Frameworks */,
 				7DE039A8288AACC6009C3F1F /* Accelerate.framework in Frameworks */,
 				7DE0399A288AABB0009C3F1F /* SystemConfiguration.framework in Frameworks */,
 				7DE0399F288AAC32009C3F1F /* libc++.tbd in Frameworks */,
@@ -877,7 +880,8 @@
 		88ED6FE02624364700C75B9D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ED14F7FF2B957E7C00E52959 /* CoreMotion.framework */,
+				3976E57C2C608030000760FB /* MetalPerformanceShaders.framework */,
+				ED14F7F32B91D5DA00E52959 /* CoreMotion.framework */,
 				88BC38A5284471F300814931 /* GLKit.framework */,
 				EBAF1EF2283243C600BE7998 /* MobileCoreServices.framework */,
 				880DC44928042E7200278CAC /* SystemConfiguration.framework */,
