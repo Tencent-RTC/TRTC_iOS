@@ -55,7 +55,7 @@ let SDKAPPID: Int = 0
  * Time unit: seconds
  *Default time: 7 x 24 x 60 x 60 = 604800 = 7 days
  */
-let EXPIRETIME: Int = 604800
+let EXPIRETIME: Int = 0
 
 /**
  * CDN publishing function mixed streaming appId
@@ -92,7 +92,6 @@ let SDKSECRETKEY = ""
  * The HMAC-SHA256 asymmetric encryption algorithm is used internally to encrypt SDKAPPID, userId and EXPIRETIME.
  *
  * @note: Please do not publish the following code into your online official version of the App for the following reasons:
- *
  * Although the code in this file can correctly calculate UserSig,
  * it is only suitable for quickly adjusting the basic functions of the SDK and is not suitable for online products.
  * This is because the SDKSECRETKEY in the client code is easily decompiled and reverse-engineered, especially the web-side code,
@@ -117,7 +116,6 @@ let PLAY_DOMAIN: String = ""
 
 /**
  * Configured background service domain name, similar to: https://service-3vscss6c-xxxxxxxxxxx.gz.apigw.tencentcs.com"
- *
  * The small live broadcast backend provides services such as login and room list.
  * For more details, please see the document: https://cloud.tencent.com/document/product/454/38625
  */
