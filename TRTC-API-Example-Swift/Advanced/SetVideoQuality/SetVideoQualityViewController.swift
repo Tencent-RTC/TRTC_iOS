@@ -257,7 +257,7 @@ class SetVideoQualityViewController: UIViewController {
         guard let roomId = roomIDTextField.text else {
             return
         }
-        params.roomId = UInt32((roomId as NSString).integerValue)
+        params.strRoomId = roomId
         guard let userId = userIDTextField.text else {
             return
         }

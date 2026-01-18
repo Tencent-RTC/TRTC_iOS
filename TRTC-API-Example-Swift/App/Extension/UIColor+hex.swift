@@ -75,6 +75,10 @@ extension UIColor {
     
     // Convert colors to pictures
     public func trans2Image(imageSize : CGSize) -> UIImage {
+        guard imageSize.width > 0 && imageSize.height > 0 else {
+            return UIImage()
+        }
+        
         let rect = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()

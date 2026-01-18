@@ -79,7 +79,7 @@
 
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
-    params.roomId = [self.roomIdTextField.text intValue];
+    params.strRoomId = self.roomIdTextField.text;
     params.userId = [NSString generateRandomUserId];
     params.userSig = [GenerateTestUserSig genTestUserSig:params.userId];
     params.role = TRTCRoleAnchor;
@@ -113,7 +113,7 @@
         }];
         return;
     }
-    self.switchRoomConfig.roomId = [self.roomIdTextField.text intValue];
+    self.switchRoomConfig.strRoomId = self.roomIdTextField.text;
     [self.trtcCloud switchRoom:self.switchRoomConfig];
     self.title = localizeReplace(localize(@"TRTC-API-Example.SwitchRoom.Title"), self.roomIdTextField.text);
 }

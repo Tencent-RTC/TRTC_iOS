@@ -108,7 +108,7 @@ class ScreenAnchorViewController:UIViewController {
     private func setupTRTCCloud() {
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = roomId
+        params.strRoomId = String(roomId)
         params.userId = userId ?? ""
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userId ?? "") as String

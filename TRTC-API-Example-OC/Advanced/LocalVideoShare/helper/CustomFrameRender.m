@@ -12,7 +12,13 @@
 
 + (void)clearImageView:(UIImageView*)imageView {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIGraphicsBeginImageContext(imageView.bounds.size);
+        CGSize size = imageView.bounds.size;
+        if (size.width <= 0 || size.height <= 0) {
+            imageView.image = nil;
+            return;
+        }
+        
+        UIGraphicsBeginImageContext(size);
         UIColor * color = [UIColor clearColor];
         [color setFill];
         UIImage * image = UIGraphicsGetImageFromCurrentImageContext();

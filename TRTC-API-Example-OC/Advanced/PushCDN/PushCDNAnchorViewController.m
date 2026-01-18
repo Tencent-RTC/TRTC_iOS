@@ -277,7 +277,7 @@ typedef NS_ENUM(NSInteger, ShowMode) {
 
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
-    params.roomId = [self.roomIDTextField.text intValue];
+    params.strRoomId = self.roomIDTextField.text;
     params.userId = self.userID;
     params.userSig = [GenerateTestUserSig genTestUserSig:self.userID];
     params.role = TRTCRoleAnchor;

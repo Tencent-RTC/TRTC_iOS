@@ -114,7 +114,7 @@
 
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
-    params.roomId = roomId;
+    params.strRoomId = [@(roomId) stringValue];
     params.userId = [NSString generateRandomUserId];
     params.userSig = [GenerateTestUserSig genTestUserSig:params.userId];
     params.role = TRTCRoleAnchor;

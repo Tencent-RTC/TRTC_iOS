@@ -77,6 +77,7 @@
 		82CA7D0C28607698005F5A75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82CA7D04286072EE005F5A75 /* Main.storyboard */; };
 		82E0F4EE28630549002281F9 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0F4ED28630549002281F9 /* HomeTableViewCell.swift */; };
 		82E0F4F028630569002281F9 /* HomeTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0F4EF28630569002281F9 /* HomeTableSectionHeaderView.swift */; };
+		CD3BDDD72F1D4BAC002274EB /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3BDDD62F1D4BAC002274EB /* MetalPerformanceShaders.framework */; };
 		ED14F8012B957EA500E52959 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DCF41FD28655E4300597D8F /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +170,7 @@
 		82CA7D05286072EE005F5A75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		82E0F4ED28630549002281F9 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		82E0F4EF28630569002281F9 /* HomeTableSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableSectionHeaderView.swift; sourceTree = "<group>"; };
+		CD3BDDD62F1D4BAC002274EB /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD3BDDD72F1D4BAC002274EB /* MetalPerformanceShaders.framework in Frameworks */,
 				ED14F8012B957EA500E52959 /* CoreMotion.framework in Frameworks */,
 				7DCF420028655EA900597D8F /* ReplayKit.framework in Frameworks */,
 				7DCF41EA28655BC900597D8F /* AVFoundation.framework in Frameworks */,
@@ -303,6 +306,7 @@
 		7DCA9AAE28646A660094CB8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD3BDDD62F1D4BAC002274EB /* MetalPerformanceShaders.framework */,
 				47FE4C452A3185C000D1C82F /* TXLiteAVSDK_TRTC.xcframework */,
 				7DCF41FF28655EA900597D8F /* ReplayKit.framework */,
 				7DCF41FD28655E4300597D8F /* CoreMotion.framework */,

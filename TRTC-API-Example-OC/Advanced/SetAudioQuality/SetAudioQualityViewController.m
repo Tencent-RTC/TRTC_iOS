@@ -116,7 +116,7 @@ static const NSInteger maxRemoteUserNum = 6;
     
     TRTCParams *params = [TRTCParams new];
     params.sdkAppId = SDKAppID;
-    params.roomId = [_roomIdTextField.text intValue];
+    params.strRoomId = _roomIdTextField.text;
     params.userId = _userIdTextField.text;
     params.role = TRTCRoleAnchor;
     params.userSig = [GenerateTestUserSig genTestUserSig:params.userId];

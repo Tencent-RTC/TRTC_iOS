@@ -317,7 +317,7 @@ class RoomPkViewController : UIViewController {
         
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = UInt32(Int(roomIdTextField.text ?? "") ?? 0)
+        params.strRoomId = roomIdTextField.text ?? ""
         params.userId = userIdTextField.text ?? ""
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userIdTextField.text ?? "") as String

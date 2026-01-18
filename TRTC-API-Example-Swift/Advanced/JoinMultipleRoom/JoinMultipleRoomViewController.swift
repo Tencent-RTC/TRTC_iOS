@@ -397,7 +397,7 @@ class JoinMultipleRoomViewController : UIViewController, TRTCCloudDelegate {
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
         
-        params.roomId = UInt32(Int(roomIdArr[subId].text ?? "") ?? 0)
+        params.strRoomId = roomIdArr[subId].text ?? ""
         params.userId = "1345736"
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId)

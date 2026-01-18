@@ -238,7 +238,7 @@ class LocalRecordViewController : UIViewController {
         
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = UInt32(roomId ?? 0)
+        params.strRoomId = String(roomId ?? 0)
         params.userId = String(arc4random()%(999999 - 100000 + 1)+100000)
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId ) as String

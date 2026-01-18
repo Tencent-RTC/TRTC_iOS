@@ -54,7 +54,13 @@ class CustomCameraFrameRender:NSObject {
     }
     
     func stop() {
-        UIGraphicsBeginImageContext(localVideoView.bounds.size)
+        let size = localVideoView.bounds.size
+        guard size.width > 0 && size.height > 0 else {
+            localVideoView.image = nil
+            return
+        }
+        
+        UIGraphicsBeginImageContext(size)
         let color = UIColor()
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

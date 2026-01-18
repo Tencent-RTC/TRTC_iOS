@@ -89,7 +89,7 @@ class VoiceChatRoomAudienceViewController: UIViewController {
     func onEnterRoom() {
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
-        params.roomId = roomId
+        params.strRoomId = String(roomId)
         params.userId = userId as String
         params.role = .audience
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId) as String

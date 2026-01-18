@@ -137,7 +137,7 @@ TRTCVideoRenderDelegate
     // Enter trtc room.
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
-    params.roomId = [self.roomIDTextField.text intValue];
+    params.strRoomId = self.roomIDTextField.text;
     params.userId = self.userIDTextField.text;
     params.userSig = [GenerateTestUserSig genTestUserSig:self.userIDTextField.text];
     params.role = TRTCRoleAnchor;

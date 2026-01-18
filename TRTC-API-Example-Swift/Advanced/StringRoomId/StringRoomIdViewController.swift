@@ -155,8 +155,8 @@ class StringRoomIdViewController : UIViewController, TRTCCloudDelegate {
         
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = UInt32(Int(roomIDTextField.text ?? "") ?? 0)
-        params.userId = String(arc4random()%(999999 - 100000 + 1)+100000)
+        params.strRoomId = roomIDTextField.text ?? ""
+        params.userId = userIDTextField.text ?? ""
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: self.userIDTextField.text ?? "" ) as String
         
