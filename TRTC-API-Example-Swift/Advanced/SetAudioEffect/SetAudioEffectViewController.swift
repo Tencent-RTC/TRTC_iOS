@@ -298,7 +298,7 @@ class SetAudioEffectViewController : UIViewController {
         
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
-        params.roomId = UInt32(Int(roomIDTextField.text ?? "") ?? 0)
+        params.strRoomId = roomIDTextField.text ?? ""
         params.userId = userIDTextField.text ?? ""
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userIDTextField.text ?? "") as String
         params.role = .anchor

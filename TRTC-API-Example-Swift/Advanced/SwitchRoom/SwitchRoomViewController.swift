@@ -102,7 +102,7 @@ class SwitchRoomViewController : UIViewController {
         
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = UInt32(Int(roomIdTextField.text ?? "") ?? 0)
+        params.strRoomId = roomIdTextField.text ?? ""
         params.userId = String(arc4random()%(999999 - 100000 + 1)+100000)
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId ) as String
@@ -190,7 +190,7 @@ class SwitchRoomViewController : UIViewController {
                 return
             }
         }
-        switchRoomConfig.roomId = UInt32(Int(roomIdTextField.text ?? "") ?? 0)
+        switchRoomConfig.strRoomId = roomIdTextField.text ?? ""
         trtcCloud.switchRoom(switchRoomConfig)
         title = LocalizeReplace(Localize("TRTC-API-Example.SwitchRoom.Title"), roomIdTextField.text ?? "")
     }

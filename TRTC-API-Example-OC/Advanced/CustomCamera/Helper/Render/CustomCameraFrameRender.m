@@ -38,7 +38,13 @@
 }
  
 - (void)stop {
-    UIGraphicsBeginImageContext(_localVideoView.bounds.size);
+    CGSize size = _localVideoView.bounds.size;
+    if (size.width <= 0 || size.height <= 0) {
+        _localVideoView.image = nil;
+        return;
+    }
+    
+    UIGraphicsBeginImageContext(size);
     UIColor * color = [UIColor clearColor];
     [color setFill];
     UIImage * image = UIGraphicsGetImageFromCurrentImageContext();

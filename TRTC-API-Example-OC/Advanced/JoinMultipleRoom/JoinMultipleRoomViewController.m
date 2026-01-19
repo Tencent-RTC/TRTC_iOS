@@ -104,7 +104,7 @@ static const NSInteger maxRoom = 4;
     params.sdkAppId = SDKAppID;
     
     UITextField* roomIdTextField = _roomIdArr[subId];
-    params.roomId = [roomIdTextField.text intValue];
+    params.strRoomId = roomIdTextField.text;
     params.userId = @"1345736";
     params.role = TRTCRoleAnchor;
     params.userSig = [GenerateTestUserSig genTestUserSig:params.userId];

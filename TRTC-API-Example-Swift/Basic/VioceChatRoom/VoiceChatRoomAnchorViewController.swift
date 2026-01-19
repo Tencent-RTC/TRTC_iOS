@@ -86,7 +86,7 @@ class VoiceChatRoomAnchorViewController: UIViewController {
     func setupTRTCCloud() {
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
-        params.roomId = roomId
+        params.strRoomId = String(roomId)
         params.userId = userId as String
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId) as String

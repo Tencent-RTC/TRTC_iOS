@@ -160,7 +160,7 @@ class VideoCallingViewController:UIViewController {
         trtcCloud.startLocalPreview(isFrontCamera, view: view)
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAppID)
-        params.roomId = UInt32(roomId)
+        params.strRoomId = String(roomId)
         params.userId = userId
         params.role = .anchor
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userId) as String

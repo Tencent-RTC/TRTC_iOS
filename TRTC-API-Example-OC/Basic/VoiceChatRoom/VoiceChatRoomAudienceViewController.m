@@ -74,7 +74,7 @@ static const NSInteger maxRemoteUserNum = 6;
 - (void)onEnterRoom:(UInt32)roomId userId:(NSString *)userId {
     TRTCParams *params = [[TRTCParams alloc] init];
     params.sdkAppId = SDKAppID;
-    params.roomId = roomId;
+    params.strRoomId = [@(roomId) stringValue];
     params.userId = userId;
     params.userSig = [GenerateTestUserSig genTestUserSig:userId];
     params.role = TRTCRoleAudience;

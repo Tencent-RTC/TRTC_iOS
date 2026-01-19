@@ -110,7 +110,7 @@ static const NSInteger maxRemoteUserNum = 6;
 - (void)setupTRTCCloud {
     TRTCParams *params = [TRTCParams new];
     params.sdkAppId = SDKAppID;
-    params.roomId = _roomId;
+    params.strRoomId = [@(_roomId) stringValue];
     params.userId = _userId;
     params.role = TRTCRoleAnchor;
     params.userSig = [GenerateTestUserSig genTestUserSig:params.userId];

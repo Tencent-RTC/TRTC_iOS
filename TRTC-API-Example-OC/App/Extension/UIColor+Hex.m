@@ -64,6 +64,10 @@
 }
 
 - (UIImage *)trans2Image:(CGSize)imageSize {
+    if (imageSize.width <= 0 || imageSize.height <= 0) {
+        return [[UIImage alloc] init];
+    }
+    
     CGRect rect = CGRectMake(0, 0, imageSize.width, imageSize.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();

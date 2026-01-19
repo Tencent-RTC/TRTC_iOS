@@ -514,7 +514,7 @@ extension PushCDNAnchorViewController {
         guard let roomID = roomIDTextField.text else {
             return
         }
-        params.roomId = UInt32((roomID as NSString).integerValue)
+        params.strRoomId = roomID
         params.userId = userID
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: params.userId) as String
         params.role = .anchor

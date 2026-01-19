@@ -240,7 +240,7 @@ class SendAndReceiveSEIMessageViewController : UIViewController {
         trtcCloud.startLocalPreview(true, view: view)
         let params = TRTCParams()
         params.sdkAppId = UInt32(SDKAPPID)
-        params.roomId = UInt32(Int(roomIdTextField.text ?? "") ?? 0)
+        params.strRoomId = roomIdTextField.text ?? ""
         params.userId = userIdTextField.text ?? ""
         params.userSig = GenerateTestUserSig.genTestUserSig(identifier: userIdTextField.text ?? "") as String
         params.role = .anchor
